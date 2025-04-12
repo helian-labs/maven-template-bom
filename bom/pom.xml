@@ -44,4 +44,13 @@
         - 其他项目所需的配置信息
     -->
 
+        <!-- 分发管理配置 -->
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/helian-labs/maven-template-bom</url>
+        </repository>
+    </distributionManagement>
+
 </project>
