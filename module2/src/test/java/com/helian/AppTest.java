@@ -1,7 +1,7 @@
 package com.helian;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Unit test for App class
@@ -15,7 +15,7 @@ public class AppTest {
     public void testAppMain() {
         // 验证main方法能否正常执行而不抛出异常
         App.main(new String[]{});
-        Assert.assertTrue(true);
+        assertTrue(true);
     }
     
     /**
@@ -24,6 +24,6 @@ public class AppTest {
     @Test
     public void testAppUsesSpeaker() {
         Speaker speaker = new Speaker();
-        Assert.assertNotNull("Speaker should return a message", speaker.speak());
+        assertNotNull(speaker.speak(), "Speaker should return a message");
     }
 }

@@ -17,9 +17,10 @@
 
     <!-- 模块依赖配置 -->
     <dependencies>
+        <!-- 替换为JUnit 5 -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
