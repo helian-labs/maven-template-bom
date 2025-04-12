@@ -4,19 +4,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- Must not use a parent! -->
+    <!-- 此模块不能使用父POM，以避免版本循环依赖 -->
 
+    <!-- 项目基本信息 -->
     <groupId>com.helian</groupId>
     <artifactId>bom</artifactId>
+    <!-- 打包类型为POM，用于依赖管理 -->
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
+    <!-- 项目名称 -->
     <name>Project Bill of Materials</name>
 
     <!--
-        Versions will be rolled automatically when using the maven-release plugin
-        or versions-maven-plugin when processing all submodules. Use explicit versions
-        instead of ${project.version} so they are reflected in the released pom file.
+        版本管理说明：
+        1. 使用maven-release插件或versions-maven-plugin处理所有子模块时，版本号会自动更新
+        2. 使用显式版本号而不是${project.version}，以确保在发布的pom文件中正确反映版本信息
+        3. 这种方式可以更好地管理项目依赖的版本一致性
     -->
     <dependencyManagement>
         <dependencies>
@@ -34,7 +38,10 @@
     </dependencyManagement>
 
     <!--
-        You'll need some more sections here as they're not inherited from the parent e.g. distributionManagement
+        注意：由于此模块不继承父POM，需要在此处添加其他必要的配置节点，例如：
+        - distributionManagement（分发管理）
+        - repositories（仓库配置）
+        - 其他项目所需的配置信息
     -->
 
 </project>

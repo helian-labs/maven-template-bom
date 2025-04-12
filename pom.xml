@@ -1,36 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- 项目基本信息 -->
     <groupId>com.helian</groupId>
     <artifactId>bom-example-project</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
 
+    <!-- 项目模块结构 -->
     <modules>
-        <!-- Run first, not using the parent but part of the aggregator -->
+        <!-- BOM模块：首先运行，不使用父POM但是作为聚合器的一部分 -->
         <module>bom</module>
-        <!-- Module 1 using the parent -->
+        <!-- 模块1：使用父POM -->
         <module>module1</module>
-        <!-- Module 2 using the parent, depends on module 1 -->
+        <!-- 模块2：使用父POM，依赖模块1 -->
         <module>module2</module>
     </modules>
 
+    <!-- 项目基本信息 -->
     <name>Project Top Level</name>
     <description>
-        Maven multi-module project using a different approach to BOMs
-        than what is described on the Mavens introduction to dependency management.
+        Maven多模块项目，采用与Maven依赖管理介绍中描述的不同方法来使用BOM（物料清单）。
+        这种方法提供了更灵活的依赖版本管理方式。
     </description>
     <url>https://github.com/helian-labs/maven-template-bom</url>
 
+    <!-- 项目属性配置 -->
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <!-- 依赖管理配置 -->
     <dependencyManagement>
         <dependencies>
-            <!-- Eat your own shit! Use the bom to manage project versions -->
+            <!-- 引入BOM模块来统一管理项目版本 -->
             <dependency>
                 <groupId>com.helian</groupId>
                 <artifactId>bom</artifactId>
@@ -38,7 +44,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- Manage all non-project artifacts here -->
+            <!-- 管理所有非项目制品的依赖版本 -->
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
@@ -48,14 +54,16 @@
         </dependencies>
     </dependencyManagement>
 
+    <!-- 项目直接依赖配置 -->
     <dependencies>
-        <!-- None! Declared in submodules -->
+        <!-- 无直接依赖！所有依赖都在子模块中声明 -->
     </dependencies>
 
+    <!-- 构建配置管理 -->
     <build>
         <pluginManagement>
             <plugins>
-                <!-- 在 build/pluginManagement/plugins 部分添加版本信息 -->
+                <!-- Maven编译插件配置 -->
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.11.0</version>
@@ -64,10 +72,12 @@
                         <target>${java.version}</target>
                     </configuration>
                 </plugin>
+                <!-- 测试插件配置 -->
                 <plugin>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.1.2</version>
                 </plugin>
+                <!-- JAR包打包插件配置 -->
                 <plugin>
                     <artifactId>maven-jar-plugin</artifactId>
                     <version>3.3.0</version>
@@ -78,16 +88,16 @@
 
     <licenses>
         <license>
-            <name>MIT License</name>
-            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <name>Apache License 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
         </license>
     </licenses>
 
     <developers>
         <developer>
-            <name>Simon Anliker</name>
-            <url>https://anlikers.ch</url>
-            <timezone>+1</timezone>
+            <name>zhycn</name>
+            <url>https://github.com/zhycn</url>
+            <timezone>Asia/Shanghai</timezone>
             <roles>
                 <role>developer</role>
             </roles>
