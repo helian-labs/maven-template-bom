@@ -6,7 +6,7 @@
 
     <parent>
         <artifactId>bom-example-project</artifactId>
-        <groupId>anliksim</groupId>
+        <groupId>com.helian</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 

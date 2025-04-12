@@ -2,7 +2,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>anliksim</groupId>
+    <groupId>com.helian</groupId>
     <artifactId>bom-example-project</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
@@ -21,7 +21,7 @@
         Maven multi-module project using a different approach to BOMs
         than what is described on the Mavens introduction to dependency management.
     </description>
-    <url>https://github.com/anliksim/maven-template-bom</url>
+    <url>https://github.com/helian-labs/maven-template-bom</url>
 
     <properties>
         <java.version>1.8</java.version>
@@ -32,7 +32,7 @@
         <dependencies>
             <!-- Eat your own shit! Use the bom to manage project versions -->
             <dependency>
-                <groupId>anliksim</groupId>
+                <groupId>com.helian</groupId>
                 <artifactId>bom</artifactId>
                 <version>${project.version}</version>
                 <type>pom</type>
@@ -85,9 +85,9 @@
     </developers>
 
     <scm>
-        <url>https://github.com/anliksim/maven-template-bom</url>
-        <connection>scm:git:git@github.com:anliksim/maven-template-bom.git</connection>
-        <developerConnection>scm:git:git@github.com:anliksim/maven-template-bom.git</developerConnection>
+        <url>https://github.com/helian-labs/maven-template-bom</url>
+        <connection>scm:git:git@github.com:helian-labs/maven-template-bom.git</connection>
+        <developerConnection>scm:git:git@github.com:helian-labs/maven-template-bom.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 

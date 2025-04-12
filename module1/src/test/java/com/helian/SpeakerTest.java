@@ -1,4 +1,4 @@
-package anliksim;
+package com.helian;
 
 import org.junit.Test;
 
