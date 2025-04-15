@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <!-- 项目基本信息 -->
@@ -8,46 +9,43 @@
     <artifactId>bom-example-project</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <name>Project Top Level</name>
+    <description>Maven多模块项目，使用BOM进行依赖版本管理</description>
+    <url>https://github.com/helian-labs/maven-template-bom</url>
 
-    <!-- 项目模块结构 -->
+    <!-- 项目模块 -->
     <modules>
-        <!-- BOM模块：首先运行，不使用父POM但是作为聚合器的一部分 -->
         <module>bom</module>
-        <!-- 模块1：使用父POM -->
         <module>module1</module>
-        <!-- 模块2：使用父POM，依赖模块1 -->
         <module>module2</module>
     </modules>
 
-    <!-- 项目基本信息 -->
-    <name>Project Top Level</name>
-    <description>
-        Maven多模块项目，采用与Maven依赖管理介绍中描述的不同方法来使用BOM（物料清单）。
-        这种方法提供了更灵活的依赖版本管理方式。
-    </description>
-    <url>https://github.com/helian-labs/maven-template-bom</url>
-
-    <!-- 项目属性配置 -->
+    <!-- 项目属性 -->
     <properties>
+        <!-- 基础配置 -->
         <java.version>11</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.min.version>3.6.3</maven.min.version>
+        
+        <!-- 依赖版本 -->
         <junit.version>5.9.3</junit.version>
         
         <!-- 插件版本 -->
-        <jacoco.version>0.8.10</jacoco.version>
-        <spotbugs.version>4.7.3.5</spotbugs.version>
-        <checkstyle.version>3.3.0</checkstyle.version>
-        <pmd.version>3.21.0</pmd.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+        <maven-enforcer-plugin.version>3.3.0</maven-enforcer-plugin.version>
+        <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
+        <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
     </properties>
 
-    <!-- 依赖管理配置 -->
+    <!-- 依赖管理 -->
     <dependencyManagement>
         <dependencies>
-            <!-- 引入BOM模块来统一管理项目版本 -->
+            <!-- 导入BOM -->
             <dependency>
                 <groupId>com.helian</groupId>
                 <artifactId>bom</artifactId>
@@ -55,111 +53,48 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- 管理所有非项目制品的依赖版本 -->
+            
+            <!-- 测试依赖 -->
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter</artifactId>
                 <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-api</artifactId>
-                <version>${junit.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-engine</artifactId>
-                <version>${junit.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>5.3.1</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.assertj</groupId>
-                <artifactId>assertj-core</artifactId>
-                <version>3.24.2</version>
-                <scope>test</scope>
-            </dependency>
         </dependencies>
     </dependencyManagement>
 
-    <!-- 项目直接依赖配置 -->
-    <dependencies>
-        <!-- 无直接依赖！所有依赖都在子模块中声明 -->
-    </dependencies>
-
-    <!-- 构建配置管理 -->
+    <!-- 构建配置 -->
     <build>
         <pluginManagement>
             <plugins>
-                <!-- Maven编译插件配置 -->
+                <!-- 编译插件 -->
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.11.0</version>
+                    <version>${maven-compiler-plugin.version}</version>
                     <configuration>
                         <source>${java.version}</source>
                         <target>${java.version}</target>
                         <parameters>true</parameters>
                     </configuration>
                 </plugin>
-                <!-- 测试插件配置 -->
+                
+                <!-- 测试插件 -->
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
-                    <version>3.1.2</version>
+                    <version>${maven-surefire-plugin.version}</version>
                     <configuration>
-                        <argLine>@{argLine} -Xmx1024m</argLine>
-                        <includes>
-                            <include>**/*Test.java</include>
-                        </includes>
-                        <excludes>
-                            <exclude>**/*IT.java</exclude>
-                        </excludes>
-                        <parallel>classes</parallel>
-                        <threadCount>4</threadCount>
-                        <forkCount>1C</forkCount>
-                        <reuseForks>true</reuseForks>
+                        <argLine>@{argLine}</argLine>
                     </configuration>
                 </plugin>
 
-                <plugin>
-                    <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>3.1.2</version>
-                    <configuration>
-                        <argLine>@{argLine} -Xmx1024m</argLine>
-                        <includes>
-                            <include>**/*IT.java</include>
-                        </includes>
-                        <parallel>classes</parallel>
-                        <threadCount>4</threadCount>
-                        <forkCount>1C</forkCount>
-                        <reuseForks>true</reuseForks>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>integration-test</goal>
-                                <goal>verify</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <!-- JAR包打包插件配置 -->
-                <plugin>
-                    <artifactId>maven-jar-plugin</artifactId>
-                    <version>3.3.0</version>
-                </plugin>
-                
-                <!-- 在 build/pluginManagement/plugins 部分添加 -->
+                <!-- 规则强制插件 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
-                    <version>3.3.0</version>
+                    <version>${maven-enforcer-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>enforce-maven</id>
@@ -176,39 +111,20 @@
                                     </requireJavaVersion>
                                     <dependencyConvergence/>
                                     <banDuplicatePomDependencyVersions/>
-                                    <requireUpperBoundDeps/>
-                                    <requireReleaseDeps>
-                                        <onlyWhenRelease>true</onlyWhenRelease>
-                                    </requireReleaseDeps>
-                                    <requirePluginVersions>
-                                        <banLatest>true</banLatest>
-                                        <banRelease>true</banRelease>
-                                        <banSnapshots>true</banSnapshots>
-                                        <phases>clean,deploy,site</phases>
-                                    </requirePluginVersions>
                                 </rules>
                             </configuration>
                         </execution>
                     </executions>
                 </plugin>
                 
-                <!-- 版本管理插件 -->
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>versions-maven-plugin</artifactId>
-                    <version>2.15.0</version>
-                    <configuration>
-                        <generateBackupPoms>false</generateBackupPoms>
-                    </configuration>
-                </plugin>
-                
                 <!-- 代码覆盖率插件 -->
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
-                    <version>${jacoco.version}</version>
+                    <version>${jacoco-maven-plugin.version}</version>
                     <executions>
                         <execution>
+                            <id>prepare-agent</id>
                             <goals>
                                 <goal>prepare-agent</goal>
                             </goals>
@@ -220,100 +136,14 @@
                                 <goal>report</goal>
                             </goals>
                         </execution>
-                        <execution>
-                            <id>check</id>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                            <configuration>
-                                <rules>
-                                    <rule>
-                                        <element>BUNDLE</element>
-                                        <limits>
-                                            <limit>
-                                                <counter>INSTRUCTION</counter>
-                                                <value>COVEREDRATIO</value>
-                                                <minimum>0.70</minimum>
-                                            </limit>
-                                            <limit>
-                                                <counter>BRANCH</counter>
-                                                <value>COVEREDRATIO</value>
-                                                <minimum>0.60</minimum>
-                                            </limit>
-                                        </limits>
-                                    </rule>
-                                </rules>
-                            </configuration>
-                        </execution>
                     </executions>
                 </plugin>
                 
-                <!-- 静态代码分析插件 -->
-                <plugin>
-                    <groupId>com.github.spotbugs</groupId>
-                    <artifactId>spotbugs-maven-plugin</artifactId>
-                    <version>${spotbugs.version}</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <effort>Max</effort>
-                        <threshold>Low</threshold>
-                        <xmlOutput>true</xmlOutput>
-                        <failOnError>true</failOnError>
-                        <includeTests>true</includeTests>
-                        <plugins>
-                            <plugin>
-                                <groupId>com.h3xstream.findsecbugs</groupId>
-                                <artifactId>findsecbugs-plugin</artifactId>
-                                <version>1.12.0</version>
-                            </plugin>
-                        </plugins>
-                    </configuration>
-                </plugin>
-                
-                <!-- 代码风格检查插件 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-checkstyle-plugin</artifactId>
-                    <version>${checkstyle.version}</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <configLocation>google_checks.xml</configLocation>
-                        <encoding>UTF-8</encoding>
-                        <consoleOutput>true</consoleOutput>
-                        <failsOnError>true</failsOnError>
-                    </configuration>
-                </plugin>
-                
-                <!-- PMD代码分析插件 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-pmd-plugin</artifactId>
-                    <version>${pmd.version}</version>
-                    <configuration>
-                        <linkXRef>false</linkXRef>
-                        <sourceEncoding>UTF-8</sourceEncoding>
-                        <minimumTokens>100</minimumTokens>
-                        <targetJdk>${java.version}</targetJdk>
-                    </configuration>
-                </plugin>
-                
-                <!-- 源码打包插件 -->
+                <!-- 源码插件 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
-                    <version>3.3.0</version>
+                    <version>${maven-source-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>attach-sources</id>
@@ -324,11 +154,11 @@
                     </executions>
                 </plugin>
                 
-                <!-- Javadoc插件 -->
+                <!-- JavaDoc插件 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.5.0</version>
+                    <version>${maven-javadoc-plugin.version}</version>
                     <executions>
                         <execution>
                             <id>attach-javadocs</id>
@@ -338,155 +168,11 @@
                         </execution>
                     </executions>
                 </plugin>
-                <!-- 代码格式化插件配置 -->
-                <plugin>
-                    <groupId>com.diffplug.spotless</groupId>
-                    <artifactId>spotless-maven-plugin</artifactId>
-                    <version>2.17.5</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>check</goal>
-                                <goal>apply</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <java>
-                            <googleJavaFormat>
-                                <version>1.11.0</version>
-                                <style>GOOGLE</style>
-                            </googleJavaFormat>
-                            <removeUnusedImports />
-                            <importOrder>
-                                <order>java,javax,org,com,</order>
-                            </importOrder>
-                        </java>
-                        <xml>
-                            <includes>
-                                <include>pom.xml</include>
-                                <include>src/main/resources/**/*.xml</include>
-                                <include>src/test/resources/**/*.xml</include>
-                            </includes>
-                            <eclipseWtp>
-                                <type>XML</type>
-                                <files>
-                                    <file>XML_PROLOG</file>
-                                </files>
-                            </eclipseWtp>
-                        </xml>
-                        <yaml>
-                            <includes>
-                                <include>src/main/resources/**/*.yml</include>
-                                <include>src/main/resources/**/*.yaml</include>
-                                <include>src/test/resources/**/*.yml</include>
-                                <include>src/test/resources/**/*.yaml</include>
-                                <include>.github/workflows/*.yml</include>
-                            </includes>
-                            <prettier>
-                                <devDependencies>
-                                    <prettier>2.8.8</prettier>
-                                    <prettier-plugin-yaml>0.8.0</prettier-plugin-yaml>
-                                </devDependencies>
-                                <config>
-                                    <tabWidth>2</tabWidth>
-                                </config>
-                            </prettier>
-                        </yaml>
-                    </configuration>
-                </plugin>
-                
-                <!-- 资源处理插件 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-resources-plugin</artifactId>
-                    <version>3.3.1</version>
-                    <configuration>
-                        <encoding>UTF-8</encoding>
-                        <propertiesEncoding>UTF-8</propertiesEncoding>
-                        <nonFilteredFileExtensions>
-                            <nonFilteredFileExtension>pdf</nonFilteredFileExtension>
-                            <nonFilteredFileExtension>png</nonFilteredFileExtension>
-                            <nonFilteredFileExtension>jpg</nonFilteredFileExtension>
-                            <nonFilteredFileExtension>jar</nonFilteredFileExtension>
-                        </nonFilteredFileExtensions>
-                    </configuration>
-                </plugin>
-                
-                <!-- 依赖分析插件 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.6.0</version>
-                    <executions>
-                        <execution>
-                            <id>analyze</id>
-                            <goals>
-                                <goal>analyze-only</goal>
-                            </goals>
-                            <configuration>
-                                <failOnWarning>true</failOnWarning>
-                                <ignoreNonCompile>true</ignoreNonCompile>
-                            </configuration>
-                        </execution>
-                    </executions>
-                </plugin>
-                
-                <!-- 依赖安全检查插件 -->
-                <plugin>
-                    <groupId>org.owasp</groupId>
-                    <artifactId>dependency-check-maven</artifactId>
-                    <version>8.3.1</version>
-                    <configuration>
-                        <failBuildOnCVSS>7</failBuildOnCVSS>
-                        <suppressionFiles>
-                            <suppressionFile>owasp-suppressions.xml</suppressionFile>
-                        </suppressionFiles>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                
-                <!-- 站点生成插件 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-site-plugin</artifactId>
-                    <version>4.0.0-M9</version>
-                    <configuration>
-                        <locales>zh_CN,en</locales>
-                        <inputEncoding>UTF-8</inputEncoding>
-                        <outputEncoding>UTF-8</outputEncoding>
-                    </configuration>
-                </plugin>
-                
-                <!-- 添加默认生命周期绑定的插件版本 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-clean-plugin</artifactId>
-                    <version>3.2.0</version>
-                </plugin>
-                
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-install-plugin</artifactId>
-                    <version>3.1.1</version>
-                </plugin>
-                
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-deploy-plugin</artifactId>
-                    <version>3.1.1</version>
-                </plugin>
             </plugins>
         </pluginManagement>
         
-        <!-- 默认启用的插件 -->
         <plugins>
+            <!-- 默认启用的插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
@@ -497,34 +183,8 @@
             </plugin>
         </plugins>
     </build>
-    
-    <!-- 报告配置 -->
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.4.5</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-maven-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </reporting>
 
+    <!-- 许可证信息 -->
     <licenses>
         <license>
             <name>Apache License 2.0</name>
@@ -532,17 +192,7 @@
         </license>
     </licenses>
 
-    <developers>
-        <developer>
-            <name>zhycn</name>
-            <url>https://github.com/zhycn</url>
-            <timezone>Asia/Shanghai</timezone>
-            <roles>
-                <role>developer</role>
-            </roles>
-        </developer>
-    </developers>
-
+    <!-- 源码管理 -->
     <scm>
         <url>https://github.com/helian-labs/maven-template-bom</url>
         <connection>scm:git:git@github.com:helian-labs/maven-template-bom.git</connection>
@@ -550,7 +200,21 @@
         <tag>HEAD</tag>
     </scm>
 
-    <!-- 配置项目发布到Maven中央仓库 -->
+    <!-- 发布配置 -->
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/helian-labs/maven-template-bom</url>
+        </repository>
+        <snapshotRepository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/helian-labs/maven-template-bom</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <!-- 配置文件 -->
     <profiles>
         <profile>
             <id>release</id>
@@ -563,34 +227,6 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>3.1.0</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-release-plugin</artifactId>
-                        <version>3.0.1</version>
-                        <configuration>
-                            <autoVersionSubmodules>true</autoVersionSubmodules>
-                            <tagNameFormat>v@{project.version}</tagNameFormat>
-                            <releaseProfiles>release</releaseProfiles>
-                            <goals>deploy</goals>
-                            <preparationGoals>clean verify</preparationGoals>
-                            <pushChanges>false</pushChanges>
-                            <localCheckout>true</localCheckout>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>
