@@ -10,7 +10,7 @@ insert_final_newline = true
 charset = utf-8
 trim_trailing_whitespace = true
 
-# Java files
+# Java and related files
 [*.{java,xml,properties,gradle}]
 indent_style = space
 indent_size = 4
@@ -24,11 +24,16 @@ indent_size = 2
 [*.md]
 trim_trailing_whitespace = false
 
-# Tab indentation (no size specified)
+# Makefile with tab indentation
 [Makefile]
 indent_style = tab
 
-# Matches the exact files either package.json or .travis.yml
+# Specific configuration files
 [{package.json,.travis.yml}]
 indent_style = space
 indent_size = 2
+
+# Add more file types if needed
+# [*.py]
+# indent_style = space
+# indent_size = 4

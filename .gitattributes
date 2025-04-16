@@ -3,20 +3,28 @@
 * text=auto
 
 # 明确声明应该被视为文本文件的文件类型
+# Java相关文件
 *.java text
 *.xml text
+*.properties text
+*.pom linguist-language=xml
+
+# 配置和标记语言文件
 *.yml text
 *.yaml text
+*.json text
 *.md text
-*.properties text
+*.adoc text
 *.txt text
+
+# Web相关文件
 *.html text
 *.css text
 *.js text
-*.json text
-*.sql text
-*.adoc text
+
+# 数据文件
 *.csv text
+*.sql text
 
 # 确保这些脚本在 Unix 系统上使用 LF
 /mvnw text eol=lf
@@ -51,7 +59,6 @@ mvnw.cmd text eol=lf
 
 # Maven 相关文件
 pom.xml linguist-language=xml
-*.pom linguist-language=xml
 
 # 排除构建文件和依赖项不计入语言统计
 target/** linguist-generated=true
