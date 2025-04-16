@@ -45,9 +45,6 @@ jobs:
     - name: Maven 构建与验证
       run: ./mvnw clean verify -B -DprocessAllModules=true
     
-    - name: 运行测试与代码覆盖率分析
-      run: ./mvnw test jacoco:report -B
-    
     - name: 静态代码分析
       if: matrix.java == '17'
       run: ./mvnw spotbugs:check pmd:check checkstyle:check -B
