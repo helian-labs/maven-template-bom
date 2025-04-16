@@ -11,17 +11,17 @@ cd "$PROJECT_ROOT"
 case "$1" in
   tree)
     echo "===== 显示依赖树 ====="
-    ./mvnw dependency:tree
+    ./mvnw -s .mvn/wrapper/settings.xml dependency:tree
     ;;
   updates)
     echo "===== 检查依赖更新 ====="
-    ./mvnw versions:display-dependency-updates
+    ./mvnw -s .mvn/wrapper/settings.xml versions:display-dependency-updates
     echo "===== 检查插件更新 ====="
-    ./mvnw versions:display-plugin-updates
+    ./mvnw -s .mvn/wrapper/settings.xml versions:display-plugin-updates
     ;;
   conflicts)
     echo "===== 检查依赖冲突 ====="
-    ./mvnw dependency:analyze
+    ./mvnw -s .mvn/wrapper/settings.xml dependency:analyze
     ;;
   *)
     echo "用法: $0 [tree|updates|conflicts]"
