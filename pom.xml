@@ -43,7 +43,7 @@
         <spotbugs-maven-plugin.version>4.7.3.6</spotbugs-maven-plugin.version>
         <maven-pmd-plugin.version>3.21.0</maven-pmd-plugin.version>
         <maven-checkstyle-plugin.version>3.2.2</maven-checkstyle-plugin.version>
-        <spotless-maven-plugin.version>2.17.5</spotless-maven-plugin.version> <!-- 新增 -->
+        <spotless-maven-plugin.version>2.17.5</spotless-maven-plugin.version>
     </properties>
 
     <!-- 依赖管理 -->
@@ -172,30 +172,30 @@
                         </execution>
                     </executions>
                 </plugin>
-                <!-- Spotless插件 -->
-                <plugin>
-                    <groupId>com.diffplug.spotless</groupId>
-                    <artifactId>spotless-maven-plugin</artifactId>
-                    <version>${spotless-maven-plugin.version}</version> <!-- 使用提取的版本号 -->
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>apply</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <java>
-                            <googleJavaFormat/>
-                            <!-- 可以添加其他格式化规则 -->
-                        </java>
-                    </configuration>
-                </plugin>
             </plugins>
         </pluginManagement>
 
         <!-- 静态代码分析插件配置 -->
         <plugins>
+            <!-- Spotless插件 -->
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>${spotless-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>apply</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <java>
+                        <googleJavaFormat/>
+                        <!-- 可以添加其他格式化规则 -->
+                    </java>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
