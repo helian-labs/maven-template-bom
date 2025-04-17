@@ -4,7 +4,9 @@
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
 [![Maven Central](https://img.shields.io/maven-central/v/com.helian/bom-example-project.svg)](https://search.maven.org/search?q=g:com.helian)
 
-这是一个多模块 Maven 项目的模板/示例，演示如何使用和提供物料清单(BOM)来管理项目依赖。
+## 项目背景
+
+这是一个多模块 Maven 项目的模板/示例，旨在演示如何使用和提供物料清单(BOM)来管理项目依赖。通过统一的版本管理和模块化设计，帮助开发者更高效地管理复杂项目。
 
 ## 项目特点
 
@@ -13,79 +15,68 @@
 - 兼容 Maven 版本管理和发布工具
 - 提供完整的测试和代码质量检查配置
 
-## 项目结构
-
-```
-maven-template-bom
-├── bom                 # BOM 模块（无父 POM）
-│   └── pom.xml
-├── module1             # 基础功能模块
-│   ├── pom.xml
-│   └── src
-├── module2             # 应用模块（依赖 module1）
-│   ├── pom.xml
-│   └── src
-├── pom.xml             # 父 POM（聚合器）
-├── README.md
-├── CHANGELOG.md
-└── SECURITY.md
-```
-
-## 设计原理
-
-该项目采用特殊的 BOM 设计模式：
-
-1. `bom` 模块不继承父 POM，避免版本循环依赖
-2. 父 POM 导入 BOM 模块来管理所有内部模块版本
-3. 子模块继承父 POM，并可以无需指定版本引用其他内部模块
-
-这种设计的优势：
-
-- 避免了版本号重复声明
-- 确保项目内部依赖版本一致性
-- 支持标准的 Maven 版本管理工具
-
 ## 快速开始
 
 ### 前提条件
 
-- JDK 11+
+- JDK 17+
 - Maven 3.6.3+（或使用包含的 Maven Wrapper）
 
-### 构建项目
+### 安装步骤
 
-```bash
-# 使用 Maven Wrapper
-./mvnw clean install
+1. 克隆项目到本地：
+   ```bash
+   git clone https://github.com/helian-labs/maven-template-bom.git
+   cd maven-template-bom
+   ```
 
-# 或使用本地安装的 Maven
-mvn clean install
+2. 构建项目：
+   ```bash
+   ./mvnw clean install
+   ```
+
+3. 运行测试：
+   ```bash
+   ./mvnw test
+   ```
+
+4. 生成报告：
+   ```bash
+   ./mvnw site
+   ```
+
+## 模块分层结构
+
+项目采用清晰的分层架构，各模块职责和依赖关系如下：
+
+### 模块职责
+
+1. **bom 模块**
+   - 作为版本管理中心，统一管理所有内部模块的版本
+   - 不包含实际代码，仅包含依赖版本声明
+   - 独立于父POM，避免版本循环依赖
+
+2. **module1 模块**
+   - 基础功能模块，提供核心业务逻辑和基础服务
+   - 不依赖其他业务模块，可独立部署和使用
+   - 继承父POM以获取通用配置
+
+3. **module2 模块**
+   - 应用层模块，依赖module1提供的基础功能
+   - 实现特定业务场景的应用逻辑
+   - 继承父POM以获取通用配置
+
+### 依赖关系
+
 ```
-
-### 运行测试
-
-```bash
-./mvnw test
-```
-
-### 生成报告
-
-```bash
-./mvnw site
-```
-
-## 版本管理
-
-当使用 versions 插件更新版本时，需要处理所有模块：
-
-```bash
-./mvnw versions:set -DnewVersion=1.1-SNAPSHOT -DprocessAllModules=true
-```
-
-使用 release 插件时，BOM 版本会自动更新：
-
-```bash
-./mvnw release:prepare -DdryRun=true -B
+┌─────────┐     ┌─────────┐     ┌─────────┐
+│   bom   │◄────┤  父POM  │────►│ module1 │
+└─────────┘     └─────────┘     └─────────┘
+                     ▲               ▲
+                     │               │
+                     │           ┌─────────┐
+                     └───────────┤ module2 │
+                                 └─────────┘
 ```
 
 ## 在其他项目中使用此 BOM
@@ -117,13 +108,6 @@ mvn clean install
 </dependencies>
 ```
 
-## 最佳实践
-
-- 所有版本号统一在 BOM 中管理
-- 子模块间依赖不指定版本号
-- 使用 `./mvnw` 确保 Maven 版本一致性
-- 遵循 [语义化版本](https://semver.org/lang/zh-CN/)
-
 ## 贡献指南
 
 1. Fork 项目
@@ -131,6 +115,14 @@ mvn clean install
 3. 提交更改 (`git commit -m 'Add some amazing feature'`)
 4. 推送到分支 (`git push origin feature/amazing-feature`)
 5. 创建 Pull Request
+
+## 常见问题解答（FAQ）
+
+- **如何更新依赖版本？**
+  使用 `./mvnw versions:set` 命令更新版本。
+
+- **如何处理依赖冲突？**
+  使用 `./mvnw dependency:analyze` 检查并解决冲突。
 
 ## 许可证
 
