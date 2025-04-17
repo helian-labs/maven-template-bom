@@ -80,9 +80,7 @@ function update_versions() {
   run_maven versions:display-dependency-updates
   run_maven versions:display-plugin-updates
   
-  log_info "如需撤销更改，可以:"
-  log_info "1. 手动恢复 pom.xml.bak 文件"
-  log_info "2. 或运行 './scripts/dependency.sh revert'"
+  log_info "如需撤销更改，可以运行 './scripts/dependency.sh revert'"
 }
 
 # 分析依赖
