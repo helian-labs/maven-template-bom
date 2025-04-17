@@ -1,74 +1,100 @@
 #!/bin/bash
-# 项目发布脚本
+# 发布管理脚本
 # 用法: ./scripts/release.sh [prepare|perform]
 
-set -e
+# 引入通用库
+source "$(dirname "$0")/lib/common.sh"
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
-cd "$PROJECT_ROOT"
+# 初始化脚本环境
+init_script
 
+# 命令定义
+COMMAND=${1:-"prepare"}
+VALID_COMMANDS=("prepare" "perform")
+
+# 帮助信息
+function show_usage() {
+  show_help "发布管理脚本" "准备和执行项目发布" \
+    "./scripts/release.sh [prepare|perform]" \
+    "  prepare - 准备发布（运行测试，创建发布版本）\n  perform - 执行发布（提交更改，创建标签，部署，创建下一个开发版本）"
+}
+
+# 检查是否需要显示帮助信息
+if [[ "$COMMAND" == "--help" || "$COMMAND" == "-h" ]]; then
+  show_usage
+  exit 0
+fi
+
+# 验证命令
+if ! validate_command "$COMMAND" "${VALID_COMMANDS[@]}"; then
+  show_usage
+  exit 1
+fi
+
+# 准备发布
 function prepare_release() {
-  echo "===== 准备发布 ====="
+  log_section "准备发布"
   
   # 检查工作区是否干净
-  if [ -n "$(git status --porcelain)" ]; then
-    echo "错误: 工作区不干净，请先提交或暂存更改"
+  if ! check_git_clean; then
     exit 1
   fi
   
   # 更新到最新代码
+  log_info "更新到最新代码"
   git pull
   
   # 运行测试
-  ./mvnw clean test
+  log_info "运行测试"
+  run_maven clean test
   
   # 从快照版本创建发布版本
+  log_info "创建发布版本"
   "$SCRIPT_DIR/version.sh" release
   
-  echo "发布版本已准备就绪"
-  echo "请检查更改，然后运行 './scripts/release.sh perform' 完成发布"
+  log_info "发布版本已准备就绪"
+  log_info "请检查更改，然后运行 './scripts/release.sh perform' 完成发布"
 }
 
+# 执行发布
 function perform_release() {
-  echo "===== 执行发布 ====="
+  log_section "执行发布"
   
-  VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
+  VERSION=$(get_project_version)
   
   # 提交版本更改
+  log_info "提交版本更改"
   git add .
   git commit -m "Release version $VERSION"
   
   # 创建标签
+  log_info "创建标签 v$VERSION"
   git tag -a "v$VERSION" -m "Release version $VERSION"
   
   # 构建并部署
-  ./mvnw clean deploy -P release
+  log_info "构建并部署"
+  run_maven clean deploy -P release
   
   # 创建下一个开发版本
+  log_info "创建下一个开发版本"
   "$SCRIPT_DIR/version.sh" next
   
-  # 提交新的开发版本
-  NEW_VERSION=$(./mvnw help:evaluate -Dexpression=project.version -q -DforceStdout)
+  # 提交新版本
+  NEW_VERSION=$(get_project_version)
+  log_info "提交新版本 $NEW_VERSION"
   git add .
   git commit -m "Prepare for next development iteration $NEW_VERSION"
   
-  # 自动推送更改和标签到远程仓库
-  git push origin main
-  git push origin v$VERSION
+  log_info "推送更改和标签到远程仓库"
+  git push origin master
+  git push origin "v$VERSION"
+  
+  log_info "发布完成: $VERSION"
+  log_info "下一个开发版本: $NEW_VERSION"
 }
 
-# 验证命令是否有效
-VALID_COMMANDS=("prepare" "perform")
-if [[ ! " ${VALID_COMMANDS[@]} " =~ " $1 " ]]; then
-  echo "错误: 无效的命令 '$1'"
-  echo "用法: $0 [prepare|perform]"
-  echo "  prepare - 准备发布（创建发布版本）"
-  echo "  perform - 执行发布（创建标签、部署、准备下一个版本）"
-  exit 1
-fi
-
-case "$1" in
+# 执行命令
+case "$COMMAND" in
   prepare)
     prepare_release
     ;;
@@ -76,3 +102,5 @@ case "$1" in
     perform_release
     ;;
 esac
+
+log_section "发布管理操作完成"
