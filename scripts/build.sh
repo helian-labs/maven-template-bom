@@ -1,5 +1,6 @@
 #!/bin/bash
 # 项目构建脚本
+# 版本号: 1.0.0
 # 用法: ./scripts/build.sh [clean|compile|package|install]
 
 # 引入通用库

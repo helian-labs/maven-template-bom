@@ -1,5 +1,6 @@
 #!/bin/bash
 # 代码质量检查脚本
+# 版本号: 1.0.0
 # 用法: ./scripts/quality.sh [all|format|spotbugs|pmd|checkstyle]
 
 # 引入通用库

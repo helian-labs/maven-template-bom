@@ -1,5 +1,6 @@
 #!/bin/bash
 # 版本管理脚本
+# 版本号: 1.0.0
 # 用法: ./scripts/version.sh [current|set <version>|release|next]
 
 # 引入通用库

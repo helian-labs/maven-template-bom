@@ -1,5 +1,6 @@
 #!/bin/bash
 # 依赖管理脚本
+# 版本号: 1.0.0
 # 用法: ./scripts/dependency.sh [list|tree|update|analyze|revert]
 
 # 引入通用库

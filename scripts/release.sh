@@ -1,5 +1,6 @@
 #!/bin/bash
 # 发布管理脚本
+# 版本号: 1.0.0
 # 用法: ./scripts/release.sh [prepare|perform]
 
 # 引入通用库
