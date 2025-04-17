@@ -2,7 +2,6 @@
 
 [![Java CI with Maven](https://github.com/helian-labs/maven-template-bom/actions/workflows/maven.yml/badge.svg)](https://github.com/helian-labs/maven-template-bom/actions/workflows/maven.yml)
 [![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://www.apache.org/licenses/LICENSE-2.0)
-[![Maven Central](https://img.shields.io/maven-central/v/com.helian/bom-example-project.svg)](https://search.maven.org/search?q=g:com.helian)
 
 ## 项目背景
 
