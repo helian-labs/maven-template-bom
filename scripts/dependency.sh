@@ -55,18 +55,34 @@ function show_tree() {
 # 更新依赖版本
 function update_versions() {
   log_section "更新依赖到最新版本"
+
+  # 1. 仅显示可更新版本但不实际更新
+  log_info "检查可更新的依赖版本..."
+  run_maven versions:display-dependency-updates
   
+  # 2. 交互式确认是否继续
+  read -p "确认要更新所有依赖到最新版本吗? (y/n) " -n 1 -r
+  echo
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    log_info "已取消更新操作"
+    return 1
+  fi
+  
+  # 3. 分步骤更新
   log_info "更新依赖版本..."
   run_maven versions:use-latest-versions
-  
-  log_info "更新插件版本..."
-  run_maven versions:use-latest-plugin-versions
   
   log_info "更新属性版本..."
   run_maven versions:update-properties
   
-  log_info "依赖版本更新完成，请检查更新结果并提交更改"
-  log_info "如需撤销更改，请运行 './scripts/dependency.sh revert'"
+  # 4. 显示更新结果
+  log_info "依赖版本更新完成，请检查以下更新结果:"
+  run_maven versions:display-dependency-updates
+  run_maven versions:display-plugin-updates
+  
+  log_info "如需撤销更改，可以:"
+  log_info "1. 手动恢复 pom.xml.bak 文件"
+  log_info "2. 或运行 './scripts/dependency.sh revert'"
 }
 
 # 分析依赖

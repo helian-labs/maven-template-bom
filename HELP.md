@@ -44,4 +44,13 @@
 用于代码格式化。
 - 文档链接: [Spotless Maven Plugin](https://github.com/diffplug/spotless/tree/main/plugin-maven)
 
+### Versions Maven Plugin
+用于管理项目依赖版本。
+- 文档链接: [Versions Maven Plugin](https://www.mojohaus.org/versions-maven-plugin/)
+- 主要功能:
+  - 显示依赖更新
+  - 更新依赖版本
+  - 管理属性版本
+  - 版本回滚
+
 请根据项目需求和插件使用情况进行调整和补充。这个文档可以帮助开发人员快速找到相关插件的详细信息和使用指南。
