@@ -51,6 +51,18 @@ function next_version() {
   fi
 }
 
+# 验证命令是否有效
+VALID_COMMANDS=("current" "set" "release" "next")
+if [[ ! " ${VALID_COMMANDS[@]} " =~ " $1 " ]]; then
+  echo "错误: 无效的命令 '$1'"
+  echo "用法: $0 [current|set <version>|release|next]"
+  echo "  current  - 显示当前版本"
+  echo "  set      - 设置指定版本"
+  echo "  release  - 从快照版本创建发布版本"
+  echo "  next     - 从发布版本创建下一个开发版本"
+  exit 1
+fi
+
 case "$1" in
   current)
     echo "当前版本: $(current_version)"
@@ -63,13 +75,5 @@ case "$1" in
     ;;
   next)
     next_version
-    ;;
-  *)
-    echo "用法: $0 [current|set <version>|release|next]"
-    echo "  current  - 显示当前版本"
-    echo "  set      - 设置指定版本"
-    echo "  release  - 从快照版本创建发布版本"
-    echo "  next     - 从发布版本创建下一个开发版本"
-    exit 1
     ;;
 esac

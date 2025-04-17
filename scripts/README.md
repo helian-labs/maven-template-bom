@@ -17,6 +17,18 @@
 - 设置Git pre-commit钩子，在提交前自动运行测试
 - 安装项目依赖
 
+### format.sh - 代码格式化
+
+检查和应用代码格式。
+
+```bash
+./scripts/format.sh [check|apply]
+```
+
+参数：
+- `check` - 检查代码格式
+- `apply` - 应用代码格式
+
 ### build.sh - 项目构建
 
 构建项目，支持多种构建命令。

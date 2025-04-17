@@ -8,6 +8,17 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 cd "$PROJECT_ROOT"
 
+# 验证命令是否有效
+VALID_COMMANDS=("tree" "updates" "conflicts")
+if [[ ! " ${VALID_COMMANDS[@]} " =~ " $1 " ]]; then
+  echo "错误: 无效的命令 '$1'"
+  echo "用法: $0 [tree|updates|conflicts]"
+  echo "  tree      - 显示依赖树"
+  echo "  updates   - 检查依赖和插件更新"
+  echo "  conflicts - 检查依赖冲突"
+  exit 1
+fi
+
 case "$1" in
   tree)
     echo "===== 显示依赖树 ====="
@@ -22,12 +33,5 @@ case "$1" in
   conflicts)
     echo "===== 检查依赖冲突 ====="
     ./mvnw dependency:analyze
-    ;;
-  *)
-    echo "用法: $0 [tree|updates|conflicts]"
-    echo "  tree      - 显示依赖树"
-    echo "  updates   - 检查依赖和插件更新"
-    echo "  conflicts - 检查依赖冲突"
-    exit 1
     ;;
 esac

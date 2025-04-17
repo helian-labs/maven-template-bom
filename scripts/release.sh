@@ -53,12 +53,20 @@ function perform_release() {
   git add .
   git commit -m "Prepare for next development iteration $NEW_VERSION"
   
-  # 推送更改
-  echo "准备推送更改和标签到远程仓库"
-  echo "运行以下命令完成推送:"
-  echo "  git push origin main"
-  echo "  git push origin v$VERSION"
+  # 自动推送更改和标签到远程仓库
+  git push origin main
+  git push origin v$VERSION
 }
+
+# 验证命令是否有效
+VALID_COMMANDS=("prepare" "perform")
+if [[ ! " ${VALID_COMMANDS[@]} " =~ " $1 " ]]; then
+  echo "错误: 无效的命令 '$1'"
+  echo "用法: $0 [prepare|perform]"
+  echo "  prepare - 准备发布（创建发布版本）"
+  echo "  perform - 执行发布（创建标签、部署、准备下一个版本）"
+  exit 1
+fi
 
 case "$1" in
   prepare)
@@ -66,11 +74,5 @@ case "$1" in
     ;;
   perform)
     perform_release
-    ;;
-  *)
-    echo "用法: $0 [prepare|perform]"
-    echo "  prepare - 准备发布（创建发布版本）"
-    echo "  perform - 执行发布（创建标签、部署、准备下一个版本）"
-    exit 1
     ;;
 esac
