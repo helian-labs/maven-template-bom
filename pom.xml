@@ -301,6 +301,22 @@
         <tag>HEAD</tag>
     </scm>
 
+    <!-- 开发者信息 -->
+    <developers>
+        <developer>
+            <id>zhycn</id>
+            <name>Larry Qi</name>
+            <email>larryqi.sh@gmail.com</email>
+            <organization>Helian Labs</organization>
+            <organizationUrl>https://github.com/helian-labs</organizationUrl>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <timezone>Asia/Shanghai</timezone>
+        </developer>
+    </developers>
+
     <!-- 发布配置 -->
     <distributionManagement>
         <repository>
