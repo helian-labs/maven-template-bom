@@ -43,7 +43,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- 依赖版本 -->
-        <junit.version>5.9.3</junit.version>
+        <junit.version>5.12.2</junit.version>
 
         <!-- 插件版本 -->
         <maven-checkstyle-plugin.version>3.2.2</maven-checkstyle-plugin.version>
