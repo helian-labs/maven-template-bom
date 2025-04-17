@@ -47,8 +47,21 @@ function run_integration_tests() {
 # 生成覆盖率报告
 function generate_coverage() {
   log_section "生成代码覆盖率报告"
-  run_maven clean test jacoco:report
-  log_info "覆盖率报告生成在: target/site/jacoco/"
+  
+  # 先运行测试并收集覆盖率数据
+  run_maven clean test
+  
+  # 再生成报告
+  run_maven jacoco:report
+  
+  # 检查报告是否生成
+  if [ -d "target/site/jacoco" ]; then
+    log_info "覆盖率报告生成在: target/site/jacoco/"
+    log_info "可以在浏览器中打开 target/site/jacoco/index.html 查看详细报告"
+  else
+    log_error "覆盖率报告生成失败"
+    exit 1
+  fi
 }
 
 # 执行命令
