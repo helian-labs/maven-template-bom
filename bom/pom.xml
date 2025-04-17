@@ -4,7 +4,17 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- 此模块不能使用父POM，以避免版本循环依赖 -->
+    <!-- 
+    BOM模块 - 版本管理中心
+    
+    职责：
+    - 作为项目的版本管理中心，统一管理所有内部模块的版本
+    - 不包含实际代码，仅包含依赖版本声明
+    
+    架构位置：
+    - 此模块不继承父POM，以避免版本循环依赖
+    - 被父POM导入，从而为所有其他模块提供统一的版本管理
+    -->
 
     <groupId>com.helian</groupId>
     <artifactId>bom</artifactId>

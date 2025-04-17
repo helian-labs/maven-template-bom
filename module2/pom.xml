@@ -4,7 +4,18 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- 继承父项目配置 -->
+    <!-- 
+    Module2 - 应用层模块
+    
+    职责：
+    - 实现特定业务场景的应用逻辑
+    - 依赖module1提供的基础功能
+    
+    架构位置：
+    - 继承父POM以获取通用配置
+    - 依赖module1，处于依赖层次的最上层
+    - 版本由BOM模块统一管理
+    -->
     <parent>
         <groupId>com.helian</groupId>
         <artifactId>bom-example-project</artifactId>
