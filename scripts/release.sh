@@ -51,7 +51,7 @@ function prepare_release() {
   
   # 从快照版本创建发布版本
   log_info "创建发布版本"
-  "$SCRIPT_DIR/version.sh" release
+  "$PROJECT_ROOT/scripts/version.sh" release
   
   log_info "发布版本已准备就绪"
   log_info "请检查更改，然后运行 './scripts/release.sh perform' 完成发布"
