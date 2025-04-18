@@ -1,11 +1,24 @@
 package com.helian;
 
 /**
- * Speaker app
+ * Main application class for module2.
  */
-public class App {
+public final class App {
 
-    public static void main(String[] args) {
-        System.out.println(new Speaker().speak());
+    /**
+     * Private constructor to hide the implicit public one for utility classes.
+     */
+    private App() {
+        // Prevent instantiation
+    }
+
+    /**
+     * Main entry point of the application.
+     * @param args Command line arguments (should be final).
+     */
+    public static void main(final String[] args) {
+        Speaker speaker = new Speaker();
+        System.out.println(speaker.speak());
+        System.out.println("Hello from Module 2!");
     }
 }
