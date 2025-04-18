@@ -62,7 +62,7 @@ function run_checkstyle() {
 # 运行代码覆盖率分析
 function run_coverage() {
   log_section "运行 JaCoCo 代码覆盖率分析"
-  run_maven verify -B
+  run_maven verify
 }
 
 # 运行所有质量检查

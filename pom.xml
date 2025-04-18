@@ -274,6 +274,9 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-checkstyle-plugin</artifactId>
                         <version>${maven-checkstyle-plugin.version}</version>
+                        <configuration>
+                            <configLocation>google_checks.xml</configLocation>
+                        </configuration>
                         <executions>
                             <execution>
                                 <id>checkstyle-check</id>

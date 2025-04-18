@@ -1,15 +1,14 @@
 package com.helian;
 
-/**
- * A simple class that provides a speaking capability.
- */
+/** 一个简单的类，提供说话功能。 */
 public class Speaker {
 
-    /**
-     * Returns a simple greeting string.
-     * @return The greeting string "Here I am!".
-     */
-    public String speak() {
-        return "Here I am!";
-    }
+  /**
+   * 返回一个简单的问候语字符串。
+   *
+   * @return 问候语字符串 "Here I am!"。
+   */
+  public String speak() {
+    return "Here I am!";
+  }
 }

@@ -23,6 +23,12 @@
 
     <name>Project Bill of Materials</name>
 
+    <!-- 项目属性 -->
+    <properties>
+        <spotbugs-maven-plugin.version>4.9.3.0</spotbugs-maven-plugin.version>
+        <spotless-maven-plugin.version>2.44.4</spotless-maven-plugin.version>
+    </properties>
+
     <!--
         版本管理说明：
         1. 当使用 maven-release 插件或 versions-maven-plugin 处理所有子模块时，版本号会自动更新
@@ -50,5 +56,56 @@
         - repositories（仓库配置）
         - 其他项目所需的配置信息
     -->
+
+    <!-- 添加质量检查 profile -->
+    <profiles>
+        <profile>
+            <id>quality</id>
+            <build>
+                <plugins>
+                    <!-- Spotless插件 -->
+                    <plugin>
+                        <groupId>com.diffplug.spotless</groupId>
+                        <artifactId>spotless-maven-plugin</artifactId>
+                        <version>${spotless-maven-plugin.version}</version>
+                        <configuration>
+                            <java>
+                                <importOrder />
+                                <removeUnusedImports />
+                                <googleJavaFormat />
+                                <trimTrailingWhitespace />
+                                <endWithNewline />
+                            </java>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>spotless-check</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Spotbugs插件 -->
+                    <plugin>
+                        <groupId>com.github.spotbugs</groupId>
+                        <artifactId>spotbugs-maven-plugin</artifactId>
+                        <version>${spotbugs-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>spotbugs-check</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
