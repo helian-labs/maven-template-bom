@@ -43,7 +43,7 @@ function prepare_release() {
   
   # 更新到最新代码
   log_info "更新到最新代码"
-  git pull
+  # git pull
   
   # 运行测试
   log_info "运行测试"
