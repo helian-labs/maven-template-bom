@@ -52,14 +52,6 @@ function set_version() {
   log_section "设置版本"
   log_info "设置版本为: $version"
   set_project_version "$version"
-  
-  # 更新bom/pom.xml中的版本号
-  sed -i '' "s/<version>.*<\/version>/<version>${version}<\/version>/g" "$PROJECT_ROOT/bom/pom.xml"
-  
-  # 更新README.md中的版本号
-  sed -i '' "s/<version>.*<\/version>/<version>${version}<\/version>/g" "$PROJECT_ROOT/README.md"
-  
-  log_info "版本已更新为 $version (已同步更新bom/pom.xml和README.md)"
 }
 
 # 创建发布版本
