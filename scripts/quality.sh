@@ -62,8 +62,7 @@ function run_checkstyle() {
 # 运行代码覆盖率分析
 function run_coverage() {
   log_section "运行 JaCoCo 代码覆盖率分析"
-  run_maven jacoco:report
-  log_info "覆盖率报告生成在: target/site/jacoco/"
+  run_maven verify -B
 }
 
 # 运行所有质量检查
