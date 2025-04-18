@@ -43,7 +43,7 @@ function prepare_release() {
   
   # 更新到最新代码
   log_info "更新到最新代码"
-  # git pull
+  git pull
   
   # 运行测试
   log_info "运行测试"
@@ -78,7 +78,7 @@ function perform_release() {
   
   # 创建下一个开发版本
   log_info "创建下一个开发版本"
-  "$SCRIPT_DIR/version.sh" next
+  "$PROJECT_ROOT/scripts/version.sh" next
   
   # 提交新版本
   NEW_VERSION=$(get_project_version)
