@@ -20,7 +20,7 @@
     <!-- 项目基本信息 -->
     <groupId>com.helian</groupId>
     <artifactId>bom-example-project</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
 
     <name>Project Top Level</name>
@@ -66,7 +66,7 @@
             <dependency>
                 <groupId>com.helian</groupId>
                 <artifactId>bom</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>1.0.0</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
