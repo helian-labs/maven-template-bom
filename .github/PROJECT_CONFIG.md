@@ -72,7 +72,7 @@
 ### GitHub Actions
 - 文件：`.github/workflows/maven.yml`
 - 用途：自动化构建、测试和代码质量检查
-- 主要触发器：`push` 到 `main`/`master` 分支, `pull_request` 到 `main`/`master` 分支, 每周定时运行, 手动触发
+- 主要触发器：`push` 到 `main` 分支, `pull_request` 到 `main` 分支, 每周定时运行, 手动触发
 - 主要任务：
   - 使用 Java 17 和 21 进行构建和验证 (`./mvnw clean verify`)
   - 静态代码分析 (SpotBugs, PMD, Checkstyle)
