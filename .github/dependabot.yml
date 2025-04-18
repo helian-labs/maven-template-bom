@@ -20,7 +20,7 @@ updates:
         update-types:
           - "minor"
           - "patch"
-      
+
   # GitHub Actions 更新
   - package-ecosystem: "github-actions"
     directory: "/"
@@ -32,3 +32,11 @@ updates:
     commit-message:
       prefix: "ci"
       include: "scope"
+    groups:
+      action-dependencies:
+        patterns:
+          - "actions/checkout"
+          - "actions/setup-node"
+        update-types:
+          - "minor"
+          - "patch"
