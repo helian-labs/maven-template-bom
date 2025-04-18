@@ -19,7 +19,7 @@
     <groupId>com.helian</groupId>
     <artifactId>bom</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <name>Project Bill of Materials</name>
 
@@ -32,7 +32,7 @@
     <!--
         版本管理说明：
         1. 当使用 maven-release 插件或 versions-maven-plugin 处理所有子模块时，版本号会自动更新
-        2. 使用显式版本号（如"1.0-SNAPSHOT"）而非 ${project.version}，以确保这些版本号在发布的 pom 文件中正确反映
+        2. 使用显式版本号（如"1.0.0-SNAPSHOT"）而非 ${project.version}，以确保这些版本号在发布的 pom 文件中正确反映
         3. 这种方式可以更好地管理项目依赖的版本一致性
     -->
     <dependencyManagement>
@@ -40,12 +40,12 @@
             <dependency>
                 <groupId>com.helian</groupId>
                 <artifactId>module1</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.helian</groupId>
                 <artifactId>module2</artifactId>
-                <version>1.0-SNAPSHOT</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
