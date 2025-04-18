@@ -47,7 +47,7 @@ jobs:
     
     - name: 静态代码分析
       if: matrix.java == '17'
-      run: ./mvnw spotbugs:check pmd:check checkstyle:check -B
+      run: ./mvnw -P quality spotbugs:check pmd:check checkstyle:check -B
     
     - name: 上传测试结果
       if: always()
