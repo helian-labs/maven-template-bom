@@ -88,7 +88,7 @@
         <dependency>
             <groupId>com.helian</groupId>
             <artifactId>bom</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${latest.version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
