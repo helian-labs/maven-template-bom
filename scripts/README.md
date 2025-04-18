@@ -83,14 +83,13 @@ _运行代码质量检查工具。_
 ## 帮助信息
 ./scripts/quality.sh -h
 运行代码质量检查工具
-用法: ./scripts/quality.sh [all|format|spotbugs|pmd|checkstyle|coverage]
+用法: ./scripts/quality.sh [all|format|spotbugs|pmd|checkstyle]
 命令:
   all       - 运行所有质量检查
   format    - 运行代码格式检查
   spotbugs  - 运行静态代码分析
   pmd       - 运行PMD代码分析
   checkstyle - 运行代码规范检查
-  coverage  - 运行代码覆盖率分析
 ```
 
 ### 版本管理

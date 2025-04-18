@@ -11,13 +11,13 @@ init_script
 
 # 命令定义
 COMMAND=${1:-"all"}
-VALID_COMMANDS=("all" "format" "spotbugs" "pmd" "checkstyle" "coverage")
+VALID_COMMANDS=("all" "format" "spotbugs" "pmd" "checkstyle")
 
 # 帮助信息
 function show_usage() {
   show_help "代码质量检查脚本" "运行代码质量检查工具" \
-    "./scripts/quality.sh [all|format|spotbugs|pmd|checkstyle|coverage]" \
-    "  all       - 运行所有质量检查\n  format    - 运行代码格式检查\n  spotbugs  - 运行静态代码分析\n  pmd       - 运行PMD代码分析\n  checkstyle - 运行代码规范检查\n  coverage  - 运行代码覆盖率分析"
+    "./scripts/quality.sh [all|format|spotbugs|pmd|checkstyle]" \
+    "  all       - 运行所有质量检查\n  format    - 运行代码格式检查\n  spotbugs  - 运行静态代码分析\n  pmd       - 运行PMD代码分析\n  checkstyle - 运行代码规范检查"
 }
 
 # 检查是否需要显示帮助信息
@@ -59,19 +59,12 @@ function run_checkstyle() {
   run_maven checkstyle:check -P quality
 }
 
-# 运行代码覆盖率分析
-function run_coverage() {
-  log_section "运行 JaCoCo 代码覆盖率分析"
-  run_maven verify
-}
-
 # 运行所有质量检查
 function run_all() {
   run_format
   run_spotbugs
   run_pmd
   run_checkstyle
-  run_coverage
 }
 
 # 执行命令
@@ -88,9 +81,6 @@ case "$COMMAND" in
   checkstyle)
     run_checkstyle
     ;;
-  coverage)
-    run_coverage
-    ;;
   all)
     run_all
     ;;
@@ -100,5 +90,5 @@ log_section "代码质量检查完成"
 
 # 提示如何查看详细报告
 log_info "提示："
-log_info "- 使用 './scripts/quality.sh format' 检查代码格式"
+log_info "- 使用 './scripts/quality.sh format' 检查和修复代码格式"
 log_info "- 使用 './scripts/test.sh coverage' 生成详细的代码覆盖率报告"

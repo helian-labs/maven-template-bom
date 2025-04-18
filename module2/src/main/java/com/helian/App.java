@@ -1,17 +1,17 @@
 package com.helian;
 
-/** Main application class for module2. */
+/** module2 的主应用程序类。 */
 public final class App {
 
-  /** Private constructor to hide the implicit public one for utility classes. */
+  /** 私有构造函数，用于隐藏工具类的隐式公共构造函数。 */
   private App() {
-    // Prevent instantiation
+    // 防止实例化
   }
 
   /**
-   * Main entry point of the application.
+   * 应用程序的主入口点。
    *
-   * @param args Command line arguments (should be final).
+   * @param args 命令行参数（应为 final）。
    */
   public static void main(final String[] args) {
     Speaker speaker = new Speaker();

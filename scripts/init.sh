@@ -40,7 +40,7 @@ fi
 # 如果格式检查失败，阻止提交
 if [ $? -ne 0 ]; then
   echo "代码格式检查失败，提交被阻止"
-  echo "请运行 './scripts/quality.sh format' 修复格式问题"
+  echo "请运行 './scripts/quality.sh format' 来自动修复格式问题"
   exit 1
 fi
 EOF
