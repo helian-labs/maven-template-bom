@@ -9,11 +9,11 @@
 ## 开发流程
 
 1. Fork 本仓库
-2. 同步您的 Fork 仓库 (`git fetch upstream` 和 `git rebase upstream/main`)
+2. 同步您的 Fork 仓库 (`git fetch upstream` 和 `git rebase upstream/main`)  # 更新为main
 3. 创建您的特性分支 (`git checkout -b feature/amazing-feature`)
 4. 提交您的更改 (`git commit -m 'Add some amazing feature'`)
 5. 推送到分支 (`git push origin feature/amazing-feature`)
-6. 开启一个 Pull Request
+6. 开启一个 Pull Request 到 main 分支  # 添加明确的目标分支
 
 ## 代码风格
 

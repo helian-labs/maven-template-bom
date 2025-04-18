@@ -87,7 +87,7 @@ function perform_release() {
   git commit -m "Prepare for next development iteration $NEW_VERSION"
   
   log_info "推送更改和标签到远程仓库"
-  git push origin master
+  git push origin main
   git push origin "v$VERSION"
   
   log_info "发布完成: $VERSION"
