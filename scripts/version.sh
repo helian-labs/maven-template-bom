@@ -57,7 +57,7 @@ function set_version() {
 # 创建发布版本
 function release_version() {
   log_section "创建发布版本"
-  CURRENT=$(current_version)
+  CURRENT=$(get_project_version)
   if [[ $CURRENT == *-SNAPSHOT ]]; then
     RELEASE_VERSION=${CURRENT%-SNAPSHOT}
     log_info "从 $CURRENT 创建发布版本 $RELEASE_VERSION"
@@ -70,7 +70,7 @@ function release_version() {
 # 创建下一个开发版本
 function next_version() {
   log_section "创建下一个开发版本"
-  CURRENT=$(current_version)
+  CURRENT=$(get_project_version)
   if [[ $CURRENT == *-SNAPSHOT ]]; then
     log_warn "当前版本 $CURRENT 已经是快照版本"
   else
