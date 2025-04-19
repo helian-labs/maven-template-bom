@@ -57,6 +57,8 @@
         <spotbugs-maven-plugin.version>4.9.3.0</spotbugs-maven-plugin.version>
         <spotless-maven-plugin.version>2.44.4</spotless-maven-plugin.version>
         <versions-maven-plugin.version>2.18.0</versions-maven-plugin.version>
+        <dependency-check-maven.version>12.1.1</dependency-check-maven.version> <!-- 使用一个较新的稳定版本 -->
+        <maven-release-plugin.version>3.1.1</maven-release-plugin.version> <!-- 使用一个较新的稳定版本 -->
     </properties>
 
     <!-- 依赖管理 -->
@@ -187,6 +189,112 @@
                     <artifactId>versions-maven-plugin</artifactId>
                     <version>${versions-maven-plugin.version}</version>
                 </plugin>
+
+                <!-- Spotless插件 -->
+                <plugin>
+                    <groupId>com.diffplug.spotless</groupId>
+                    <artifactId>spotless-maven-plugin</artifactId>
+                    <version>${spotless-maven-plugin.version}</version>
+                    <configuration>
+                        <java>
+                            <importOrder />
+                            <removeUnusedImports />
+                            <googleJavaFormat />
+                            <trimTrailingWhitespace />
+                            <endWithNewline />
+                        </java>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>spotless-check</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>spotless-apply</id>
+                            <!-- 通常不绑定到生命周期，手动执行 ./mvnw spotless:apply -->
+                            <phase>none</phase>
+                            <goals>
+                                <goal>apply</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- Spotbugs插件 -->
+                <plugin>
+                    <groupId>com.github.spotbugs</groupId>
+                    <artifactId>spotbugs-maven-plugin</artifactId>
+                    <version>${spotbugs-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>spotbugs-check</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- PMD插件 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-pmd-plugin</artifactId>
+                    <version>${maven-pmd-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>pmd-check</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- Checkstyle插件 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-checkstyle-plugin</artifactId>
+                    <version>${maven-checkstyle-plugin.version}</version>
+                    <configuration>
+                        <configLocation>google_checks.xml</configLocation>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>checkstyle-check</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- 依赖检查插件 -->
+                <plugin>
+                    <groupId>org.owasp</groupId>
+                    <artifactId>dependency-check-maven</artifactId>
+                    <version>${dependency-check-maven.version}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <!-- 发布插件 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>${maven-release-plugin.version}</version>
+                </plugin>
+
             </plugins>
         </pluginManagement>
 
@@ -206,7 +314,7 @@
         </plugins>
     </build>
 
-    <!-- 添加质量检查 profile -->
+    <!-- 质量检查 profile -->
     <profiles>
         <profile>
             <id>quality</id>
@@ -216,77 +324,31 @@
                     <plugin>
                         <groupId>com.diffplug.spotless</groupId>
                         <artifactId>spotless-maven-plugin</artifactId>
-                        <version>${spotless-maven-plugin.version}</version>
-                        <configuration>
-                            <java>
-                                <importOrder />
-                                <removeUnusedImports />
-                                <googleJavaFormat />
-                                <trimTrailingWhitespace />
-                                <endWithNewline />
-                            </java>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>spotless-check</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
 
                     <!-- Spotbugs插件 -->
                     <plugin>
                         <groupId>com.github.spotbugs</groupId>
                         <artifactId>spotbugs-maven-plugin</artifactId>
-                        <version>${spotbugs-maven-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>spotbugs-check</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
 
                     <!-- PMD插件 -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-pmd-plugin</artifactId>
-                        <version>${maven-pmd-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>pmd-check</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
 
                     <!-- Checkstyle插件 -->
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-checkstyle-plugin</artifactId>
-                        <version>${maven-checkstyle-plugin.version}</version>
-                        <configuration>
-                            <configLocation>google_checks.xml</configLocation>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>checkstyle-check</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                        </executions>
                     </plugin>
+
+                    <!-- 激活依赖检查插件 -->
+                     <plugin>
+                         <groupId>org.owasp</groupId>
+                         <artifactId>dependency-check-maven</artifactId>
+                     </plugin>
                 </plugins>
             </build>
         </profile>

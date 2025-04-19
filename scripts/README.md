@@ -60,7 +60,7 @@ _构建项目，支持多种构建命令。_
 _运行测试和代码覆盖率检查。_
 
 ```bash
-./scripts/test.sh [unit|integration|coverage]
+./scripts/test.sh [unit|integration|coverage|all]
 
 ## 帮助信息
 ./scripts/test.sh -h 
@@ -115,7 +115,7 @@ _管理项目版本。_
 _管理和分析项目依赖。_
 
 ```bash
-./scripts/dependency.sh [list|tree|update|analyze]
+./scripts/dependency.sh [list|tree|update|analyze|revert]
 
 ## 帮助信息
 ./scripts/dependency.sh -h
