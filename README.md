@@ -109,6 +109,8 @@
 
 ## 贡献指南
 
+请阅读 [CONTRIBUTING.md](CONTRIBUTING.md) 了解如何参与贡献。
+
 1. Fork 项目
 2. 创建特性分支 (`git checkout -b feature/amazing-feature`)
 3. 提交更改 (`git commit -m 'Add some amazing feature'`)
@@ -143,11 +145,14 @@
 
 ## 常见问题解答（FAQ）
 
-- **如何更新依赖版本？**
-  使用 `./mvnw versions:set` 命令更新版本。
+- **脚本无法执行？**
+  请先运行 `chmod +x scripts/*.sh scripts/lib/*.sh`。
 
-- **如何处理依赖冲突？**
-  使用 `./mvnw dependency:analyze` 检查并解决冲突。
+- **依赖下载缓慢？**
+  建议配置国内 Maven 镜像。
+
+- **发布失败？**
+  检查 Git 工作区是否干净、网络是否畅通、Maven 配置是否正确。
 
 ## 许可证
 
