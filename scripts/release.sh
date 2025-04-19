@@ -74,7 +74,7 @@ function perform_release() {
   
   # 构建并部署
   log_info "构建并部署"
-  run_maven clean deploy -P release
+  run_maven clean deploy
   
   # 创建下一个开发版本
   log_info "创建下一个开发版本"
