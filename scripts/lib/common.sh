@@ -87,10 +87,7 @@ set_project_version() {
   cd "$PROJECT_ROOT"
   
   log_info "更新项目根目录的版本号为: $version"
-  ./mvnw versions:set -DnewVersion="$version" -DgenerateBackupPoms=false || { log_error "更新项目版本失败"; exit 1; }
-  
-  log_info "更新bom模块的版本号为: $version"
-  ./mvnw versions:set -DnewVersion="$version" -DgenerateBackupPoms=false -f ./bom/pom.xml || { log_error "更新bom模块版本失败"; exit 1; }
+  ./mvnw versions:set -DnewVersion="$version" -DprocessAllModules=true -DgenerateBackupPoms=false || { log_error "更新项目版本失败"; exit 1; }
 }
 
 # 检查工作区是否干净

@@ -9,10 +9,15 @@
 
 ## 项目特点
 
-- 使用 BOM 进行依赖版本统一管理
-- 支持多模块项目结构
-- 兼容 Maven 版本管理和发布工具
-- 提供完整的测试和代码质量检查配置
+这是一个标准化的Maven BOM(物料清单)模板项目，主要功能包括：
+
+- ✅ 通过BOM实现多模块依赖版本统一管理
+- ✅ 提供清晰的多模块项目结构模板
+- ✅ 内置完整的Maven构建和测试配置
+- ✅ 集成CI/CD工作流(Github Actions)
+- ✅ 包含代码质量检查和质量门禁
+
+适用于需要统一管理依赖版本的中大型Java项目。
 
 ## 快速开始
 
@@ -109,6 +114,8 @@
 
 ## 贡献指南
 
+请阅读 [CONTRIBUTING.md](CONTRIBUTING.md) 了解如何参与贡献。
+
 1. Fork 项目
 2. 创建特性分支 (`git checkout -b feature/amazing-feature`)
 3. 提交更改 (`git commit -m 'Add some amazing feature'`)
@@ -143,11 +150,14 @@
 
 ## 常见问题解答（FAQ）
 
-- **如何更新依赖版本？**
-  使用 `./mvnw versions:set` 命令更新版本。
+- **脚本无法执行？**
+  请先运行 `chmod +x scripts/*.sh scripts/lib/*.sh`。
 
-- **如何处理依赖冲突？**
-  使用 `./mvnw dependency:analyze` 检查并解决冲突。
+- **依赖下载缓慢？**
+  建议配置国内 Maven 镜像。
+
+- **发布失败？**
+  检查 Git 工作区是否干净、网络是否畅通、Maven 配置是否正确。
 
 ## 许可证
 
