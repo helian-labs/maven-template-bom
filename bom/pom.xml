@@ -19,7 +19,7 @@
     <groupId>com.helian</groupId>
     <artifactId>bom</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <name>Project Bill of Materials</name>
 
@@ -40,12 +40,12 @@
             <dependency>
                 <groupId>com.helian</groupId>
                 <artifactId>module1</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>1.0.0</version>
             </dependency>
             <dependency>
                 <groupId>com.helian</groupId>
                 <artifactId>module2</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>1.0.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -115,5 +115,19 @@
             </build>
         </profile>
     </profiles>
+
+    <!-- 发布配置 -->
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/helian-labs/maven-template-bom</url>
+        </repository>
+        <snapshotRepository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/helian-labs/maven-template-bom</url>
+        </snapshotRepository>
+    </distributionManagement>
 
 </project>
