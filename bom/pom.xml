@@ -19,7 +19,7 @@
     <groupId>com.helian</groupId>
     <artifactId>bom</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.0.0-SNAPSHOT</version>
 
     <name>Project Bill of Materials</name>
 
@@ -40,12 +40,12 @@
             <dependency>
                 <groupId>com.helian</groupId>
                 <artifactId>module1</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>com.helian</groupId>
                 <artifactId>module2</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
