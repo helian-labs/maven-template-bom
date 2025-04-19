@@ -38,4 +38,4 @@
 
 ## 归因
 
-本行为准则改编自[贡献者公约](https://www.contributor-covenant.org)，版本 2.0，网址为https://www.contributor-covenant.org/version/2/0/code_of_conduct.html。
+本行为准则改编自[贡献者公约](https://www.contributor-covenant.org)，版本 2.0，网址为<https://www.contributor-covenant.org/version/2/0/code_of_conduct.html。>

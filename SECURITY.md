@@ -18,7 +18,7 @@
 1. **请勿公开披露潜在的安全漏洞**
 2. 请通过以下方式报告安全漏洞：
    - 发送邮件至 [larryqi.sh@gmail.com](mailto:larryqi.sh@gmail.com)
-   - 邮件主题请包含 "[安全漏洞][maven-template-bom]" 前缀
+   - 邮件主题请包含 "`[安全漏洞][maven-template-bom]`" 前缀
    - 详细描述漏洞情况，包括：
      - 受影响的版本
      - 复现步骤
