@@ -28,7 +28,7 @@ jobs:
         java: [ '17', '21' ]
       fail-fast: false
     name: Java ${{ matrix.java }} 构建
-    
+
     steps:
     - name: 检出代码
       uses: actions/checkout@v4
@@ -37,21 +37,25 @@ jobs:
 
     - name: Install all modules
       run: ./mvnw install -B
-    
+
     - name: 设置 JDK ${{ matrix.java }}
       uses: actions/setup-java@v4
       with:
         java-version: ${{ matrix.java }}
         distribution: 'temurin'
         cache: maven
-    
+
     - name: Maven 构建与验证
       run: ./mvnw clean verify -B -DprocessAllModules=true
-    
+
     - name: 静态代码分析
       if: matrix.java == '17'
       run: ./mvnw -P quality spotbugs:check pmd:check checkstyle:check -B
-    
+
+    - name: 依赖安全检测
+      if: matrix.java == '17'
+      run: ./mvnw org.owasp:dependency-check-maven:check -DfailBuildOnCVSS=7
+
     - name: 上传测试结果
       if: always()
       uses: actions/upload-artifact@v4
@@ -59,13 +63,21 @@ jobs:
         name: test-results-java-${{ matrix.java }}
         path: '**/target/surefire-reports/*.xml'
         retention-days: 7
-    
+
     - name: 上传代码覆盖率报告
       if: success() && matrix.java == '17'
       uses: actions/upload-artifact@v4
       with:
         name: coverage-report
         path: '**/target/site/jacoco/'
+        retention-days: 7
+
+    - name: 上传安全报告
+      if: always() && matrix.java == '17'
+      uses: actions/upload-artifact@v4
+      with:
+        name: security-reports
+        path: '**/target/dependency-check-report.html'
         retention-days: 7
 
   release:
