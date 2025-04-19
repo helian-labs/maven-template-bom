@@ -93,6 +93,7 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>
                     <configuration>
+                        <parameters>true</parameters>
                         <release>${java.version}</release>
                         <encoding>${project.build.sourceEncoding}</encoding>
                     </configuration>
@@ -298,6 +299,7 @@
             </plugins>
         </pluginManagement>
 
+        <!-- 插件配置 -->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -373,9 +375,10 @@
     <!-- 开发者信息 -->
     <developers>
         <developer>
-            <id>zhycn</id>
-            <name>Larry Qi</name>
+            <id>helian-team</id>
+            <name>Helian Team</name>
             <email>larryqi.sh@gmail.com</email>
+            <url>https://github.com/helian-labs</url>
             <organization>Helian Labs</organization>
             <organizationUrl>https://github.com/helian-labs</organizationUrl>
             <roles>

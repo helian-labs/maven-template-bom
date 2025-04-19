@@ -1,7 +1,7 @@
 #!/bin/bash
 # 项目测试脚本
 # 版本号: 1.0.0
-# 用法: ./scripts/test.sh [unit|integration|coverage]
+# 用法: ./scripts/test.sh [unit|integration|coverage|all]
 
 # 引入通用库
 source "$(dirname "$0")/lib/common.sh"
