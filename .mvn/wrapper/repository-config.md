@@ -153,6 +153,18 @@
                         <enabled>false</enabled>
                     </snapshots>
                 </pluginRepository>
+
+                <pluginRepository>
+                    <id>aliyun</id>
+                    <name>Aliyun Maven</name>
+                    <url>https://maven.aliyun.com/repository/public</url>
+                    <releases>
+                        <enabled>true</enabled>
+                    </releases>
+                    <snapshots>
+                        <enabled>false</enabled>
+                    </snapshots>
+                </pluginRepository>
             </pluginRepositories>
         </profile>
     </profiles>
@@ -188,7 +200,7 @@
 
 ## 最佳实践
 
-在项目中使用 Aliyun 仓库配置，可提高下载效率：
+在项目中使用阿里云镜像仓库，可以提升国内访问速度：
 
 ```xml
     <repositories>
@@ -206,7 +218,8 @@
     </repositories>
     <pluginRepositories>
         <pluginRepository>
-            <id>aliyun-plugins</id>
+            <id>aliyun</id>
+            <name>Aliyun Maven</name>
             <url>https://maven.aliyun.com/repository/public</url>
             <releases>
                 <enabled>true</enabled>
