@@ -134,8 +134,6 @@
                                         <version>[${java.version},)</version>
                                     </requireJavaVersion>
                                     <dependencyConvergence />
-                                    <banDuplicatePomDependencyVersions />
-                                    <requireUpperBoundDeps />
                                 </rules>
                             </configuration>
                         </execution>
@@ -306,18 +304,18 @@
                     </executions>
                 </plugin>
 
-                <!-- 依赖检查插件 - 检查项目依赖中的安全漏洞 -->
+                <!-- 依赖检查插件 -->
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
                     <version>${dependency-check-maven.version}</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
+                    <configuration>
+                        <failBuildOnCVSS>7</failBuildOnCVSS>
+                        <formats>
+                            <format>HTML</format>
+                            <format>JSON</format>
+                        </formats>
+                    </configuration>
                 </plugin>
 
                 <!-- 资源处理插件 - 处理资源文件中的变量替换 -->

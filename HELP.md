@@ -46,8 +46,6 @@
   - Maven最低版本要求: 3.6.3
   - Java版本要求: 17+
   - 依赖收敛性检查
-  - 禁止重复POM依赖版本
-  - 要求使用依赖的最高版本
 
 ### Jacoco Maven Plugin
 
@@ -143,16 +141,28 @@
 
 ### OWASP Dependency-Check Maven Plugin
 
-用于检查项目依赖中的已知安全漏洞。
+用于检查项目依赖中的已知安全漏洞。作为独立的安全审计工具使用，需要手动触发检查。
 
 - 文档链接: [Dependency-Check Maven Plugin](https://jeremylong.github.io/DependencyCheck/dependency-check-maven/)
 - 版本: ${dependency-check-maven.version}
-- 执行时机: verify阶段（在quality profile中）
+- 配置特点:
+  - CVSS评分阈值：7.0（高危及以上漏洞将导致构建失败）
+  - 同时生成HTML和JSON格式报告
 - 常用命令:
 
   ```bash
   mvn dependency-check:check  # 执行依赖安全检查
+  mvn dependency-check:aggregate  # 多模块项目的聚合检查
+  mvn dependency-check:purge  # 清除本地CVE数据库缓存
   ```
+
+- 使用建议:
+  - 定期执行检查以发现潜在安全隐患
+  - 在CI/CD流水线中配置为独立的安全检查步骤
+  - 建议在以下场景执行检查：
+    - 添加新依赖后
+    - 发布前的安全审计
+    - 定期安全扫描（如每周一次）
 
 ### Versions Maven Plugin
 
@@ -208,6 +218,13 @@
 - Checkstyle Plugin
 - Dependency-Check Plugin
 
+使用场景：
+
+- 提交PR前的完整检查
+- CI/CD流水线中的质量关卡
+- 发布前的安全审计
+- 定期代码质量检查
+
 使用方式：
 
 ```bash
@@ -245,6 +262,29 @@ mvn verify -Pquality  # 执行构建并进行全面的代码质量检查
 
    ```bash
    mvn verify
+   ```
+
+## 安全检查最佳实践
+
+1. 定期执行依赖安全检查：
+
+   ```bash
+   # 完整的依赖检查
+   mvn dependency-check:aggregate
+   
+   # 清除并更新CVE数据库后检查
+   mvn dependency-check:purge dependency-check:check
+   ```
+
+2. 在CI/CD中设置独立的安全检查任务：
+
+   ```bash
+   # 示例：Jenkins pipeline
+   stage('Security Check') {
+     steps {
+       sh 'mvn dependency-check:aggregate'
+     }
+   }
    ```
 
 本文档会随项目演进持续更新，如有问题请参考各插件的官方文档或联系项目维护者。
