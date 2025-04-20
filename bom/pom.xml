@@ -53,7 +53,7 @@
 
     <!--
         注意：由于此模块不继承父POM，需要在此处添加其他必要的配置节点，例如：
-        - distributionManagement（分发管理） - 已移除
+        - distributionManagement（分发管理）
         - repositories（仓库配置）
         - 其他项目所需的配置信息
     -->
