@@ -78,12 +78,12 @@
             </dependency>
             <!-- 测试依赖 - JUnit 5系列组件 -->
             <dependency>
-            <groupId>org.junit</groupId>
-            <artifactId>junit-bom</artifactId>
-            <version>${junit.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -134,8 +134,8 @@
                                         <version>[${java.version},)</version>
                                     </requireJavaVersion>
                                     <dependencyConvergence />
-                                    <banDuplicatePomDependencyVersions/>
-                                    <requireUpperBoundDeps/>
+                                    <banDuplicatePomDependencyVersions />
+                                    <requireUpperBoundDeps />
                                 </rules>
                             </configuration>
                         </execution>
