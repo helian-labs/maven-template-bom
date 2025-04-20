@@ -32,6 +32,11 @@
         <spotbugs-maven-plugin.version>4.9.3.0</spotbugs-maven-plugin.version>
         <spotless-maven-plugin.version>2.44.4</spotless-maven-plugin.version>
         <flatten-maven-plugin.version>1.7.0</flatten-maven-plugin.version>
+        <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+        <maven-javadoc-plugin.version>3.11.2</maven-javadoc-plugin.version>
+        <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
+        <nexus-staging-maven-plugin.version>1.7.0</nexus-staging-maven-plugin.version>
+        <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
 
         <!-- 发布仓库URL - 支持发布到Maven中央仓库 -->
         <maven-central-snapshots-url>https://s01.oss.sonatype.org/content/repositories/snapshots</maven-central-snapshots-url>
@@ -140,8 +145,6 @@
             </build>
         </profile>
 
-
-
         <!-- 添加扁平化版本插件配置，处理revision变量 -->
         <profile>
             <id>flatten</id>
@@ -178,6 +181,96 @@
                 </plugins>
             </build>
         </profile>
+
+        <!-- 发布配置profile - 用于发布构件到仓库 -->
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!-- 源码插件 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>${maven-source-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- JavaDoc插件 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven-javadoc-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- GPG签名插件 - 对构件进行数字签名，Maven中央仓库发布必需 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <!-- 可选配置：指定GPG密钥ID -->
+                                    <!-- <keyname>${gpg.keyname}</keyname> -->
+                                    <!-- 可选GPG参数设置 -->
+                                    <!-- <gpgArguments>
+                                        <arg>-dash-dash-pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                    </gpgArguments> -->
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Nexus暂存仓库插件 - 用于发布到Maven中央仓库的流程管理 -->
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>${nexus-staging-maven-plugin.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+
+                    <!-- 版本管理插件 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <version>${maven-release-plugin.version}</version>
+                        <configuration>
+                            <autoVersionSubmodules>true</autoVersionSubmodules>
+                            <useReleaseProfile>false</useReleaseProfile>
+                            <releaseProfiles>release</releaseProfiles>
+                            <goals>deploy</goals>
+                            <tagNameFormat>v@{project.version}</tagNameFormat>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
     </profiles>
 
     <!-- 发布配置 - 默认发布到GitHub Packages -->
@@ -193,5 +286,38 @@
             <url>https://maven.pkg.github.com/helian-labs/maven-template-bom</url>
         </snapshotRepository>
     </distributionManagement>
+
+    <!-- 许可证信息 -->
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+        </license>
+    </licenses>
+
+    <!-- 源码管理 -->
+    <scm>
+        <url>https://github.com/helian-labs/maven-template-bom</url>
+        <connection>scm:git:git@github.com:helian-labs/maven-template-bom.git</connection>
+        <developerConnection>scm:git:git@github.com:helian-labs/maven-template-bom.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
+    <!-- 开发者信息 -->
+    <developers>
+        <developer>
+            <id>helian-team</id>
+            <name>Helian Team</name>
+            <email>larryqi.sh@gmail.com</email>
+            <url>https://github.com/helian-labs</url>
+            <organization>Helian Labs</organization>
+            <organizationUrl>https://github.com/helian-labs</organizationUrl>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <timezone>Asia/Shanghai</timezone>
+        </developer>
+    </developers>
 
 </project>
