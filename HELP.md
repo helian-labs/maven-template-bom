@@ -191,6 +191,7 @@
 ## 项目构建配置
 
 ### 默认激活的插件
+
 - Maven Compiler Plugin
 - Maven Enforcer Plugin
 - Jacoco Maven Plugin
@@ -198,7 +199,9 @@
 ### 可选Profile
 
 #### quality
+
 激活额外的代码质量和安全检查插件：
+
 - Spotless Plugin
 - Spotbugs Plugin
 - PMD Plugin
@@ -206,33 +209,40 @@
 - Dependency-Check Plugin
 
 使用方式：
+
 ```bash
 mvn verify -Pquality  # 执行构建并进行全面的代码质量检查
 ```
 
 #### flatten
+
 用于处理版本变量（默认激活）：
+
 - Flatten Maven Plugin
 
 ## 最佳实践
 
 1. 在提交代码前运行完整的质量检查：
+
    ```bash
    mvn clean verify -Pquality
    ```
 
 2. 保持代码格式统一：
+
    ```bash
    mvn spotless:apply
    ```
 
 3. 定期检查依赖更新和安全漏洞：
+
    ```bash
    mvn versions:display-dependency-updates
    mvn dependency-check:check
    ```
 
 4. 确保测试覆盖率达标：
+
    ```bash
    mvn verify
    ```
