@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- 
+    <!--
     Module2 - 应用层模块
-    
+
     职责：
     - 实现特定业务场景的应用逻辑
     - 依赖module1提供的基础功能
-    
+
     架构位置：
     - 继承父POM以获取通用配置
     - 依赖module1，处于依赖层次的最上层
@@ -19,7 +19,7 @@
     <parent>
         <groupId>com.helian</groupId>
         <artifactId>bom-example-project</artifactId>
-        <version>1.0.0-SNAPSHOT</version>
+        <version>${revision}</version>
     </parent>
 
     <!-- 模块基本信息 -->
@@ -28,13 +28,26 @@
 
     <!-- 模块依赖配置 -->
     <dependencies>
+        <!-- 模块依赖 -->
         <dependency>
             <groupId>com.helian</groupId>
             <artifactId>module1</artifactId>
         </dependency>
+
+        <!-- 测试依赖 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
