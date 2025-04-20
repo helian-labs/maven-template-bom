@@ -28,10 +28,10 @@
         <!-- 版本管理 - 与父项目保持一致 -->
         <revision>1.0.0-SNAPSHOT</revision>
 
-        <!-- 插件版本 -->
+        <!-- 插件版本 - 集中管理提高一致性和升级便捷性 -->
         <spotbugs-maven-plugin.version>4.9.3.0</spotbugs-maven-plugin.version>
         <spotless-maven-plugin.version>2.44.4</spotless-maven-plugin.version>
-        <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
+        <flatten-maven-plugin.version>1.7.0</flatten-maven-plugin.version>
 
         <!-- 发布仓库URL - 支持发布到Maven中央仓库 -->
         <maven-central-snapshots-url>https://s01.oss.sonatype.org/content/repositories/snapshots</maven-central-snapshots-url>
@@ -68,6 +68,22 @@
 
     <!-- 添加质量检查 profile -->
     <profiles>
+        <!-- 发布到Maven中央仓库的profile配置 -->
+        <profile>
+            <id>central</id>
+            <!-- 激活该profile时使用Maven中央仓库发布地址 -->
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>${maven-central-snapshots-url}</url>
+                </snapshotRepository>
+                <repository>
+                    <id>ossrh</id>
+                    <url>${maven-central-staging-url}</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+
         <profile>
             <id>quality</id>
             <build>
@@ -124,6 +140,8 @@
             </build>
         </profile>
 
+
+
         <!-- 添加扁平化版本插件配置，处理revision变量 -->
         <profile>
             <id>flatten</id>
@@ -159,22 +177,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-
-        <!-- 发布到Maven中央仓库的profile配置 -->
-        <profile>
-            <id>central</id>
-            <!-- 激活该profile时使用Maven中央仓库发布地址 -->
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>ossrh</id>
-                    <url>${maven-central-snapshots-url}</url>
-                </snapshotRepository>
-                <repository>
-                    <id>ossrh</id>
-                    <url>${maven-central-staging-url}</url>
-                </repository>
-            </distributionManagement>
         </profile>
     </profiles>
 

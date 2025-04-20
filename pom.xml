@@ -62,9 +62,9 @@
         <versions-maven-plugin.version>2.18.0</versions-maven-plugin.version>
         <dependency-check-maven.version>12.1.1</dependency-check-maven.version>
         <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
-        <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
-        <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
-        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+        <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
+        <flatten-maven-plugin.version>1.7.0</flatten-maven-plugin.version>
+        <nexus-staging-maven-plugin.version>1.7.0</nexus-staging-maven-plugin.version>
         <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
 
         <!-- 发布仓库URL - 支持发布到Maven中央仓库 -->
@@ -167,7 +167,15 @@
                             </goals>
                         </execution>
                         <execution>
+                            <id>report</id>
+                            <phase>test</phase>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                        <execution>
                             <id>jacoco-check</id>
+                            <phase>verify</phase>
                             <goals>
                                 <goal>check</goal>
                             </goals>
