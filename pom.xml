@@ -83,28 +83,14 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
             <!-- 测试依赖 - JUnit 5系列组件 -->
             <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-api</artifactId>
-                <version>${junit.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <!-- JUnit测试引擎 - 运行测试的必要组件 -->
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-engine</artifactId>
-                <version>${junit.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <!-- JUnit参数化测试支持 - 用于数据驱动测试 -->
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-params</artifactId>
-                <version>${junit.version}</version>
-                <scope>test</scope>
-            </dependency>
+            <groupId>org.junit</groupId>
+            <artifactId>junit-bom</artifactId>
+            <version>${junit.version}</version>
+            <type>pom</type>
+            <scope>import</scope>
+        </dependency>
         </dependencies>
     </dependencyManagement>
 
