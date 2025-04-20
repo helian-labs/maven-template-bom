@@ -16,6 +16,8 @@
     - 被module2依赖，但自身不依赖其他业务模块
     - 版本由BOM模块统一管理
     -->
+
+    <!-- 父模块引用 - 继承通用配置 -->
     <parent>
         <groupId>com.helian</groupId>
         <artifactId>bom-example-project</artifactId>
@@ -25,10 +27,11 @@
     <!-- 模块基本信息 -->
     <artifactId>module1</artifactId>
     <name>Project Module 1</name>
+    <description>基础功能模块，提供核心业务逻辑和服务</description>
 
     <!-- 模块依赖配置 -->
     <dependencies>
-        <!-- 测试依赖 -->
+        <!-- 测试依赖 - 使用JUnit 5全套组件 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
