@@ -103,7 +103,7 @@ jobs:
 
     - name: 从标签提取版本号
       id: get_version
-      run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/v}
+      run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
 
     - name: 设置项目版本
       run: ./mvnw versions:set -DnewVersion=${{ steps.get_version.outputs.VERSION }} -DprocessAllModules=true -DgenerateBackupPoms=false
