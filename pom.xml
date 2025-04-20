@@ -4,14 +4,14 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- 
+    <!--
     父POM - 项目聚合器
-    
+
     职责：
     - 作为项目的聚合器，管理所有子模块
     - 提供通用的构建配置和插件管理
     - 导入BOM模块，实现依赖版本的统一管理
-    
+
     架构位置：
     - 导入BOM模块的依赖管理
     - 被module1和module2继承，为它们提供通用配置
@@ -20,7 +20,7 @@
     <!-- 项目基本信息 -->
     <groupId>com.helian</groupId>
     <artifactId>bom-example-project</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>${revision}</version>
     <packaging>pom</packaging>
 
     <name>Project Top Level</name>
@@ -36,6 +36,9 @@
 
     <!-- 项目属性 -->
     <properties>
+        <!-- 版本管理 - 使用单一变量控制所有模块版本 -->
+        <revision>1.0.0-SNAPSHOT</revision>
+
         <!-- 基础配置 -->
         <java.version>17</java.version>
         <maven.min.version>3.6.3</maven.min.version>
@@ -45,7 +48,7 @@
         <!-- 依赖版本 -->
         <junit.version>5.12.2</junit.version>
 
-        <!-- 插件版本 -->
+        <!-- 插件版本 - 集中管理提高一致性和升级便捷性 -->
         <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
         <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
         <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
@@ -57,37 +60,59 @@
         <spotbugs-maven-plugin.version>4.9.3.0</spotbugs-maven-plugin.version>
         <spotless-maven-plugin.version>2.44.4</spotless-maven-plugin.version>
         <versions-maven-plugin.version>2.18.0</versions-maven-plugin.version>
-        <dependency-check-maven.version>12.1.1</dependency-check-maven.version> <!-- 使用一个较新的稳定版本 -->
-        <maven-release-plugin.version>3.1.1</maven-release-plugin.version> <!-- 使用一个较新的稳定版本 -->
+        <dependency-check-maven.version>12.1.1</dependency-check-maven.version>
+        <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
+        <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
+        <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
+        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
+
+        <!-- 发布仓库URL - 支持发布到Maven中央仓库 -->
+        <maven-central-snapshots-url>https://s01.oss.sonatype.org/content/repositories/snapshots</maven-central-snapshots-url>
+        <maven-central-staging-url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</maven-central-staging-url>
     </properties>
 
-    <!-- 依赖管理 -->
+    <!-- 依赖管理 - 控制整个项目的依赖版本 -->
     <dependencyManagement>
         <dependencies>
-            <!-- 导入BOM -->
+            <!-- 导入BOM - 实现依赖版本的集中管理 -->
             <dependency>
                 <groupId>com.helian</groupId>
                 <artifactId>bom</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>${revision}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
 
-            <!-- 测试依赖 -->
+            <!-- 测试依赖 - JUnit 5系列组件 -->
             <dependency>
                 <groupId>org.junit.jupiter</groupId>
                 <artifactId>junit-jupiter-api</artifactId>
                 <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
+            <!-- JUnit测试引擎 - 运行测试的必要组件 -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-engine</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <!-- JUnit参数化测试支持 - 用于数据驱动测试 -->
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-params</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
-    <!-- 构建配置 -->
+    <!-- 构建配置 - 定义项目构建过程中使用的插件和规则 -->
     <build>
         <pluginManagement>
             <plugins>
-                <!-- 编译插件 - 核心必需 -->
+                <!-- 编译插件 - 控制Java代码的编译过程和选项 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
@@ -96,17 +121,26 @@
                         <parameters>true</parameters>
                         <release>${java.version}</release>
                         <encoding>${project.build.sourceEncoding}</encoding>
+                        <compilerArgs>
+                            <arg>-Xlint:all</arg>
+                            <arg>-Werror</arg>
+                        </compilerArgs>
                     </configuration>
                 </plugin>
 
-                <!-- 测试插件 - 核心必需 -->
+                <!-- 测试插件 - 运行单元测试 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>${maven-surefire-plugin.version}</version>
+                    <configuration>
+                        <includes>
+                            <include>**/*Test.java</include>
+                        </includes>
+                    </configuration>
                 </plugin>
 
-                <!-- 规则强制插件 - 推荐保留 -->
+                <!-- 规则强制插件 - 确保构建环境满足一系列前置条件 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-enforcer-plugin</artifactId>
@@ -126,13 +160,15 @@
                                         <version>[${java.version},)</version>
                                     </requireJavaVersion>
                                     <dependencyConvergence />
+                                    <banDuplicatePomDependencyVersions/>
+                                    <requireUpperBoundDeps/>
                                 </rules>
                             </configuration>
                         </execution>
                     </executions>
                 </plugin>
 
-                <!-- 代码覆盖率插件 - 可选 -->
+                <!-- 代码覆盖率插件 - 测量测试覆盖率并强制最低覆盖率标准 -->
                 <plugin>
                     <groupId>org.jacoco</groupId>
                     <artifactId>jacoco-maven-plugin</artifactId>
@@ -145,16 +181,29 @@
                             </goals>
                         </execution>
                         <execution>
-                            <id>report</id>
-                            <phase>verify</phase>
+                            <id>jacoco-check</id>
                             <goals>
-                                <goal>report</goal>
+                                <goal>check</goal>
                             </goals>
+                            <configuration>
+                                <rules>
+                                    <rule>
+                                        <element>PACKAGE</element>
+                                        <limits>
+                                            <limit>
+                                                <counter>LINE</counter>
+                                                <value>COVEREDRATIO</value>
+                                                <minimum>0.80</minimum>
+                                            </limit>
+                                        </limits>
+                                    </rule>
+                                </rules>
+                            </configuration>
                         </execution>
                     </executions>
                 </plugin>
 
-                <!-- 源码插件 - 发布必需 -->
+                <!-- 源码插件 - 为构建生成源码jar包，Maven中央仓库发布必需 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-source-plugin</artifactId>
@@ -169,7 +218,7 @@
                     </executions>
                 </plugin>
 
-                <!-- JavaDoc插件 - 发布必需 -->
+                <!-- JavaDoc插件 - 生成API文档并打包，Maven中央仓库发布必需 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
@@ -184,14 +233,14 @@
                     </executions>
                 </plugin>
 
-                <!-- 版本管理插件 - 可选 -->
+                <!-- 版本管理插件 - 用于批量更新依赖版本和检查过时依赖 -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
                     <version>${versions-maven-plugin.version}</version>
                 </plugin>
 
-                <!-- Spotless插件 -->
+                <!-- Spotless插件 - 代码格式化和风格检查 -->
                 <plugin>
                     <groupId>com.diffplug.spotless</groupId>
                     <artifactId>spotless-maven-plugin</artifactId>
@@ -224,7 +273,7 @@
                     </executions>
                 </plugin>
 
-                <!-- Spotbugs插件 -->
+                <!-- Spotbugs插件 - 静态代码分析工具，查找潜在bug -->
                 <plugin>
                     <groupId>com.github.spotbugs</groupId>
                     <artifactId>spotbugs-maven-plugin</artifactId>
@@ -240,7 +289,7 @@
                     </executions>
                 </plugin>
 
-                <!-- PMD插件 -->
+                <!-- PMD插件 - 静态代码分析工具，检查代码质量问题 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-pmd-plugin</artifactId>
@@ -256,7 +305,7 @@
                     </executions>
                 </plugin>
 
-                <!-- Checkstyle插件 -->
+                <!-- Checkstyle插件 - 检查代码风格是否符合规范 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-checkstyle-plugin</artifactId>
@@ -275,7 +324,7 @@
                     </executions>
                 </plugin>
 
-                <!-- 依赖检查插件 -->
+                <!-- 依赖检查插件 - 检查项目依赖中的安全漏洞 -->
                 <plugin>
                     <groupId>org.owasp</groupId>
                     <artifactId>dependency-check-maven</artifactId>
@@ -289,17 +338,29 @@
                     </executions>
                 </plugin>
 
-                <!-- 发布插件 -->
+                <!-- 发布插件 - 简化发布流程，自动处理版本号和标签 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
                     <version>${maven-release-plugin.version}</version>
                 </plugin>
 
+                <!-- 资源处理插件 - 处理资源文件中的变量替换 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-resources-plugin</artifactId>
+                    <version>${maven-resources-plugin.version}</version>
+                    <configuration>
+                        <delimiters>
+                            <delimiter>@</delimiter>
+                        </delimiters>
+                        <useDefaultDelimiters>false</useDefaultDelimiters>
+                    </configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
 
-        <!-- 插件配置 -->
+        <!-- 默认激活的插件 - 对所有模块生效 -->
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -316,8 +377,25 @@
         </plugins>
     </build>
 
-    <!-- 质量检查 profile -->
+    <!-- 构建profile配置 - 针对不同场景的构建配置 -->
     <profiles>
+        <!-- 发布到Maven中央仓库的profile配置 -->
+        <profile>
+            <id>central</id>
+            <!-- 激活该profile时使用Maven中央仓库发布地址 -->
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>ossrh</id>
+                    <url>${maven-central-snapshots-url}</url>
+                </snapshotRepository>
+                <repository>
+                    <id>ossrh</id>
+                    <url>${maven-central-staging-url}</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+
+        <!-- 质量检查profile - 用于激活代码质量和安全检查插件 -->
         <profile>
             <id>quality</id>
             <build>
@@ -346,17 +424,115 @@
                         <artifactId>maven-checkstyle-plugin</artifactId>
                     </plugin>
 
-                    <!-- 激活依赖检查插件 -->
-                     <plugin>
-                         <groupId>org.owasp</groupId>
-                         <artifactId>dependency-check-maven</artifactId>
-                     </plugin>
+                    <!-- 依赖检查插件 -->
+                    <plugin>
+                        <groupId>org.owasp</groupId>
+                        <artifactId>dependency-check-maven</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <!-- 发布配置profile - 用于发布构件到仓库 -->
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!-- 源码插件 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                    </plugin>
+
+                    <!-- JavaDoc插件 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                    </plugin>
+
+                    <!-- GPG签名插件 - 对构件进行数字签名，Maven中央仓库发布必需 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                                <configuration>
+                                    <!-- 可选配置：指定GPG密钥ID -->
+                                    <!-- <keyname>${gpg.keyname}</keyname> -->
+                                    <!-- 可选GPG参数设置 -->
+                                    <!-- <gpgArguments>
+                                        <arg>-dash-dash-pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                    </gpgArguments> -->
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <!-- Nexus暂存仓库插件 - 用于发布到Maven中央仓库的流程管理 -->
+                    <plugin>
+                        <groupId>org.sonatype.plugins</groupId>
+                        <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>${nexus-staging-maven-plugin.version}</version>
+                        <extensions>true</extensions>
+                        <configuration>
+                            <serverId>ossrh</serverId>
+                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                        </configuration>
+                    </plugin>
+
+                    <!-- 版本管理插件 -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <configuration>
+                            <autoVersionSubmodules>true</autoVersionSubmodules>
+                            <useReleaseProfile>false</useReleaseProfile>
+                            <releaseProfiles>release</releaseProfiles>
+                            <goals>deploy</goals>
+                            <tagNameFormat>v@{project.version}</tagNameFormat>
+                        </configuration>
+                    </plugin>
+
+                    <!-- 扁平化版本插件 - 简化多模块项目中的版本表示 -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>flatten-maven-plugin</artifactId>
+                        <version>${flatten-maven-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>flatten</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>flatten</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>flatten.clean</id>
+                                <phase>clean</phase>
+                                <goals>
+                                    <goal>clean</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <updatePomFile>true</updatePomFile>
+                            <flattenMode>resolveCiFriendliesOnly</flattenMode>
+                        </configuration>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
     </profiles>
 
-    <!-- 许可证信息 -->
+    <!-- 许可证信息 - 明确项目的开源许可类型 -->
     <licenses>
         <license>
             <name>Apache License 2.0</name>
@@ -364,7 +540,7 @@
         </license>
     </licenses>
 
-    <!-- 源码管理 -->
+    <!-- 源码管理 - 指定代码仓库位置，用于release插件 -->
     <scm>
         <url>https://github.com/helian-labs/maven-template-bom</url>
         <connection>scm:git:git@github.com:helian-labs/maven-template-bom.git</connection>
@@ -372,7 +548,7 @@
         <tag>HEAD</tag>
     </scm>
 
-    <!-- 开发者信息 -->
+    <!-- 开发者信息 - 项目维护者信息，Maven中央仓库发布必需 -->
     <developers>
         <developer>
             <id>helian-team</id>
@@ -389,8 +565,9 @@
         </developer>
     </developers>
 
-    <!-- 发布配置 -->
+    <!-- 发布配置 - 默认发布到GitHub Packages -->
     <distributionManagement>
+        <!-- 默认发布到GitHub Packages -->
         <repository>
             <id>github</id>
             <name>GitHub Packages</name>
