@@ -1,5 +1,2 @@
-/**
- * This package contains the basic functional modules for the helian project. Provides core business
- * logic and services.
- */
+/** 包含项目的基础功能模块，提供核心业务逻辑和服务。 */
 package com.helian;

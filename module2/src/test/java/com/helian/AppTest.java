@@ -2,23 +2,26 @@ package com.helian;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-/** 单元测试 App 类 */
+/** App类的单元测试 */
 public class AppTest {
 
-  /** 测试 App 类的 main 方法能否正常执行 */
+  /** 测试main方法能否正常执行 */
   @Test
+  @DisplayName("测试main方法能否正常执行")
   public void testAppMain() {
-    // 验证 main 方法能否正常执行而不抛出异常
+    // 验证main方法能正常执行不抛出异常
     App.main(new String[] {});
     assertTrue(true);
   }
 
-  /** 测试 App 是否能正确使用 Speaker */
+  /** 测试App对Speaker的使用 */
   @Test
+  @DisplayName("测试App对Speaker的使用")
   public void testAppUsesSpeaker() {
     Speaker speaker = new Speaker();
-    assertNotNull(speaker.speak(), "Speaker 应该返回一条消息");
+    assertNotNull(speaker.speak(), "Speaker应该返回一条消息");
   }
 }

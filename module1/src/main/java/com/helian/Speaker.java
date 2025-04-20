@@ -4,9 +4,9 @@ package com.helian;
 public class Speaker {
 
   /**
-   * 返回一个简单的问候语字符串。
+   * 返回一个问候语字符串。
    *
-   * @return 问候语字符串 "Here I am!"。
+   * @return 问候语字符串
    */
   public String speak() {
     return "Here I am!";
