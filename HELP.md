@@ -1,14 +1,15 @@
 # 项目帮助文档
 
-此文档包含项目中使用的主要插件的链接和简要说明。
+此文档包含项目中使用的主要插件的链接和简要说明。本项目采用了最新的Maven构建实践，集成了代码质量、安全检查、测试覆盖等多个维度的工具链。
 
 ## 插件列表
 
 ### Maven Compiler Plugin
 
-用于编译Java代码。
+用于编译Java代码，支持Java 17及更高版本。
 
 - 文档链接: [Maven Compiler Plugin](https://maven.apache.org/plugins/maven-compiler-plugin/)
+- 版本: ${maven-compiler-plugin.version}
 - 常用命令:
 
   ```bash
@@ -16,26 +17,18 @@
   mvn compiler:testCompile  # 编译测试代码
   ```
 
-- 配置示例:
-
-  ```xml
-  <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-compiler-plugin</artifactId>
-    <version>3.10.1</version>
-    <configuration>
-      <source>17</source>
-      <target>17</target>
-      <encoding>UTF-8</encoding>
-    </configuration>
-  </plugin>
-  ```
+- 配置特点:
+  - 启用参数名保留
+  - 开启所有警告(-Xlint:all)
+  - 将警告视为错误(-Werror)
+  - UTF-8编码
 
 ### Maven Surefire Plugin
 
-用于运行单元测试。
+用于运行单元测试，支持JUnit 5。
 
 - 文档链接: [Maven Surefire Plugin](https://maven.apache.org/surefire/maven-surefire-plugin/)
+- 版本: ${maven-surefire-plugin.version}
 - 常用命令:
 
   ```bash
@@ -43,228 +36,74 @@
   mvn test -Dtest=TestClass  # 运行特定测试类
   ```
 
-- 配置示例:
-
-  ```xml
-  <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-surefire-plugin</artifactId>
-    <version>3.0.0</version>
-    <configuration>
-      <includes>
-        <include>**/*Test.java</include>
-      </includes>
-      <excludes>
-        <exclude>**/*IntegrationTest.java</exclude>
-      </excludes>
-    </configuration>
-  </plugin>
-  ```
-
 ### Maven Enforcer Plugin
 
-用于强制执行项目的构建规则。
+用于强制执行项目的构建规则和环境要求。
 
 - 文档链接: [Maven Enforcer Plugin](https://maven.apache.org/enforcer/maven-enforcer-plugin/)
-- 常用命令:
-
-  ```bash
-  mvn enforcer:enforce  # 执行规则检查
-  ```
-
-- 配置示例:
-
-  ```xml
-  <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-enforcer-plugin</artifactId>
-    <version>3.2.1</version>
-    <executions>
-      <execution>
-        <id>enforce-rules</id>
-        <goals>
-          <goal>enforce</goal>
-        </goals>
-        <configuration>
-          <rules>
-            <requireMavenVersion>
-              <version>[3.8.0,)</version>
-            </requireMavenVersion>
-            <requireJavaVersion>
-              <version>[17,)</version>
-            </requireJavaVersion>
-            <bannedDependencies>
-              <excludes>
-                <exclude>commons-logging:commons-logging</exclude>
-              </excludes>
-            </bannedDependencies>
-          </rules>
-        </configuration>
-      </execution>
-    </executions>
-  </plugin>
-  ```
+- 版本: ${maven-enforcer-plugin.version}
+- 强制规则:
+  - Maven最低版本要求: 3.6.3
+  - Java版本要求: 17+
+  - 依赖收敛性检查
 
 ### Jacoco Maven Plugin
 
-用于生成代码覆盖率报告。
+用于生成代码覆盖率报告，并强制执行覆盖率标准。
 
 - 文档链接: [Jacoco Maven Plugin](https://www.jacoco.org/jacoco/trunk/doc/maven.html)
+- 版本: ${jacoco-maven-plugin.version}
+- 覆盖率要求:
+  - 行覆盖率最低要求: 80%
 - 常用命令:
 
   ```bash
-  mvn jacoco:prepare-agent test jacoco:report  # 生成覆盖率报告
-  ```
-
-- 配置示例:
-
-  ```xml
-  <plugin>
-    <groupId>org.jacoco</groupId>
-    <artifactId>jacoco-maven-plugin</artifactId>
-    <version>0.8.8</version>
-    <executions>
-      <execution>
-        <id>prepare-agent</id>
-        <goals>
-          <goal>prepare-agent</goal>
-        </goals>
-      </execution>
-      <execution>
-        <id>report</id>
-        <phase>test</phase>
-        <goals>
-          <goal>report</goal>
-        </goals>
-      </execution>
-      <execution>
-        <id>check</id>
-        <goals>
-          <goal>check</goal>
-        </goals>
-        <configuration>
-          <rules>
-            <rule>
-              <element>BUNDLE</element>
-              <limits>
-                <limit>
-                  <counter>LINE</counter>
-                  <value>COVEREDRATIO</value>
-                  <minimum>0.80</minimum>
-                </limit>
-              </limits>
-            </rule>
-          </rules>
-        </configuration>
-      </execution>
-    </executions>
-  </plugin>
+  mvn verify  # 运行测试并检查覆盖率
   ```
 
 ### Maven Source Plugin
 
-用于生成项目的源码包。
+用于生成项目的源码包，Maven中央仓库发布必需。
 
 - 文档链接: [Maven Source Plugin](https://maven.apache.org/plugins/maven-source-plugin/)
-- 常用命令:
-
-  ```bash
-  mvn source:jar  # 生成源码jar包
-  ```
-
-- 配置示例:
-
-  ```xml
-  <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-source-plugin</artifactId>
-    <version>3.2.1</version>
-    <executions>
-      <execution>
-        <id>attach-sources</id>
-        <phase>verify</phase>
-        <goals>
-          <goal>jar-no-fork</goal>
-        </goals>
-      </execution>
-    </executions>
-  </plugin>
-  ```
+- 版本: ${maven-source-plugin.version}
+- 配置特点:
+  - 自动在verify阶段生成源码jar
+  - 使用jar-no-fork目标避免重复编译
 
 ### Maven Javadoc Plugin
 
-用于生成项目的Javadoc文档。
+用于生成项目的API文档，Maven中央仓库发布必需。
 
 - 文档链接: [Maven Javadoc Plugin](https://maven.apache.org/plugins/maven-javadoc-plugin/)
+- 版本: ${maven-javadoc-plugin.version}
 - 常用命令:
 
   ```bash
-  mvn javadoc:javadoc  # 生成Javadoc
+  mvn javadoc:javadoc  # 生成HTML格式的API文档
   mvn javadoc:jar      # 生成Javadoc jar包
-  ```
-
-- 配置示例:
-
-  ```xml
-  <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-javadoc-plugin</artifactId>
-    <version>3.4.1</version>
-    <configuration>
-      <encoding>UTF-8</encoding>
-      <doclint>none</doclint>
-    </configuration>
-    <executions>
-      <execution>
-        <id>attach-javadocs</id>
-        <goals>
-          <goal>jar</goal>
-        </goals>
-      </execution>
-    </executions>
-  </plugin>
   ```
 
 ### Spotbugs Maven Plugin
 
-用于静态代码分析。
+用于静态代码分析，查找潜在的bug。
 
 - 文档链接: [Spotbugs Maven Plugin](https://spotbugs.github.io/spotbugs-maven-plugin/)
+- 版本: ${spotbugs-maven-plugin.version}
+- 执行时机: verify阶段
 - 常用命令:
 
   ```bash
-  mvn spotbugs:check  # 检查代码
-  mvn spotbugs:gui    # 启动GUI界面
-  ```
-
-- 配置示例:
-
-  ```xml
-  <plugin>
-    <groupId>com.github.spotbugs</groupId>
-    <artifactId>spotbugs-maven-plugin</artifactId>
-    <version>4.7.3.0</version>
-    <configuration>
-      <effort>Max</effort>
-      <threshold>Medium</threshold>
-      <xmlOutput>true</xmlOutput>
-      <excludeFilterFile>${project.basedir}/spotbugs-exclude.xml</excludeFilterFile>
-    </configuration>
-    <executions>
-      <execution>
-        <goals>
-          <goal>check</goal>
-        </goals>
-      </execution>
-    </executions>
-  </plugin>
+  mvn spotbugs:check  # 执行代码分析
   ```
 
 ### Maven PMD Plugin
 
-用于代码质量检查。
+用于代码质量检查，发现潜在的代码问题。
 
 - 文档链接: [Maven PMD Plugin](https://maven.apache.org/plugins/maven-pmd-plugin/)
+- 版本: ${maven-pmd-plugin.version}
+- 执行时机: verify阶段
 - 常用命令:
 
   ```bash
@@ -272,70 +111,27 @@
   mvn pmd:cpd-check   # 检查重复代码
   ```
 
-- 配置示例:
-
-  ```xml
-  <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-pmd-plugin</artifactId>
-    <version>3.19.0</version>
-    <configuration>
-      <linkXRef>false</linkXRef>
-      <sourceEncoding>UTF-8</sourceEncoding>
-      <minimumTokens>100</minimumTokens>
-      <targetJdk>17</targetJdk>
-      <excludes>
-        <exclude>**/generated/*.java</exclude>
-      </excludes>
-      <rulesets>
-        <ruleset>/category/java/bestpractices.xml</ruleset>
-      </rulesets>
-    </configuration>
-  </plugin>
-  ```
-
 ### Maven Checkstyle Plugin
 
-用于代码风格检查。
+用于确保代码风格符合Google Java Style规范。
 
 - 文档链接: [Maven Checkstyle Plugin](https://maven.apache.org/plugins/maven-checkstyle-plugin/)
-- 常用命令:
-
-  ```bash
-  mvn checkstyle:check  # 检查代码风格
-  ```
-
-- 配置示例:
-
-  ```xml
-  <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-checkstyle-plugin</artifactId>
-    <version>3.2.0</version>
-    <configuration>
-      <configLocation>google_checks.xml</configLocation>
-      <encoding>UTF-8</encoding>
-      <consoleOutput>true</consoleOutput>
-      <failsOnError>true</failsOnError>
-      <linkXRef>false</linkXRef>
-    </configuration>
-    <executions>
-      <execution>
-        <id>validate</id>
-        <phase>validate</phase>
-        <goals>
-          <goal>check</goal>
-        </goals>
-      </execution>
-    </executions>
-  </plugin>
-  ```
+- 版本: ${maven-checkstyle-plugin.version}
+- 配置特点:
+  - 使用Google代码风格检查规则
+  - 在verify阶段执行检查
 
 ### Spotless Maven Plugin
 
-用于代码格式化。
+用于代码格式化和风格统一。
 
 - 文档链接: [Spotless Maven Plugin](https://github.com/diffplug/spotless/tree/main/plugin-maven)
+- 版本: ${spotless-maven-plugin.version}
+- 功能特点:
+  - 自动整理导入语句
+  - 移除未使用的导入
+  - 应用Google Java格式化
+  - 确保行尾空白和文件结尾换行符
 - 常用命令:
 
   ```bash
@@ -343,138 +139,152 @@
   mvn spotless:apply  # 自动格式化代码
   ```
 
-- 配置示例:
+### OWASP Dependency-Check Maven Plugin
 
-  ```xml
-  <plugin>
-    <groupId>com.diffplug.spotless</groupId>
-    <artifactId>spotless-maven-plugin</artifactId>
-    <version>2.30.0</version>
-    <configuration>
-      <java>
-        <googleJavaFormat>
-          <version>1.15.0</version>
-          <style>GOOGLE</style>
-        </googleJavaFormat>
-        <removeUnusedImports />
-        <importOrder>
-          <order>java,javax,org,com,</order>
-        </importOrder>
-      </java>
-      <formats>
-        <format>
-          <includes>
-            <include>*.md</include>
-            <include>.gitignore</include>
-          </includes>
-          <trimTrailingWhitespace />
-          <endWithNewline />
-        </format>
-      </formats>
-    </configuration>
-  </plugin>
+用于检查项目依赖中的已知安全漏洞。作为独立的安全审计工具使用，需要手动触发检查。
+
+- 文档链接: [Dependency-Check Maven Plugin](https://jeremylong.github.io/DependencyCheck/dependency-check-maven/)
+- 版本: ${dependency-check-maven.version}
+- 配置特点:
+  - CVSS评分阈值：7.0（高危及以上漏洞将导致构建失败）
+  - 同时生成HTML和JSON格式报告
+- 常用命令:
+
+  ```bash
+  mvn dependency-check:check  # 执行依赖安全检查
+  mvn dependency-check:aggregate  # 多模块项目的聚合检查
+  mvn dependency-check:purge  # 清除本地CVE数据库缓存
   ```
+
+- 使用建议:
+  - 定期执行检查以发现潜在安全隐患
+  - 在CI/CD流水线中配置为独立的安全检查步骤
+  - 建议在以下场景执行检查：
+    - 添加新依赖后
+    - 发布前的安全审计
+    - 定期安全扫描（如每周一次）
 
 ### Versions Maven Plugin
 
 用于管理项目依赖版本。
 
 - 文档链接: [Versions Maven Plugin](https://www.mojohaus.org/versions-maven-plugin/)
+- 版本: ${versions-maven-plugin.version}
 - 常用命令:
 
   ```bash
-  mvn versions:display-dependency-updates  # 显示依赖更新
+  mvn versions:display-dependency-updates  # 显示可用的依赖更新
   mvn versions:use-latest-versions        # 更新依赖到最新版本
-  mvn versions:set -DnewVersion=1.0.1     # 设置项目版本
   ```
 
-- 配置示例:
+### Maven Resources Plugin
 
-  ```xml
-  <plugin>
-    <groupId>org.codehaus.mojo</groupId>
-    <artifactId>versions-maven-plugin</artifactId>
-    <version>2.13.0</version>
-    <configuration>
-      <rulesUri>file://${project.basedir}/version-rules.xml</rulesUri>
-      <generateBackupPoms>false</generateBackupPoms>
-    </configuration>
-  </plugin>
-  ```
+用于处理项目资源文件。
 
-- 主要功能:
-  - 显示依赖更新
-  - 更新依赖版本
-  - 管理属性版本
-  - 版本回滚
+- 文档链接: [Maven Resources Plugin](https://maven.apache.org/plugins/maven-resources-plugin/)
+- 版本: ${maven-resources-plugin.version}
+- 配置特点:
+  - 使用@作为变量分隔符
+  - 禁用默认分隔符
 
-### OWASP Dependency-Check Maven Plugin
+### Flatten Maven Plugin
 
-用于检查项目依赖中的已知安全漏洞。
+用于简化多模块项目中的版本管理。
 
-- 文档链接: [Dependency-Check Maven Plugin](https://jeremylong.github.io/DependencyCheck/dependency-check-maven/)
-- 常用命令:
+- 文档链接: [Flatten Maven Plugin](https://www.mojohaus.org/flatten-maven-plugin/)
+- 版本: ${flatten-maven-plugin.version}
+- 配置特点:
+  - 使用resolveCiFriendliesOnly模式
+  - 自动在process-resources阶段执行
+  - 默认激活
 
-  ```bash
-  mvn dependency-check:check  # 执行依赖安全检查
-  mvn dependency-check:aggregate  # 对多模块项目执行聚合检查
-  ```
+## 项目构建配置
 
-- 配置示例:
+### 默认激活的插件
 
-  ```xml
-  <plugin>
-    <groupId>org.owasp</groupId>
-    <artifactId>dependency-check-maven</artifactId>
-    <version>12.1.1</version>
-    <configuration>
-      <formats>
-        <format>HTML</format>
-        <format>JSON</format>
-      </formats>
-      <suppressionFiles>
-        <suppressionFile>${project.basedir}/owasp-suppressions.xml</suppressionFile>
-      </suppressionFiles>
-      <failBuildOnCVSS>8</failBuildOnCVSS> <!-- 仅在CVSS评分>=8时构建失败 -->
-    </configuration>
-    <executions>
-      <execution>
-        <goals>
-          <goal>check</goal>
-        </goals>
-      </execution>
-    </executions>
-  </plugin>
-  ```
+- Maven Compiler Plugin
+- Maven Enforcer Plugin
+- Jacoco Maven Plugin
 
-### Maven Release Plugin
+### 可选Profile
 
-用于自动化项目版本发布过程。
+#### quality
 
-- 文档链接: [Maven Release Plugin](https://maven.apache.org/maven-release/maven-release-plugin/)
-- 常用命令:
+激活额外的代码质量和安全检查插件：
 
-  ```bash
-  mvn release:prepare        # 准备发布
-  mvn release:perform        # 执行发布
-  mvn release:rollback       # 回滚发布准备
-  mvn release:clean          # 清理发布文件
-  ```
+- Spotless Plugin
+- Spotbugs Plugin
+- PMD Plugin
+- Checkstyle Plugin
+- Dependency-Check Plugin
 
-- 配置示例:
+使用场景：
 
-  ```xml
-  <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-release-plugin</artifactId>
-    <version>3.1.1</version>
-    <configuration>
-      <tagNameFormat>v@{project.version}</tagNameFormat>
-      <autoVersionSubmodules>true</autoVersionSubmodules>
-      <releaseProfiles>release</releaseProfiles>
-      <goals>deploy</goals>
-    </configuration>
-  </plugin>
-  ```
+- 提交PR前的完整检查
+- CI/CD流水线中的质量关卡
+- 发布前的安全审计
+- 定期代码质量检查
 
-请根据项目需求和插件使用情况进行调整和补充。这个文档可以帮助开发人员快速找到相关插件的详细信息和使用指南。
+使用方式：
+
+```bash
+mvn verify -Pquality  # 执行构建并进行全面的代码质量检查
+```
+
+#### flatten
+
+用于处理版本变量（默认激活）：
+
+- Flatten Maven Plugin
+
+## 最佳实践
+
+1. 在提交代码前运行完整的质量检查：
+
+   ```bash
+   mvn clean verify -Pquality
+   ```
+
+2. 保持代码格式统一：
+
+   ```bash
+   mvn spotless:apply
+   ```
+
+3. 定期检查依赖更新和安全漏洞：
+
+   ```bash
+   mvn versions:display-dependency-updates
+   mvn dependency-check:check
+   ```
+
+4. 确保测试覆盖率达标：
+
+   ```bash
+   mvn verify
+   ```
+
+## 安全检查最佳实践
+
+1. 定期执行依赖安全检查：
+
+   ```bash
+   # 完整的依赖检查
+   mvn dependency-check:aggregate
+   
+   # 清除并更新CVE数据库后检查
+   mvn dependency-check:purge dependency-check:check
+   ```
+
+2. 在CI/CD中设置独立的安全检查任务：
+
+   ```bash
+   # 示例：Jenkins pipeline
+   stage('Security Check') {
+     steps {
+       sh 'mvn dependency-check:aggregate'
+     }
+   }
+   ```
+
+本文档会随项目演进持续更新，如有问题请参考各插件的官方文档或联系项目维护者。

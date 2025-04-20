@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <!-- 
+    <!--
     BOM模块 - 版本管理中心
-    
+
     职责：
     - 作为项目的版本管理中心，统一管理所有内部模块的版本
     - 不包含实际代码，仅包含依赖版本声明
-    
+
     架构位置：
     - 此模块不继承父POM，以避免版本循环依赖
     - 被父POM导入，从而为所有其他模块提供统一的版本管理
@@ -19,12 +19,16 @@
     <groupId>com.helian</groupId>
     <artifactId>bom</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>${revision}</version>
 
     <name>Project Bill of Materials</name>
 
     <!-- 项目属性 -->
     <properties>
+        <!-- 版本管理 - 与父项目保持一致 -->
+        <revision>1.0.0-SNAPSHOT</revision>
+
+        <!-- 插件版本 - 集中管理提高一致性和升级便捷性 -->
         <spotbugs-maven-plugin.version>4.9.3.0</spotbugs-maven-plugin.version>
         <spotless-maven-plugin.version>2.44.4</spotless-maven-plugin.version>
     </properties>
@@ -32,7 +36,7 @@
     <!--
         版本管理说明：
         1. 当使用 maven-release 插件或 versions-maven-plugin 处理所有子模块时，版本号会自动更新
-        2. 使用显式版本号（如"1.0.0-SNAPSHOT"）而非 ${project.version}，以确保这些版本号在发布的 pom 文件中正确反映
+        2. 使用显式版本号（如"${revision}"）统一管理版本
         3. 这种方式可以更好地管理项目依赖的版本一致性
     -->
     <dependencyManagement>
@@ -40,12 +44,12 @@
             <dependency>
                 <groupId>com.helian</groupId>
                 <artifactId>module1</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>${revision}</version>
             </dependency>
             <dependency>
                 <groupId>com.helian</groupId>
                 <artifactId>module2</artifactId>
-                <version>1.0.0-SNAPSHOT</version>
+                <version>${revision}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -115,19 +119,4 @@
             </build>
         </profile>
     </profiles>
-
-    <!-- 发布配置 -->
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/helian-labs/maven-template-bom</url>
-        </repository>
-        <snapshotRepository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/helian-labs/maven-template-bom</url>
-        </snapshotRepository>
-    </distributionManagement>
-
 </project>
