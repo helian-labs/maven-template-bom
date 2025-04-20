@@ -54,27 +54,78 @@ mvn clean install
 
 ### 模块说明
 
-```
+```bash
 maven-template-bom/
-├── bom/                 # 依赖版本管理中心
-├── module1/            # 核心功能模块
-├── module2/            # 业务功能模块
+├── bom/               # 依赖版本管理中心
+├── module1/           # 核心功能模块
+├── module2/           # 业务功能模块
 └── pom.xml            # 父级 POM 配置
 ```
 
-### 架构设计
+#### 1. bom 模块
 
-```mermaid
-graph TD
-    A[bom] --> B[父POM]
-    B --> C[module1]
-    B --> D[module2]
-    D --> C
+- **功能定位**：作为项目的依赖版本管理中心
+- **主要职责**：
+  - 统一管理所有内部模块的版本号
+  - 统一管理第三方依赖的版本号
+  - 避免版本冲突和不一致
+- **技术特点**：
+  - 仅包含依赖版本声明，不包含实际代码
+  - 独立于父POM，避免版本循环依赖
+  - 使用 `<dependencyManagement>` 进行版本控制
+
+#### 2. module1 模块
+
+- **功能定位**：项目的核心功能模块
+- **主要职责**：
+  - 提供基础业务逻辑实现
+  - 封装共用的工具类和服务
+  - 定义核心领域模型
+- **技术特点**：
+  - 不依赖其他业务模块，可独立部署
+  - 继承父POM以复用通用配置
+  - 包含完整的单元测试
+
+#### 3. module2 模块
+
+- **功能定位**：业务功能扩展模块
+- **主要职责**：
+  - 实现特定业务场景的应用逻辑
+  - 整合和扩展核心功能
+  - 提供业务级API
+- **技术特点**：
+  - 依赖 module1 提供的基础功能
+  - 继承父POM以复用通用配置
+  - 遵循可插拔设计原则
+
+### 模块依赖关系
+
+```markdown
+┌─────────┐     ┌─────────┐     ┌─────────┐
+│   bom   │◄────┤  父POM  │────►│ module1 │
+└─────────┘     └─────────┘     └─────────┘
+                     ▲               ▲
+                     │               │
+                     │           ┌─────────┐
+                     └───────────┤ module2 │
+                                 └─────────┘
 ```
+
+### 版本管理策略
+
+1. **版本号规范**
+   - 主版本号：重大架构升级或不兼容更新
+   - 次版本号：功能性更新或增强
+   - 修订号：Bug修复和小改动
+
+2. **依赖管理原则**
+   - 所有版本统一在 bom 中声明
+   - 子模块间禁止循环依赖
+   - 遵循最小依赖原则
 
 ## 使用指南
 
-### 在项目中引入 BOM
+在您的项目中添加以下依赖管理配置：
 
 ```xml
 <dependencyManagement>
@@ -82,7 +133,7 @@ graph TD
         <dependency>
             <groupId>com.helian</groupId>
             <artifactId>bom</artifactId>
-            <version>${bom.version}</version>
+            <version>${latest.version}</version>
             <type>pom</type>
             <scope>import</scope>
         </dependency>
@@ -90,14 +141,13 @@ graph TD
 </dependencyManagement>
 ```
 
-### 使用统一管理的依赖
+然后，您可以添加依赖而无需指定版本：
 
 ```xml
 <dependencies>
     <dependency>
         <groupId>com.helian</groupId>
         <artifactId>module1</artifactId>
-        <!-- 无需指定版本号 -->
     </dependency>
 </dependencies>
 ```
@@ -108,7 +158,7 @@ graph TD
 
 提交信息格式：
 
-```
+```markdown
 <type>(<scope>): <subject>
 
 <body>
@@ -155,6 +205,17 @@ graph TD
 ## 维护者
 
 - [@helian-labs](https://github.com/helian-labs)
+
+## 贡献指南
+
+请阅读 [CONTRIBUTING.md](CONTRIBUTING.md) 了解如何参与贡献。
+
+1. Fork 项目
+2. 创建特性分支 (`git checkout -b feature/amazing-feature`)
+3. 提交更改 (`git commit -m 'Add some amazing feature'`)
+4. 推送到分支 (`git push origin feature/amazing-feature`)
+5. 创建 Pull Request
+
 
 ## 许可证
 
