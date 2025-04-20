@@ -51,13 +51,13 @@ validate_command() {
   local cmd=$1
   shift
   local valid_commands=("$@")
-  
+
   for valid_cmd in "${valid_commands[@]}"; do
     if [[ "$cmd" == "$valid_cmd" ]]; then
       return 0
     fi
   done
-  
+
   log_error "无效的命令: '${cmd}'"
   return 1
 }
@@ -68,7 +68,7 @@ show_help() {
   local description=$2
   local usage=$3
   local commands=$4
-  
+
   echo -e "${CYAN}${description}${NC}"
   echo -e "${YELLOW}用法:${NC} ${usage}"
   echo -e "${YELLOW}命令:${NC}"
@@ -85,9 +85,9 @@ get_project_version() {
 set_project_version() {
   local version=$1
   cd "$PROJECT_ROOT"
-  
+
   log_info "更新项目根目录的版本号为: $version"
-  ./mvnw versions:set -DnewVersion="$version" -DprocessAllModules=true -DgenerateBackupPoms=false || { log_error "更新项目版本失败"; exit 1; }
+  ./mvnw versions:set-property -Dproperty=revision -DnewVersion="$version" -DprocessAllModules=true -DgenerateBackupPoms=false || { log_error "更新项目版本失败"; exit 1; }
 }
 
 # 检查工作区是否干净
