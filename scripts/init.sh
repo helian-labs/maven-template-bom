@@ -20,7 +20,7 @@ chmod +x "$PROJECT_ROOT"/scripts/*.sh || { log_error "设置脚本权限失败";
 # 初始化 Git 钩子
 if [ -d "$PROJECT_ROOT/.git" ]; then
   log_info "设置 Git 钩子..."
-  
+
   # 创建 pre-commit 钩子
   mkdir -p "$PROJECT_ROOT/.git/hooks" || { log_error "创建 Git 钩子目录失败"; exit 1; }
   cat > "$PROJECT_ROOT/.git/hooks/pre-commit" << 'EOF'
@@ -45,7 +45,7 @@ if [ $? -ne 0 ]; then
 fi
 EOF
   chmod +x "$PROJECT_ROOT/.git/hooks/pre-commit" || { log_error "设置 Git 钩子权限失败"; exit 1; }
-  
+
   log_info "Git 钩子设置完成"
 fi
 

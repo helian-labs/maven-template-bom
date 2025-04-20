@@ -17,7 +17,7 @@ VALID_COMMANDS=("current" "set" "release" "next")
 function show_usage() {
   show_help "版本管理脚本" "管理项目版本" \
     "./scripts/version.sh [current|set <version>|release|next]" \
-    "  current       - 显示当前版本\n  set <version> - 设置指定版本\n  release       - 从快照版本创建发布版本（移除-SNAPSHOT后缀）\n  next          - 从发布版本创建下一个开发版本（增加补丁版本号并添加-SNAPSHOT后缀）"
+    "  current       - 显示当前版本（默认）\n  set <version> - 设置指定版本\n  release       - 从快照版本创建发布版本（移除-SNAPSHOT后缀）\n  next          - 从发布版本创建下一个开发版本（增加补丁版本号并添加-SNAPSHOT后缀）"
 }
 
 # 检查是否需要显示帮助信息
@@ -78,10 +78,10 @@ function next_version() {
     MAJOR=$(echo $CURRENT | cut -d. -f1)
     MINOR=$(echo $CURRENT | cut -d. -f2)
     PATCH=$(echo $CURRENT | cut -d. -f3)
-    
+
     NEXT_PATCH=$((PATCH + 1))
     NEXT_VERSION="$MAJOR.$MINOR.$NEXT_PATCH-SNAPSHOT"
-    
+
     log_info "从 $CURRENT 创建下一个开发版本 $NEXT_VERSION"
     set_project_version "$NEXT_VERSION"
   fi

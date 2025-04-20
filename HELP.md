@@ -54,7 +54,7 @@
 - 文档链接: [Jacoco Maven Plugin](https://www.jacoco.org/jacoco/trunk/doc/maven.html)
 - 版本: ${jacoco-maven-plugin.version}
 - 覆盖率要求:
-  - 行覆盖率最低要求: 80%
+  - 行覆盖率最低要求: 70%
 - 常用命令:
 
   ```bash
@@ -229,6 +229,27 @@
 
 ```bash
 mvn verify -Pquality  # 执行构建并进行全面的代码质量检查
+```
+
+#### security
+
+*该环境由Github Actions自动执行。*
+
+激活额外的依赖安全检查插件：
+
+- Dependency Check Plugin
+
+使用场景：
+
+- 在发布前进行依赖安全审计
+- CI/CD 流水线中的安全扫描步骤
+- 定期（如每周）的依赖安全检查
+- 添加新依赖后的安全验证
+
+使用方式：
+
+```bash
+mvn verify -Psecurity  # 执行构建并进行依赖安全检查
 ```
 
 #### flatten

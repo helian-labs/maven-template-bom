@@ -99,7 +99,7 @@ scripts/
 运行代码质量检查工具
 用法: ./scripts/quality.sh [all|format|spotbugs|pmd|checkstyle]
 命令:
-  all        - 运行所有质量检查
+  all        - 运行所有质量检查（默认）
   format     - 运行代码格式检查
   spotbugs   - 运行静态代码分析
   pmd        - 运行PMD代码分析
@@ -110,7 +110,7 @@ scripts/
 管理项目版本
 用法: ./scripts/version.sh [current|set <version>|release|next]
 命令:
-  current       - 显示当前版本
+  current       - 显示当前版本（默认）
   set <version> - 设置指定版本
   release       - 从快照版本创建发布版本
   next          - 创建下一个开发版本
@@ -120,7 +120,7 @@ scripts/
 管理和分析项目依赖
 用法: ./scripts/dependency.sh [list|tree|update|analyze|revert]
 命令:
-  list    - 列出所有依赖版本信息
+  list    - 列出所有依赖版本信息（默认）
   tree    - 显示依赖树结构
   update  - 更新依赖到最新版本
   analyze - 分析依赖冲突和使用情况
@@ -131,7 +131,7 @@ scripts/
 准备和执行项目发布
 用法: ./scripts/release.sh [prepare|perform]
 命令:
-  prepare - 准备发布（测试、版本检查）
+  prepare - 准备发布（测试、版本检查，默认）
   perform - 执行发布（提交、打标签、部署）
 ```
 
@@ -259,6 +259,17 @@ scripts/
 - 每次提交：运行质量检查
 - 每月：全面依赖分析
 - 持续：维护测试覆盖率
+
+```markdown
+GitHub Actions会自动执行以下检查:
+
+- 每次提交时运行单元测试
+- 每次提交时执行代码格式检查
+- 每周运行完整测试套件
+- 每周生成代码覆盖率报告
+- 每月执行依赖分析和更新检查
+- 定期检查代码质量指标
+```
 
 ## 扩展开发
 

@@ -106,7 +106,17 @@ jobs:
       run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
 
     - name: 设置项目版本
-      run: ./mvnw versions:set -DnewVersion=${{ steps.get_version.outputs.VERSION }} -DprocessAllModules=true -DgenerateBackupPoms=false
+      run: ./mvnw versions:set-property -Dproperty=revision -DnewVersion=${{ steps.get_version.outputs.VERSION }} -DprocessAllModules=true -DgenerateBackupPoms=false
+
+    - name: 设置 Maven settings.xml
+      uses: s4u/maven-settings-action@v2.8.0
+      with:
+        servers: |
+          [{
+            "id": "github",
+            "username": "${env.GITHUB_ACTOR}",
+            "password": "${env.GITHUB_TOKEN}"
+          }]
 
     - name: 发布到 GitHub Packages
       run: ./mvnw deploy -B -DprocessAllModules=true

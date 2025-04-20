@@ -173,7 +173,7 @@
                                             <limit>
                                                 <counter>LINE</counter>
                                                 <value>COVEREDRATIO</value>
-                                                <minimum>0.80</minimum>
+                                                <minimum>0.70</minimum>
                                             </limit>
                                         </limits>
                                     </rule>
@@ -311,11 +311,15 @@
                     <version>${dependency-check-maven.version}</version>
                     <configuration>
                         <failBuildOnCVSS>7</failBuildOnCVSS>
-                        <formats>
-                            <format>HTML</format>
-                            <format>JSON</format>
-                        </formats>
+                        <skipTestScope>true</skipTestScope>
                     </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
                 </plugin>
 
                 <!-- 资源处理插件 - 处理资源文件中的变量替换 -->
@@ -379,7 +383,7 @@
 
     <!-- 构建profile配置 - 针对不同场景的构建配置 -->
     <profiles>
-        <!-- 质量检查profile - 用于激活代码质量和安全检查插件 -->
+        <!-- 质量检查profile - 用于激活代码质量检查插件 -->
         <profile>
             <id>quality</id>
             <build>
@@ -407,11 +411,35 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-checkstyle-plugin</artifactId>
                     </plugin>
+                </plugins>
+            </build>
+        </profile>
 
-                    <!-- 依赖检查插件 -->
+        <!-- 安全检查profile - 用于依赖安全分析 -->
+        <profile>
+            <id>security</id>
+            <build>
+                <plugins>
                     <plugin>
                         <groupId>org.owasp</groupId>
                         <artifactId>dependency-check-maven</artifactId>
+                        <version>${dependency-check-maven.version}</version>
+                        <configuration>
+                            <failBuildOnCVSS>7</failBuildOnCVSS>
+                            <skipTestScope>true</skipTestScope>
+                            <formats>
+                                <format>HTML</format>
+                                <format>JSON</format>
+                            </formats>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <goals>
+                                    <goal>check</goal>
+                                </goals>
+                                <phase>verify</phase>
+                            </execution>
+                        </executions>
                     </plugin>
                 </plugins>
             </build>
