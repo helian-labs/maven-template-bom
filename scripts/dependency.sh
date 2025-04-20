@@ -17,7 +17,7 @@ VALID_COMMANDS=("list" "tree" "update" "analyze" "revert")
 function show_usage() {
   show_help "依赖管理脚本" "管理和分析项目依赖" \
     "./scripts/dependency.sh [list|tree|update|analyze|revert]" \
-    "  list    - 列出所有依赖的版本信息\n  tree    - 显示依赖树结构\n  update  - 更新依赖到最新版本\n  analyze - 分析依赖冲突和使用情况\n  revert  - 撤销依赖版本更改"
+    "  list    - 列出所有依赖的版本信息（默认）\n  tree    - 显示依赖树结构\n  update  - 更新依赖到最新版本\n  analyze - 分析依赖冲突和使用情况\n  revert  - 撤销依赖版本更改"
 }
 
 # 检查是否需要显示帮助信息
@@ -35,13 +35,13 @@ fi
 # 列出依赖版本信息
 function list_versions() {
   log_section "列出所有依赖的版本信息"
-  
+
   log_info "当前依赖版本:"
   run_maven versions:display-dependency-updates
-  
+
   log_info "当前插件版本:"
   run_maven versions:display-plugin-updates
-  
+
   log_info "属性版本:"
   run_maven versions:display-property-updates
 }
@@ -59,7 +59,7 @@ function update_versions() {
   # 1. 仅显示可更新版本但不实际更新
   log_info "检查可更新的依赖版本..."
   run_maven versions:display-dependency-updates
-  
+
   # 2. 交互式确认是否继续
   read -p "确认要更新所有依赖到最新版本吗? (y/n) " -n 1 -r
   echo
@@ -67,19 +67,19 @@ function update_versions() {
     log_info "已取消更新操作"
     return 1
   fi
-  
+
   # 3. 分步骤更新
   log_info "更新依赖版本..."
   run_maven versions:use-latest-versions
-  
+
   log_info "更新属性版本..."
   run_maven versions:update-properties
-  
+
   # 4. 显示更新结果
   log_info "依赖版本更新完成，请检查以下更新结果:"
   run_maven versions:display-dependency-updates
   run_maven versions:display-plugin-updates
-  
+
   log_info "如需撤销更改，可以运行 './scripts/dependency.sh revert'"
 }
 
