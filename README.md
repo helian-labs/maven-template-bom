@@ -152,37 +152,6 @@ maven-template-bom/
 </dependencies>
 ```
 
-## 开发规范
-
-### 代码提交规范
-
-提交信息格式：
-
-```markdown
-<type>(<scope>): <subject>
-
-<body>
-
-<footer>
-```
-
-类型（type）：
-
-- feat: 新功能
-- fix: 修复
-- docs: 文档更新
-- style: 代码格式
-- refactor: 重构
-- test: 测试
-- chore: 构建过程或辅助工具的变动
-
-### 质量控制
-
-- 所有代码必须通过单元测试
-- 遵循阿里巴巴 Java 开发规范
-- 保持代码覆盖率在 80% 以上
-- 通过 SonarQube 质量门禁检查
-
 ## 常见问题
 
 ### 1. 依赖下载速度慢
@@ -215,7 +184,6 @@ maven-template-bom/
 3. 提交更改 (`git commit -m 'Add some amazing feature'`)
 4. 推送到分支 (`git push origin feature/amazing-feature`)
 5. 创建 Pull Request
-
 
 ## 许可证
 
