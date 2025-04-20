@@ -25,13 +25,9 @@
 
     <!-- 项目属性 -->
     <properties>
-        <!-- 版本管理 - 与父项目保持一致 -->
-        <revision>1.0.0-SNAPSHOT</revision>
-
         <!-- 插件版本 - 集中管理提高一致性和升级便捷性 -->
         <spotbugs-maven-plugin.version>4.9.3.0</spotbugs-maven-plugin.version>
         <spotless-maven-plugin.version>2.44.4</spotless-maven-plugin.version>
-        <flatten-maven-plugin.version>1.7.0</flatten-maven-plugin.version>
     </properties>
 
     <!--
@@ -119,76 +115,5 @@
                 </plugins>
             </build>
         </profile>
-
-        <!-- 添加扁平化版本插件配置，处理revision变量 -->
-        <profile>
-            <id>flatten</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>flatten-maven-plugin</artifactId>
-                        <version>${flatten-maven-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>flatten</id>
-                                <phase>process-resources</phase>
-                                <goals>
-                                    <goal>flatten</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>flatten.clean</id>
-                                <phase>clean</phase>
-                                <goals>
-                                    <goal>clean</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <updatePomFile>true</updatePomFile>
-                            <flattenMode>resolveCiFriendliesOnly</flattenMode>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
     </profiles>
-
-    <!-- 许可证信息 -->
-    <licenses>
-        <license>
-            <name>Apache License 2.0</name>
-            <url>https://www.apache.org/licenses/LICENSE-2.0</url>
-        </license>
-    </licenses>
-
-    <!-- 源码管理 -->
-    <scm>
-        <url>https://github.com/helian-labs/maven-template-bom</url>
-        <connection>scm:git:git@github.com:helian-labs/maven-template-bom.git</connection>
-        <developerConnection>scm:git:git@github.com:helian-labs/maven-template-bom.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
-
-    <!-- 开发者信息 -->
-    <developers>
-        <developer>
-            <id>helian-team</id>
-            <name>Helian Team</name>
-            <email>larryqi.sh@gmail.com</email>
-            <url>https://github.com/helian-labs</url>
-            <organization>Helian Labs</organization>
-            <organizationUrl>https://github.com/helian-labs</organizationUrl>
-            <roles>
-                <role>architect</role>
-                <role>developer</role>
-            </roles>
-            <timezone>Asia/Shanghai</timezone>
-        </developer>
-    </developers>
-
 </project>
