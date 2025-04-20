@@ -426,8 +426,11 @@
                         <version>${dependency-check-maven.version}</version>
                         <configuration>
                             <failBuildOnCVSS>7</failBuildOnCVSS>
-                            <cveValidForHours>24</cveValidForHours>
                             <skipTestScope>true</skipTestScope>
+                            <formats>
+                                <format>HTML</format>
+                                <format>JSON</format>
+                            </formats>
                         </configuration>
                         <executions>
                             <execution>
