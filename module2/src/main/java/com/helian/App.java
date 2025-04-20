@@ -7,9 +7,7 @@ package com.helian;
  */
 public final class App {
 
-  /**
-   * 私有构造函数，防止工具类被实例化。
-   */
+  /** 私有构造函数，防止工具类被实例化。 */
   private App() {
     // 工具类不应被实例化
   }
