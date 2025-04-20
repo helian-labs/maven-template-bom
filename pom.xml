@@ -61,15 +61,7 @@
         <spotless-maven-plugin.version>2.44.4</spotless-maven-plugin.version>
         <versions-maven-plugin.version>2.18.0</versions-maven-plugin.version>
         <dependency-check-maven.version>12.1.1</dependency-check-maven.version>
-        <maven-release-plugin.version>3.1.1</maven-release-plugin.version>
-        <maven-gpg-plugin.version>3.2.7</maven-gpg-plugin.version>
-        <flatten-maven-plugin.version>1.7.0</flatten-maven-plugin.version>
-        <nexus-staging-maven-plugin.version>1.7.0</nexus-staging-maven-plugin.version>
         <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
-
-        <!-- 发布仓库URL - 支持发布到Maven中央仓库 -->
-        <maven-central-snapshots-url>https://s01.oss.sonatype.org/content/repositories/snapshots</maven-central-snapshots-url>
-        <maven-central-staging-url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</maven-central-staging-url>
     </properties>
 
     <!-- 依赖管理 - 控制整个项目的依赖版本 -->
@@ -332,13 +324,6 @@
                     </executions>
                 </plugin>
 
-                <!-- 发布插件 - 简化发布流程，自动处理版本号和标签 -->
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>${maven-release-plugin.version}</version>
-                </plugin>
-
                 <!-- 资源处理插件 - 处理资源文件中的变量替换 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -373,22 +358,6 @@
 
     <!-- 构建profile配置 - 针对不同场景的构建配置 -->
     <profiles>
-        <!-- 发布到Maven中央仓库的profile配置 -->
-        <profile>
-            <id>central</id>
-            <!-- 激活该profile时使用Maven中央仓库发布地址 -->
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>ossrh</id>
-                    <url>${maven-central-snapshots-url}</url>
-                </snapshotRepository>
-                <repository>
-                    <id>ossrh</id>
-                    <url>${maven-central-staging-url}</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-
         <!-- 质量检查profile - 用于激活代码质量和安全检查插件 -->
         <profile>
             <id>quality</id>
@@ -426,104 +395,6 @@
                 </plugins>
             </build>
         </profile>
-
-        <!-- 发布配置profile - 用于发布构件到仓库 -->
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <!-- 源码插件 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                    </plugin>
-
-                    <!-- JavaDoc插件 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                    </plugin>
-
-                    <!-- GPG签名插件 - 对构件进行数字签名，Maven中央仓库发布必需 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>${maven-gpg-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                                <configuration>
-                                    <!-- 可选配置：指定GPG密钥ID -->
-                                    <!-- <keyname>${gpg.keyname}</keyname> -->
-                                    <!-- 可选GPG参数设置 -->
-                                    <!-- <gpgArguments>
-                                        <arg>-dash-dash-pinentry-mode</arg>
-                                        <arg>loopback</arg>
-                                    </gpgArguments> -->
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!-- Nexus暂存仓库插件 - 用于发布到Maven中央仓库的流程管理 -->
-                    <plugin>
-                        <groupId>org.sonatype.plugins</groupId>
-                        <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>${nexus-staging-maven-plugin.version}</version>
-                        <extensions>true</extensions>
-                        <configuration>
-                            <serverId>ossrh</serverId>
-                            <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-                            <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                        </configuration>
-                    </plugin>
-
-                    <!-- 版本管理插件 -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-release-plugin</artifactId>
-                        <configuration>
-                            <autoVersionSubmodules>true</autoVersionSubmodules>
-                            <useReleaseProfile>false</useReleaseProfile>
-                            <releaseProfiles>release</releaseProfiles>
-                            <goals>deploy</goals>
-                            <tagNameFormat>v@{project.version}</tagNameFormat>
-                        </configuration>
-                    </plugin>
-
-                    <!-- 扁平化版本插件 - 简化多模块项目中的版本表示 -->
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>flatten-maven-plugin</artifactId>
-                        <version>${flatten-maven-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>flatten</id>
-                                <phase>process-resources</phase>
-                                <goals>
-                                    <goal>flatten</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>flatten.clean</id>
-                                <phase>clean</phase>
-                                <goals>
-                                    <goal>clean</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <updatePomFile>true</updatePomFile>
-                            <flattenMode>resolveCiFriendliesOnly</flattenMode>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
     </profiles>
 
     <!-- 许可证信息 - 明确项目的开源许可类型 -->
@@ -534,7 +405,7 @@
         </license>
     </licenses>
 
-    <!-- 源码管理 - 指定代码仓库位置，用于release插件 -->
+    <!-- 源码管理 - 指定代码仓库位置 -->
     <scm>
         <url>https://github.com/helian-labs/maven-template-bom</url>
         <connection>scm:git:git@github.com:helian-labs/maven-template-bom.git</connection>
@@ -542,7 +413,7 @@
         <tag>HEAD</tag>
     </scm>
 
-    <!-- 开发者信息 - 项目维护者信息，Maven中央仓库发布必需 -->
+    <!-- 开发者信息 - 项目维护者信息 -->
     <developers>
         <developer>
             <id>helian-team</id>
@@ -558,20 +429,5 @@
             <timezone>Asia/Shanghai</timezone>
         </developer>
     </developers>
-
-    <!-- 发布配置 - 默认发布到GitHub Packages -->
-    <distributionManagement>
-        <!-- 默认发布到GitHub Packages -->
-        <repository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/helian-labs/maven-template-bom</url>
-        </repository>
-        <snapshotRepository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/helian-labs/maven-template-bom</url>
-        </snapshotRepository>
-    </distributionManagement>
 
 </project>
