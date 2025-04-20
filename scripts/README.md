@@ -37,9 +37,9 @@
 
 ```bash
 scripts/
-├── lib/                  # 共享库目录
-│   └── common.sh         # 通用函数库（日志、错误处理、Maven操作等）
-├── build.sh              # 项目构建脚本
+├── lib/                 # 共享库目录
+│   └── common.sh        # 通用函数库（日志、错误处理、Maven操作等）
+├── build.sh             # 项目构建脚本
 ├── test.sh              # 测试执行脚本
 ├── quality.sh           # 代码质量检查脚本
 ├── version.sh           # 版本管理脚本
@@ -69,19 +69,88 @@ scripts/
 
 ## 使用指南
 
+### 查看帮助
+
+使用 `-h` 或 `--help` 参数可查看帮助信息：
+
+```bash
+# 构建脚本帮助
+./scripts/build.sh -h
+构建Maven项目
+用法: ./scripts/build.sh [clean|compile|package|install]
+命令:
+  clean   - 清理项目构建产物
+  compile - 编译项目代码
+  package - 打包项目
+  install - 构建并安装到本地仓库（默认）
+
+# 测试脚本帮助
+./scripts/test.sh -h
+运行项目测试
+用法: ./scripts/test.sh [unit|integration|coverage|all]
+命令:
+  unit        - 运行单元测试（默认）
+  integration - 运行集成测试
+  coverage    - 生成代码覆盖率报告
+  all         - 运行所有测试并生成覆盖率报告
+
+# 质量检查脚本帮助
+./scripts/quality.sh -h
+运行代码质量检查工具
+用法: ./scripts/quality.sh [all|format|spotbugs|pmd|checkstyle]
+命令:
+  all        - 运行所有质量检查
+  format     - 运行代码格式检查
+  spotbugs   - 运行静态代码分析
+  pmd        - 运行PMD代码分析
+  checkstyle - 运行代码规范检查
+
+# 版本管理脚本帮助
+./scripts/version.sh -h
+管理项目版本
+用法: ./scripts/version.sh [current|set <version>|release|next]
+命令:
+  current       - 显示当前版本
+  set <version> - 设置指定版本
+  release       - 从快照版本创建发布版本
+  next          - 创建下一个开发版本
+
+# 依赖管理脚本帮助
+./scripts/dependency.sh -h
+管理和分析项目依赖
+用法: ./scripts/dependency.sh [list|tree|update|analyze|revert]
+命令:
+  list    - 列出所有依赖版本信息
+  tree    - 显示依赖树结构
+  update  - 更新依赖到最新版本
+  analyze - 分析依赖冲突和使用情况
+  revert  - 撤销依赖版本更改
+
+# 发布管理脚本帮助
+./scripts/release.sh -h
+准备和执行项目发布
+用法: ./scripts/release.sh [prepare|perform]
+命令:
+  prepare - 准备发布（测试、版本检查）
+  perform - 执行发布（提交、打标签、部署）
+```
+
 ### 日常开发流程
 
 #### 1. 构建项目
 
 ```bash
-# 完整构建并安装到本地仓库
-./scripts/build.sh install
+# 清理项目构建产物
+./scripts/build.sh clean
 
-# 仅编译代码
+# 编译项目代码
 ./scripts/build.sh compile
 
-# 清理并重新打包
-./scripts/build.sh clean package
+# 打包项目
+./scripts/build.sh package
+
+# 构建并安装到本地仓库（默认）
+./scripts/build.sh install
 ```
 
 #### 2. 运行测试
@@ -114,6 +183,9 @@ scripts/
 
 # 设置发布版本
 ./scripts/version.sh set 1.0.0
+
+# 如果是快照版（*-SNAPSHOT），可直接设置为发布版本
+./scripts/version.sh release
 
 # 准备发布
 ./scripts/release.sh prepare
@@ -153,7 +225,7 @@ scripts/
 | 问题 | 可能原因 | 解决方案 |
 |------|---------|----------|
 | 脚本无法执行 | 权限不足 | 运行 `chmod +x scripts/*.sh scripts/lib/*.sh` |
-| 构建失败 | Maven配置错误 | 1. 检查Maven配置<br>2. 确认`JAVA_HOME`设置<br>3. 查看日志：`./scripts/build.sh clean install` |
+| 构建失败 | Maven配置错误 | 1. 检查Maven配置<br>2. 确认`JAVA_HOME`设置<br>3. 查看日志：`./scripts/build.sh install` |
 | 测试失败 | 环境配置问题 | 1. 检查测试环境配置<br>2. 查看测试日志：`./scripts/test.sh unit`<br>3. 单独运行失败的测试 |
 | 依赖问题 | 依赖冲突或缺失 | 1. 运行依赖分析：`./scripts/dependency.sh analyze`<br>2. 检查本地Maven仓库<br>3. 清理缓存：`./scripts/build.sh clean` |
 
