@@ -152,6 +152,12 @@ maven-template-bom/
 </dependencies>
 ```
 
+## 项目文档
+
+- [Maven 项目帮助文档](./HELP.md)：此文档包含项目中使用的主要插件的链接和简要说明。
+- [Maven 项目脚本工具](./scripts/README.md)：本工具集提供了一套完整的Maven项目开发、构建和维护脚本。
+- [Maven 仓库配置指南](.mvn/wrapper/repository-config.md)：本文档提供了常用 Maven 仓库的配置示例。
+
 ## 常见问题
 
 ### 1. 依赖下载速度慢
