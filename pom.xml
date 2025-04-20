@@ -37,7 +37,7 @@
     <!-- 项目属性 -->
     <properties>
         <!-- 版本管理 - 使用单一变量控制所有模块版本 -->
-        <revision>1.0.0-SNAPSHOT</revision>
+        <revision>1.0.0</revision>
 
         <!-- 基础配置 -->
         <java.version>17</java.version>
