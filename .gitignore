@@ -101,8 +101,6 @@ yarn-error.log
 .npm/
 .yarn/
 .pnp.*
-package-lock.json
-yarn.lock
 .env.local
 .env.development.local
 .env.test.local
