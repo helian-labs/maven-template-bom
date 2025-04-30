@@ -54,7 +54,7 @@ jobs:
 
     - name: 依赖安全检测
       if: matrix.java == '17'
-      run: ./mvnw org.owasp:dependency-check-maven:check -DfailBuildOnCVSS=7
+      run: ./mvnw -P security org.owasp:dependency-check-maven:check -DfailBuildOnCVSS=7
 
     - name: 上传测试结果
       if: always()
