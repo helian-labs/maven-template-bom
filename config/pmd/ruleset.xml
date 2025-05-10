@@ -1,0 +1,93 @@
+<?xml version="1.0"?>
+<ruleset name="Custom Rules"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+
+    <description>
+        自定义 PMD 规则集，用于代码质量检查
+    </description>
+
+    <!-- 最佳实践规则 -->
+    <rule ref="category/java/bestpractices.xml">
+        <exclude name="GuardLogStatement"/>
+        <exclude name="JUnitTestsShouldIncludeAssert"/>
+    </rule>
+
+    <!-- 代码风格规则 -->
+    <rule ref="category/java/codestyle.xml">
+        <exclude name="AtLeastOneConstructor"/>
+        <exclude name="OnlyOneReturn"/>
+    </rule>
+
+    <!-- 设计规则 -->
+    <rule ref="category/java/design.xml">
+        <exclude name="LawOfDemeter"/>
+        <exclude name="UseUtilityClass"/>
+    </rule>
+
+    <!-- 文档规则 -->
+    <rule ref="category/java/documentation.xml">
+        <exclude name="CommentRequired"/>
+    </rule>
+
+    <!-- 错误处理规则 -->
+    <rule ref="category/java/errorprone.xml">
+        <exclude name="DataflowAnomalyAnalysis"/>
+    </rule>
+
+    <!-- 多线程规则 -->
+    <rule ref="category/java/multithreading.xml"/>
+
+    <!-- 性能规则 -->
+    <rule ref="category/java/performance.xml">
+        <exclude name="ConsecutiveLiteralAppends"/>
+        <exclude name="UseStringBufferForStringAppends"/>
+    </rule>
+
+    <!-- 安全规则 -->
+    <rule ref="category/java/security.xml"/>
+
+    <!-- 自定义规则配置 -->
+    <rule ref="category/java/bestpractices.xml/UnusedLocalVariable">
+        <properties>
+            <property name="checkAllVariables" value="true"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml/ClassNamingConventions">
+        <properties>
+            <property name="classPattern" value="[A-Z][a-zA-Z0-9]*"/>
+            <property name="abstractClassPattern" value="Abstract[A-Z][a-zA-Z0-9]*"/>
+            <property name="interfacePattern" value="[A-Z][a-zA-Z0-9]*"/>
+            <property name="enumPattern" value="[A-Z][a-zA-Z0-9]*"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml/MethodNamingConventions">
+        <properties>
+            <property name="methodPattern" value="[a-z][a-zA-Z0-9]*"/>
+            <property name="staticPattern" value="[a-z][a-zA-Z0-9]*"/>
+            <property name="nativePattern" value="[a-z][a-zA-Z0-9]*"/>
+            <property name="junit3TestPattern" value="test[A-Z][a-zA-Z0-9]*"/>
+            <property name="junit4TestPattern" value="[a-z][a-zA-Z0-9]*"/>
+            <property name="junit5TestPattern" value="[a-z][a-zA-Z0-9]*"/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/design.xml/CyclomaticComplexity">
+        <properties>
+            <property name="classReportLevel" value="80"/>
+            <property name="methodReportLevel" value="20"/>
+            <property name="cycloOptions" value=""/>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/design.xml/NcssCount">
+        <properties>
+            <property name="methodReportLevel" value="100"/>
+            <property name="classReportLevel" value="1500"/>
+            <property name="ncssOptions" value=""/>
+        </properties>
+    </rule>
+</ruleset>

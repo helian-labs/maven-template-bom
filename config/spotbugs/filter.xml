@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FindBugsFilter>
+    <!-- 排除测试类 -->
+    <Match>
+        <Class name="~.*Test$"/>
+    </Match>
+
+    <!-- 排除自动生成的代码 -->
+    <Match>
+        <Class name="~.*_.*"/>
+    </Match>
+
+    <!-- 排除特定的警告类型 -->
+    <Match>
+        <BugPattern name="DLS_DEAD_LOCAL_STORE"/>
+    </Match>
+
+    <Match>
+        <BugPattern name="UUF_UNUSED_FIELD"/>
+    </Match>
+
+    <Match>
+        <BugPattern name="UWF_UNWRITTEN_FIELD"/>
+    </Match>
+
+    <!-- 排除特定的方法 -->
+    <Match>
+        <Method name="toString"/>
+        <BugPattern name="DM_STRING_CTOR"/>
+    </Match>
+
+    <Match>
+        <Method name="equals"/>
+        <BugPattern name="EC_UNRELATED_TYPES"/>
+    </Match>
+
+    <!-- 排除特定的类 -->
+    <Match>
+        <Class name="com.helian.bom.*"/>
+        <BugPattern name="EI_EXPOSE_REP"/>
+    </Match>
+
+    <!-- 排除特定的包 -->
+    <Match>
+        <Package name="com.helian.bom.generated"/>
+    </Match>
+
+    <!-- 排除特定的警告级别 -->
+    <Match>
+        <BugPattern name="~.*"/>
+        <Confidence name="LOW"/>
+    </Match>
+</FindBugsFilter>
