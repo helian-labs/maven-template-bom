@@ -58,7 +58,7 @@
         <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
         <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.9.3.0</spotbugs-maven-plugin.version>
-        <spotless-maven-plugin.version>2.44.4</spotless-maven-plugin.version>
+        <spotless-maven-plugin.version>2.44.5</spotless-maven-plugin.version>
         <versions-maven-plugin.version>2.18.0</versions-maven-plugin.version>
         <dependency-check-maven.version>12.1.2</dependency-check-maven.version>
         <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
