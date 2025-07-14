@@ -30,7 +30,7 @@
 
         <!-- 插件版本 - 集中管理提高一致性和升级便捷性 -->
         <spotbugs-maven-plugin.version>4.9.3.2</spotbugs-maven-plugin.version>
-        <spotless-maven-plugin.version>2.44.5</spotless-maven-plugin.version>
+        <spotless-maven-plugin.version>2.45.0</spotless-maven-plugin.version>
     </properties>
 
     <!--
