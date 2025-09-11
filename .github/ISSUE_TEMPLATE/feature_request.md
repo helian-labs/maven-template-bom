@@ -4,7 +4,6 @@ about: 为项目提出新功能或改进建议
 title: '[FEATURE] '
 labels: 'enhancement'
 assignees: ''
-
 ---
 
 ### 功能描述
@@ -29,4 +28,4 @@ assignees: ''
 
 ### 附加信息
 
-*如有其他相关信息，请在此提供（包括设计图、流程图等）。*
+*如有其他相关信息，请在此提供。*
