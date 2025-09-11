@@ -6,7 +6,6 @@
 - <https://google.github.io/styleguide/>
 - <https://google.github.io/styleguide/javaguide.html>
 
-
 ## Checkstyle
 
 - <https://github.com/checkstyle/checkstyle>
