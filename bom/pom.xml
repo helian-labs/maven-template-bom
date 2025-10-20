@@ -29,7 +29,7 @@
         <revision>1.0.0-SNAPSHOT</revision>
 
         <!-- 插件版本 - 集中管理提高一致性和升级便捷性 -->
-        <spotbugs-maven-plugin.version>4.9.4.2</spotbugs-maven-plugin.version>
+        <spotbugs-maven-plugin.version>4.9.8.0</spotbugs-maven-plugin.version>
         <spotless-maven-plugin.version>2.46.1</spotless-maven-plugin.version>
     </properties>
 
