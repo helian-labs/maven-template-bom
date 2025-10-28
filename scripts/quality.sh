@@ -35,28 +35,28 @@ fi
 # 运行代码格式检查
 function run_format() {
   log_section "运行 Spotless 代码格式检查"
-  run_maven spotless:check -P quality || {
+  run_maven spotless:check -Pquality -pl '!bom' || {
     log_warn "Spotless 检查失败，尝试自动修复..."
-    run_maven spotless:apply -P quality
+    run_maven spotless:apply -Pquality -pl '!bom'
   }
 }
 
 # 运行静态代码分析
 function run_spotbugs() {
   log_section "运行 SpotBugs 静态代码分析"
-  run_maven spotbugs:check -P quality
+  run_maven spotbugs:check -Pquality -pl '!bom'
 }
 
 # 运行PMD代码分析
 function run_pmd() {
   log_section "运行 PMD 代码分析"
-  run_maven pmd:check -P quality
+  run_maven pmd:check -Pquality -pl '!bom'
 }
 
 # 运行Checkstyle代码规范检查
 function run_checkstyle() {
   log_section "运行 Checkstyle 代码规范检查"
-  run_maven checkstyle:check -P quality
+  run_maven checkstyle:check -Pquality -pl '!bom'
 }
 
 # 运行所有质量检查

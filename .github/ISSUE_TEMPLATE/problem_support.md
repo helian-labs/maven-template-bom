@@ -4,7 +4,6 @@ about: 关于项目使用方面的问题咨询
 title: '[QUESTION] '
 labels: 'question'
 assignees: ''
-
 ---
 
 ### 问题描述
@@ -16,8 +15,8 @@ assignees: ''
 *请描述您的使用环境：*
 
 - 操作系统：[例如：Ubuntu 20.04]
-- JDK版本：[例如：OpenJDK 11.0.12]
-- 项目版本：[例如：maven-template-bom 1.x.x]
+- JDK版本：[例如：OpenJDK 17.0.12]
+- 项目版本：[例如：1.0.0]
 
 ### 已尝试的方法
 

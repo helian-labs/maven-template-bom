@@ -1,12 +1,12 @@
 # 项目帮助文档
 
-此文档包含项目中使用的主要插件的链接和简要说明。本项目采用了最新的Maven构建实践，集成了代码质量、安全检查、测试覆盖等多个维度的工具链。
+此文档包含项目中使用的主要插件的链接和简要说明。本项目采用了最新的 Maven 构建实践，集成了代码质量、安全检查、测试覆盖等多个维度的工具链。
 
 ## 插件列表
 
 ### Maven Compiler Plugin
 
-用于编译Java代码，支持Java 17及更高版本。
+用于编译 Java 代码，支持 Java 17 及更高版本。
 
 - 文档链接: [Maven Compiler Plugin](https://maven.apache.org/plugins/maven-compiler-plugin/)
 - 版本: ${maven-compiler-plugin.version}
@@ -21,11 +21,11 @@
   - 启用参数名保留
   - 开启所有警告(-Xlint:all)
   - 将警告视为错误(-Werror)
-  - UTF-8编码
+  - UTF-8 编码
 
 ### Maven Surefire Plugin
 
-用于运行单元测试，支持JUnit 5。
+用于运行单元测试，支持 JUnit 5。
 
 - 文档链接: [Maven Surefire Plugin](https://maven.apache.org/surefire/maven-surefire-plugin/)
 - 版本: ${maven-surefire-plugin.version}
@@ -43,8 +43,8 @@
 - 文档链接: [Maven Enforcer Plugin](https://maven.apache.org/enforcer/maven-enforcer-plugin/)
 - 版本: ${maven-enforcer-plugin.version}
 - 强制规则:
-  - Maven最低版本要求: 3.6.3
-  - Java版本要求: 17+
+  - Maven 最低版本要求: 3.6.3
+  - Java 版本要求: 17+
   - 依赖收敛性检查
 
 ### Jacoco Maven Plugin
@@ -63,17 +63,17 @@
 
 ### Maven Source Plugin
 
-用于生成项目的源码包，Maven中央仓库发布必需。
+用于生成项目的源码包，Maven 中央仓库发布必需。
 
 - 文档链接: [Maven Source Plugin](https://maven.apache.org/plugins/maven-source-plugin/)
 - 版本: ${maven-source-plugin.version}
 - 配置特点:
-  - 自动在verify阶段生成源码jar
-  - 使用jar-no-fork目标避免重复编译
+  - 自动在 verify 阶段生成源码 jar
+  - 使用 jar-no-fork 目标避免重复编译
 
 ### Maven Javadoc Plugin
 
-用于生成项目的API文档，Maven中央仓库发布必需。
+用于生成项目的 API 文档，Maven 中央仓库发布必需。
 
 - 文档链接: [Maven Javadoc Plugin](https://maven.apache.org/plugins/maven-javadoc-plugin/)
 - 版本: ${maven-javadoc-plugin.version}
@@ -86,11 +86,11 @@
 
 ### Spotbugs Maven Plugin
 
-用于静态代码分析，查找潜在的bug。
+用于静态代码分析，查找潜在的 bug。
 
 - 文档链接: [Spotbugs Maven Plugin](https://spotbugs.github.io/spotbugs-maven-plugin/)
 - 版本: ${spotbugs-maven-plugin.version}
-- 执行时机: verify阶段
+- 执行时机: verify 阶段
 - 常用命令:
 
   ```bash
@@ -103,7 +103,7 @@
 
 - 文档链接: [Maven PMD Plugin](https://maven.apache.org/plugins/maven-pmd-plugin/)
 - 版本: ${maven-pmd-plugin.version}
-- 执行时机: verify阶段
+- 执行时机: verify 阶段
 - 常用命令:
 
   ```bash
@@ -113,13 +113,13 @@
 
 ### Maven Checkstyle Plugin
 
-用于确保代码风格符合Google Java Style规范。
+用于确保代码风格符合 Google Java Style 规范。
 
 - 文档链接: [Maven Checkstyle Plugin](https://maven.apache.org/plugins/maven-checkstyle-plugin/)
 - 版本: ${maven-checkstyle-plugin.version}
 - 配置特点:
-  - 使用Google代码风格检查规则
-  - 在verify阶段执行检查
+  - 使用 Google 代码风格检查规则
+  - 在 verify 阶段执行检查
 
 ### Spotless Maven Plugin
 
@@ -130,7 +130,7 @@
 - 功能特点:
   - 自动整理导入语句
   - 移除未使用的导入
-  - 应用Google Java格式化
+  - 应用 Google Java 格式化
   - 确保行尾空白和文件结尾换行符
 - 常用命令:
 
@@ -146,7 +146,7 @@
 - 文档链接: [Dependency-Check Maven Plugin](https://jeremylong.github.io/DependencyCheck/dependency-check-maven/)
 - 版本: ${dependency-check-maven.version}
 - 配置特点:
-  - CVSS评分阈值：7.0（高危及以上漏洞将导致构建失败）
+  - CVSS 评分阈值：7.0（高危及以上漏洞将导致构建失败）
   - 同时生成HTML和JSON格式报告
 - 常用命令:
 
@@ -158,7 +158,7 @@
 
 - 使用建议:
   - 定期执行检查以发现潜在安全隐患
-  - 在CI/CD流水线中配置为独立的安全检查步骤
+  - 在 CI/CD 流水线中配置为独立的安全检查步骤
   - 建议在以下场景执行检查：
     - 添加新依赖后
     - 发布前的安全审计
@@ -194,8 +194,8 @@
 - 文档链接: [Flatten Maven Plugin](https://www.mojohaus.org/flatten-maven-plugin/)
 - 版本: ${flatten-maven-plugin.version}
 - 配置特点:
-  - 使用resolveCiFriendliesOnly模式
-  - 自动在process-resources阶段执行
+  - 使用 resolveCiFriendliesOnly 模式
+  - 自动在 process-resources 阶段执行
   - 默认激活
 
 ## 项目构建配置
@@ -220,8 +220,8 @@
 
 使用场景：
 
-- 提交PR前的完整检查
-- CI/CD流水线中的质量关卡
+- 提交 PR 前的完整检查
+- CI/CD 流水线中的质量关卡
 - 发布前的安全审计
 - 定期代码质量检查
 
@@ -233,7 +233,7 @@ mvn verify -Pquality  # 执行构建并进行全面的代码质量检查
 
 #### security
 
-*该环境由Github Actions自动执行。*
+*该环境由 Github Actions 自动执行。*
 
 激活额外的依赖安全检查插件：
 
@@ -292,12 +292,12 @@ mvn verify -Psecurity  # 执行构建并进行依赖安全检查
    ```bash
    # 完整的依赖检查
    mvn dependency-check:aggregate
-   
+
    # 清除并更新CVE数据库后检查
    mvn dependency-check:purge dependency-check:check
    ```
 
-2. 在CI/CD中设置独立的安全检查任务：
+2. 在 CI/CD 中设置独立的安全检查任务：
 
    ```bash
    # 示例：Jenkins pipeline

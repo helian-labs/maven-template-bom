@@ -71,7 +71,7 @@ maven-template-bom/
   - 避免版本冲突和不一致
 - **技术特点**：
   - 仅包含依赖版本声明，不包含实际代码
-  - 独立于父POM，避免版本循环依赖
+  - 独立于父 POM，避免版本循环依赖
   - 使用 `<dependencyManagement>` 进行版本控制
 
 #### 2. module1 模块
@@ -83,7 +83,7 @@ maven-template-bom/
   - 定义核心领域模型
 - **技术特点**：
   - 不依赖其他业务模块，可独立部署
-  - 继承父POM以复用通用配置
+  - 继承父 POM 以复用通用配置
   - 包含完整的单元测试
 
 #### 3. module2 模块
@@ -92,10 +92,10 @@ maven-template-bom/
 - **主要职责**：
   - 实现特定业务场景的应用逻辑
   - 整合和扩展核心功能
-  - 提供业务级API
+  - 提供业务级 API
 - **技术特点**：
   - 依赖 module1 提供的基础功能
-  - 继承父POM以复用通用配置
+  - 继承父 POM 以复用通用配置
   - 遵循可插拔设计原则
 
 ### 模块依赖关系
@@ -116,7 +116,7 @@ maven-template-bom/
 1. **版本号规范**
    - 主版本号：重大架构升级或不兼容更新
    - 次版本号：功能性更新或增强
-   - 修订号：Bug修复和小改动
+   - 修订号：Bug 修复和小改动
 
 2. **依赖管理原则**
    - 所有版本统一在 bom 中声明
@@ -155,7 +155,7 @@ maven-template-bom/
 ## 项目文档
 
 - [Maven 项目帮助文档](./HELP.md)：此文档包含项目中使用的主要插件的链接和简要说明。
-- [Maven 项目脚本工具](./scripts/README.md)：本工具集提供了一套完整的Maven项目开发、构建和维护脚本。
+- [Maven 项目脚本工具](./scripts/README.md)：本工具集提供了一套完整的 Maven 项目开发、构建和维护脚本。
 - [Maven 仓库配置指南](.mvn/wrapper/repository-config.md)：本文档提供了常用 Maven 仓库的配置示例。
 
 ## 常见问题
@@ -173,13 +173,42 @@ maven-template-bom/
 </mirror>
 ```
 
+或者，在项目中使用阿里云镜像仓库，可以提升国内访问速度：
+
+```xml
+<repositories>
+    <repository>
+        <id>aliyun</id>
+        <name>Aliyun Maven</name>
+        <url>https://maven.aliyun.com/repository/public</url>
+        <releases>
+            <enabled>true</enabled>
+        </releases>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+    </repository>
+</repositories>
+<pluginRepositories>
+    <pluginRepository>
+        <id>aliyun</id>
+        <name>Aliyun Maven</name>
+        <url>https://maven.aliyun.com/repository/public</url>
+        <releases>
+            <enabled>true</enabled>
+        </releases>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+    </pluginRepository>
+</pluginRepositories>
+```
+
 ### 2. 版本冲突解决
 
 使用 `mvn dependency:tree` 分析依赖树，找出冲突源。
 
 ## 贡献指南
-
-请阅读 [CONTRIBUTING.md](CONTRIBUTING.md) 了解如何参与贡献。
 
 1. Fork 项目
 2. 创建特性分支 (`git checkout -b feature/amazing-feature`)
@@ -187,17 +216,9 @@ maven-template-bom/
 4. 推送到分支 (`git push origin feature/amazing-feature`)
 5. 创建 Pull Request
 
-## 行为准则
-
-请参阅 [行为准则](CODE_OF_CONDUCT.md) 了解我们的社区标准。
-
 ## 许可证
 
 本项目采用 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0) 许可证。
-
-## 联系我们
-
-- GitHub Issues: <https://github.com/helian-labs/helian-integration/issues>
 
 ## 参考资源
 

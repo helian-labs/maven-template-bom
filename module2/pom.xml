@@ -36,7 +36,7 @@
             <groupId>com.helian</groupId>
             <artifactId>module1</artifactId>
         </dependency>
-        <!-- 测试依赖 - 使用JUnit 5全套组件 -->
+        <!-- JUnit 测试依赖 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>

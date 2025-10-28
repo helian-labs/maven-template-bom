@@ -23,14 +23,9 @@
 
     <name>Project Bill of Materials</name>
 
-    <!-- 项目属性 -->
+    <!-- 项目版本管理 - 与父项目保持一致 -->
     <properties>
-        <!-- 版本管理 - 与父项目保持一致 -->
         <revision>1.0.0-SNAPSHOT</revision>
-
-        <!-- 插件版本 - 集中管理提高一致性和升级便捷性 -->
-        <spotbugs-maven-plugin.version>4.9.8.1</spotbugs-maven-plugin.version>
-        <spotless-maven-plugin.version>3.0.0</spotless-maven-plugin.version>
     </properties>
 
     <!--
@@ -54,72 +49,45 @@
         </dependencies>
     </dependencyManagement>
 
+    <!-- 仓库配置 -->
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <!-- 插件仓库配置 -->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <!-- 分发管理配置 -->
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/helian-labs/maven-template-bom</url>
+        </repository>
+        <snapshotRepository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/helian-labs/maven-template-bom</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <!--
-        注意：由于此模块不继承父POM，需要在此处添加其他必要的配置节点，例如：
-        - distributionManagement（分发管理）
-        - repositories（仓库配置）
-        - 其他项目所需的配置信息
+    BOM模块注意事项：
+    - 此模块仅用于版本管理，不包含实际代码
+    - 不应在此配置构建插件，插件配置应在父POM中统一管理
+    - 这样可以避免插件执行时的依赖问题
     -->
-
-    <!-- 添加质量检查 profile -->
-    <profiles>
-        <profile>
-            <id>quality</id>
-            <build>
-                <plugins>
-                    <!-- Spotless插件 -->
-                    <plugin>
-                        <groupId>com.diffplug.spotless</groupId>
-                        <artifactId>spotless-maven-plugin</artifactId>
-                        <version>${spotless-maven-plugin.version}</version>
-                        <configuration>
-                            <java>
-                                <importOrder />
-                                <removeUnusedImports />
-                                <googleJavaFormat>
-                                    <formatJavadoc>false</formatJavadoc>
-                                </googleJavaFormat>
-                                <trimTrailingWhitespace />
-                                <endWithNewline />
-                            </java>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <id>spotless-check</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>spotless-apply</id>
-                                <!-- 通常不绑定到生命周期，手动执行 ./mvnw spotless:apply -->
-                                <phase>none</phase>
-                                <goals>
-                                    <goal>apply</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-
-                    <!-- Spotbugs插件 -->
-                    <plugin>
-                        <groupId>com.github.spotbugs</groupId>
-                        <artifactId>spotbugs-maven-plugin</artifactId>
-                        <version>${spotbugs-maven-plugin.version}</version>
-                        <executions>
-                            <execution>
-                                <id>spotbugs-check</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>check</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 </project>
