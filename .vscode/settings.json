@@ -2,26 +2,23 @@
     // Java配置
     "java.compile.nullAnalysis.mode": "automatic",
     "java.configuration.updateBuildConfiguration": "automatic",
-    "java.compile.annotationProcessing.enabled": true,
-    "java.compile.annotationProcessorPath": "${workspaceFolder}/**/*.jar",
     "java.configuration.runtimes": [
         {
-            "name": "JavaSE-8",
-            "path": "/Library/Java/JavaVirtualMachines/jdk1.8.0_202.jdk/Contents/Home"
+            "name": "JavaSE-17",
+            "path": "/Users/Software/jdk-17.0.12.jdk/Contents/Home"
         }
     ],
 
     // Spring Boot配置
-    "spring-boot.ls.java.home": "/Library/Java/JavaVirtualMachines/jdk1.8.0_202.jdk/Contents/Home",
-    "spring-boot.ls.vmargs": "-Xmx1024M -Xms256M",
+    "spring-boot.ls.java.home": "/Users/Software/jdk-17.0.12.jdk/Contents/Home",
 
     // 代码格式化配置
     "editor.formatOnSave": true,
     "editor.formatOnPaste": false,
     "editor.formatOnType": false,
     "editor.codeActionsOnSave": {
-        "source.organizeImports": true,
-        "source.fixAll": true
+        "source.organizeImports": "explicit",
+        "source.fixAll": "explicit"
     },
     "editor.defaultFormatter": "redhat.java",
     "java.format.settings.url": "${workspaceFolder}/config/styleguide/intellij-java-google-style.xml",
@@ -50,11 +47,6 @@
         "**/*.jar": true
     },
 
-    // 终端配置
-    "terminal.integrated.shell.linux": "/bin/bash",
-    "terminal.integrated.shell.osx": "/bin/zsh",
-    "terminal.integrated.shell.windows": "C:\\Windows\\System32\\cmd.exe",
-
     // 调试配置
     "debug.onTaskErrors": "showErrors",
     "debug.internalConsoleOptions": "openOnSessionStart",
@@ -75,12 +67,11 @@
     "[java]": {
         "editor.defaultFormatter": "redhat.java",
         "editor.suggestSelection": "first",
-        "editor.tabSize": 4,
+        "editor.tabSize": 2,
         "editor.insertSpaces": true
     },
 
     "[xml]": {
-        "editor.defaultFormatter": "redhat.vscode-xml",
         "editor.tabSize": 2
     },
 
@@ -97,6 +88,9 @@
     "editor.cursorBlinking": "blink",
     "editor.fontSize": 14,
     "editor.lineHeight": 1.5,
+    "editor.rulers": [100],
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": true,
 
     // Git配置
     "git.confirmSync": false,
