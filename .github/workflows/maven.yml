@@ -48,13 +48,13 @@ jobs:
     - name: Maven 构建与验证
       run: ./mvnw clean verify -B -DprocessAllModules=true
 
-    - name: 静态代码分析
+    - name: 静态代码spot分析
       if: matrix.java == '17'
-      run: ./mvnw -P quality spotbugs:check pmd:check checkstyle:check -B
+      run: ./mvnw -P quality -pl '!bom' spotbugs:check pmd:check checkstyle:check -B
 
     - name: 依赖安全检测
       if: matrix.java == '17'
-      run: ./mvnw -P security org.owasp:dependency-check-maven:check -DfailBuildOnCVSS=7
+      run: ./mvnw -P security -pl '!bom' org.owasp:dependency-check-maven:check -DfailBuildOnCVSS=7
 
     - name: 上传测试结果
       if: always()
