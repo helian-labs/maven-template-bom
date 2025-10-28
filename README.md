@@ -173,13 +173,42 @@ maven-template-bom/
 </mirror>
 ```
 
+或者，在项目中使用阿里云镜像仓库，可以提升国内访问速度：
+
+```xml
+<repositories>
+    <repository>
+        <id>aliyun</id>
+        <name>Aliyun Maven</name>
+        <url>https://maven.aliyun.com/repository/public</url>
+        <releases>
+            <enabled>true</enabled>
+        </releases>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+    </repository>
+</repositories>
+<pluginRepositories>
+    <pluginRepository>
+        <id>aliyun</id>
+        <name>Aliyun Maven</name>
+        <url>https://maven.aliyun.com/repository/public</url>
+        <releases>
+            <enabled>true</enabled>
+        </releases>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+    </pluginRepository>
+</pluginRepositories>
+```
+
 ### 2. 版本冲突解决
 
 使用 `mvn dependency:tree` 分析依赖树，找出冲突源。
 
 ## 贡献指南
-
-请阅读 [CONTRIBUTING.md](CONTRIBUTING.md) 了解如何参与贡献。
 
 1. Fork 项目
 2. 创建特性分支 (`git checkout -b feature/amazing-feature`)
