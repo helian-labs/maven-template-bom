@@ -1,0 +1,58 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Maven Clean Install",
+            "type": "shell",
+            "command": "./mvnw",
+            "args": ["clean", "install", "-DskipTests"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Maven Test",
+            "type": "shell",
+            "command": "./mvnw",
+            "args": ["test"],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Checkstyle Check",
+            "type": "shell",
+            "command": "./mvnw",
+            "args": ["checkstyle:check", "-Pquality"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "Spotless Apply",
+            "type": "shell",
+            "command": "./mvnw",
+            "args": ["spotless:apply", "-Pquality"],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            }
+        }
+    ]
+}

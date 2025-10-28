@@ -58,7 +58,6 @@ build/
 !**/src/test/**/build/
 
 ### VS Code ###
-.vscode/
 .code-workspace
 
 ### 操作系统相关 ###
