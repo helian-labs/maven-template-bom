@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "com.helian.App",
+            "projectName": "module2"
+        },
+        {
+            "type": "java",
             "name": "Launch WebApp",
             "request": "launch",
             "mainClass": "com.lakala.zf.lawp.LawpCheckApplication",
