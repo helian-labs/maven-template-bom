@@ -22,19 +22,19 @@ config/
 
 **google_checks.xml** - Google Java Style Guide 检查规则
 
-- 基于Google官方Java代码规范
-- 包含470条详细的代码检查规则
-- 支持现代Java特性（记录类、文本块等）
+- 基于 Google 官方 Java 代码规范
+- 包含 470 条详细的代码检查规则
+- 支持现代 Java 特性（记录类、文本块等）
 
 **sun_checks.xml** - Sun/Oracle 代码风格检查规则
 
-- 遵循Oracle官方Java编码规范
-- 包含198条基础检查规则
-- 适合传统Java项目
+- 遵循 Oracle 官方 Java 编码规范
+- 包含 198 条基础检查规则
+- 适合传统 Java 项目
 
 **checkstyle-suppressions.xml** - 检查抑制规则
 
-- 当前抑制了Javadoc 检查
+- 当前抑制了 Javadoc 检查
 - 可根据项目需求灵活调整
 
 ### IDE 格式化配置
