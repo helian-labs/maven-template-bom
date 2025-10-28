@@ -187,17 +187,9 @@ maven-template-bom/
 4. 推送到分支 (`git push origin feature/amazing-feature`)
 5. 创建 Pull Request
 
-## 行为准则
-
-请参阅 [行为准则](CODE_OF_CONDUCT.md) 了解我们的社区标准。
-
 ## 许可证
 
 本项目采用 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0) 许可证。
-
-## 联系我们
-
-- GitHub Issues: <https://github.com/helian-labs/helian-integration/issues>
 
 ## 参考资源
 
