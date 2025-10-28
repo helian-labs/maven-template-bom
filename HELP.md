@@ -43,8 +43,8 @@
 - 文档链接: [Maven Enforcer Plugin](https://maven.apache.org/enforcer/maven-enforcer-plugin/)
 - 版本: ${maven-enforcer-plugin.version}
 - 强制规则:
-  - Maven最低版本要求: 3.6.3
-  - Java版本要求: 17+
+  - Maven 最低版本要求: 3.6.3
+  - Java 版本要求: 17+
   - 依赖收敛性检查
 
 ### Jacoco Maven Plugin
@@ -63,7 +63,7 @@
 
 ### Maven Source Plugin
 
-用于生成项目的源码包，Maven中央仓库发布必需。
+用于生成项目的源码包，Maven 中央仓库发布必需。
 
 - 文档链接: [Maven Source Plugin](https://maven.apache.org/plugins/maven-source-plugin/)
 - 版本: ${maven-source-plugin.version}
@@ -292,7 +292,7 @@ mvn verify -Psecurity  # 执行构建并进行依赖安全检查
    ```bash
    # 完整的依赖检查
    mvn dependency-check:aggregate
-   
+
    # 清除并更新CVE数据库后检查
    mvn dependency-check:purge dependency-check:check
    ```
