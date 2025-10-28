@@ -1,6 +1,6 @@
 # 贡献指南
 
-感谢您考虑为本项目做出贡献！
+感谢您考虑为 **Maven Template BOM** 项目做出贡献！
 
 ## 行为准则
 
@@ -44,6 +44,7 @@
   ```
 
 常用类型：
+
 - feat: 新功能
 - fix: 修复 bug
 - docs: 文档更新
@@ -60,13 +61,78 @@
 
 ## 设置开发环境
 
-1. 安装 JDK 11+
-2. 克隆仓库：`git clone https://github.com/your-repo.git`
-3. 导入 IDE 或运行：`mvn compile` / `gradle build`
+### 前置要求
+
+- JDK 11 或更高版本
+- Maven 3.6+ (项目使用 Maven 构建)
+- Git 2.20+
+
+### 环境设置
+
+1. 克隆仓库：`git clone https://github.com/your-org/maven-template-bom.git`
+2. 进入项目目录：`cd maven-template-bom`
+3. 验证环境：`mvn --version`
+4. 编译项目：`mvn clean compile`
+5. 运行测试：`mvn test`
+
+### IDE 配置
+
+- **IntelliJ IDEA**: 导入为 Maven 项目
+- **Eclipse**: 使用 M2Eclipse 插件
+- **VS Code**: 安装 Java Extension Pack
+
+## 代码审查流程
+
+### Pull Request 要求
+
+- 代码必须通过所有测试和代码质量检查
+- 遵循 Conventional Commits 规范
+- 包含适当的测试用例
+- 更新相关文档（如需要）
+
+### 审查标准
+
+- 代码符合 Google Java Style Guide
+- 功能实现正确且高效
+- 测试覆盖充分
+- 文档更新完整
+
+## 发布流程
+
+### 版本发布
+
+1. 从 `develop` 分支创建 `release/x.y.z` 分支
+2. 更新版本号和 CHANGELOG.md
+3. 运行完整测试套件
+4. 合并到 `main` 分支并打标签
+5. 发布到 Maven Central（如适用）
 
 ## 报告问题
 
-通过 GitHub Issues 报告问题，请提供：
-- 详细的重现步骤
-- 预期行为 vs 实际行为
-- 相关日志和环境信息
+通过 [GitHub Issues](https://github.com/your-org/maven-template-bom/issues) 报告问题，请提供：
+
+### 必需信息
+
+- **问题标题**: 清晰描述问题
+- **重现步骤**: 详细的重现步骤
+- **预期行为**: 期望的结果
+- **实际行为**: 实际观察到的结果
+- **环境信息**:
+  - Java 版本
+  - Maven 版本
+  - 操作系统
+  - 相关配置
+
+### 可选信息
+
+- 错误日志截图
+- 相关代码片段
+- 可能的解决方案建议
+
+## 成为核心贡献者
+
+对项目有持续贡献的开发者可能被邀请成为核心贡献者，拥有：
+
+- 代码合并权限
+- 版本发布权限
+- 项目决策参与权

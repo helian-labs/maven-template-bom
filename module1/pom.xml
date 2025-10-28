@@ -31,7 +31,7 @@
 
     <!-- 模块依赖配置 -->
     <dependencies>
-        <!-- 测试依赖 - 使用JUnit 5全套组件 -->
+        <!-- Junit 测试依赖 -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
