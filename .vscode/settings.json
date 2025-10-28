@@ -35,7 +35,9 @@
         "**/target": true,
         "**/build": true,
         "**/node_modules": true,
-        "**/*.class": true
+        "**/*.class": true,
+        "**/*.flattened-pom.xml": true,
+        ".idea/**": true
     },
 
     // 搜索配置
