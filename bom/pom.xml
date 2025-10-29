@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
 
-    <!--
+  <!--
     BOM模块 - 版本管理中心
 
     职责：
@@ -16,74 +16,74 @@
     - 被父POM导入，从而为所有其他模块提供统一的版本管理
     -->
 
-    <groupId>com.helian</groupId>
-    <artifactId>bom</artifactId>
-    <packaging>pom</packaging>
-    <version>${revision}</version>
+  <groupId>com.helian</groupId>
+  <artifactId>bom</artifactId>
+  <packaging>pom</packaging>
+  <version>${revision}</version>
 
-    <name>Project Bill of Materials</name>
+  <name>Project Bill of Materials</name>
 
-    <!-- 项目版本管理 - 与父项目保持一致 -->
-    <properties>
-        <revision>1.0.0-SNAPSHOT</revision>
-    </properties>
+  <!-- 项目版本管理 - 与父项目保持一致 -->
+  <properties>
+    <revision>1.0.0-SNAPSHOT</revision>
+  </properties>
 
-    <!--
+  <!--
         版本管理说明：
         1. 当使用 maven-release 插件或 versions-maven-plugin 处理所有子模块时，版本号会自动更新
         2. 使用显式版本号（如"${revision}"）统一管理版本
         3. 这种方式可以更好地管理项目依赖的版本一致性
     -->
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>com.helian</groupId>
-                <artifactId>module1</artifactId>
-                <version>${revision}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.helian</groupId>
-                <artifactId>module2</artifactId>
-                <version>${revision}</version>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>com.helian</groupId>
+        <artifactId>module1</artifactId>
+        <version>${revision}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.helian</groupId>
+        <artifactId>module2</artifactId>
+        <version>${revision}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
-    <!-- 仓库配置 -->
-    <repositories>
-        <repository>
-            <id>central</id>
-            <url>https://repo.maven.apache.org/maven2</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
+  <!-- 仓库配置 -->
+  <repositories>
+    <repository>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
 
-    <!-- 插件仓库配置 -->
-    <pluginRepositories>
-        <pluginRepository>
-            <id>central</id>
-            <url>https://repo.maven.apache.org/maven2</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
+  <!-- 插件仓库配置 -->
+  <pluginRepositories>
+    <pluginRepository>
+      <id>central</id>
+      <url>https://repo.maven.apache.org/maven2</url>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </pluginRepository>
+  </pluginRepositories>
 
-    <!-- 分发管理配置 -->
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/helian-labs/maven-template-bom</url>
-        </repository>
-        <snapshotRepository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/helian-labs/maven-template-bom</url>
-        </snapshotRepository>
-    </distributionManagement>
+  <!-- 分发管理配置 -->
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <url>https://maven.pkg.github.com/helian-labs/maven-template-bom</url>
+    </repository>
+    <snapshotRepository>
+      <id>github</id>
+      <url>https://maven.pkg.github.com/helian-labs/maven-template-bom</url>
+    </snapshotRepository>
+  </distributionManagement>
 
-    <!--
+  <!--
     BOM模块注意事项：
     - 此模块仅用于版本管理，不包含实际代码
     - 不应在此配置构建插件，插件配置应在父POM中统一管理
