@@ -48,7 +48,7 @@ function run_integration_tests() {
 function generate_coverage() {
   log_section "生成代码覆盖率报告"
   run_maven verify
-  
+
   log_info "覆盖率报告生成在: target/site/jacoco/"
   log_info "可以在浏览器中打开 target/site/jacoco/index.html 查看详细报告"
 }

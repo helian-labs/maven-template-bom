@@ -16,7 +16,7 @@
   "spring-boot.ls.java.home": "/Users/Software/jdk-17.0.12.jdk/Contents/Home",
 
   // Prettier配置
-  "prettier.disableLanguages": ["java"],
+  "prettier.disableLanguages": ["java", "xml"],
   "prettier.useEditorConfig": true,
 
   // 代码格式化配置
@@ -82,18 +82,21 @@
     "editor.defaultFormatter": "redhat.vscode-xml",
     "editor.insertSpaces": true,
     "editor.formatOnSave": true,
-    "editor.formatOnType": true
+    "editor.formatOnType": true,
+    "editor.detectIndentation": false
   },
 
   "[json]": {
     "editor.tabSize": 2,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.insertSpaces": true,
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.detectIndentation": false
   },
 
   "[properties]": {
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
 
   "[markdown]": {

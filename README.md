@@ -100,7 +100,7 @@ maven-template-bom/
 
 ### 模块依赖关系
 
-```markdown
+```bash
 ┌─────────┐     ┌─────────┐     ┌─────────┐
 │   bom   │◄────┤  父POM  │────►│ module1 │
 └─────────┘     └─────────┘     └─────────┘
@@ -114,6 +114,7 @@ maven-template-bom/
 ### 版本管理策略
 
 1. **版本号规范**
+
    - 主版本号：重大架构升级或不兼容更新
    - 次版本号：功能性更新或增强
    - 修订号：Bug 修复和小改动
@@ -129,15 +130,15 @@ maven-template-bom/
 
 ```xml
 <dependencyManagement>
-    <dependencies>
-        <dependency>
-            <groupId>com.helian</groupId>
-            <artifactId>bom</artifactId>
-            <version>${latest.version}</version>
-            <type>pom</type>
-            <scope>import</scope>
-        </dependency>
-    </dependencies>
+  <dependencies>
+    <dependency>
+      <groupId>com.helian</groupId>
+      <artifactId>bom</artifactId>
+      <version>${latest.version}</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+  </dependencies>
 </dependencyManagement>
 ```
 
@@ -145,10 +146,10 @@ maven-template-bom/
 
 ```xml
 <dependencies>
-    <dependency>
-        <groupId>com.helian</groupId>
-        <artifactId>module1</artifactId>
-    </dependency>
+  <dependency>
+    <groupId>com.helian</groupId>
+    <artifactId>module1</artifactId>
+  </dependency>
 </dependencies>
 ```
 
@@ -166,10 +167,10 @@ maven-template-bom/
 
 ```xml
 <mirror>
-    <id>aliyun</id>
-    <mirrorOf>central</mirrorOf>
-    <name>Aliyun Maven Mirror</name>
-    <url>https://maven.aliyun.com/repository/public</url>
+  <id>aliyun</id>
+  <mirrorOf>central</mirrorOf>
+  <name>Aliyun Maven Mirror</name>
+  <url>https://maven.aliyun.com/repository/public</url>
 </mirror>
 ```
 
@@ -177,31 +178,32 @@ maven-template-bom/
 
 ```xml
 <repositories>
-    <repository>
-        <id>aliyun</id>
-        <name>Aliyun Maven</name>
-        <url>https://maven.aliyun.com/repository/public</url>
-        <releases>
-            <enabled>true</enabled>
-        </releases>
-        <snapshots>
-            <enabled>false</enabled>
-        </snapshots>
-    </repository>
+  <repository>
+    <id>aliyun</id>
+    <name>Aliyun Maven</name>
+    <url>https://maven.aliyun.com/repository/public</url>
+    <releases>
+      <enabled>true</enabled>
+    </releases>
+    <snapshots>
+      <enabled>false</enabled>
+    </snapshots>
+  </repository>
 </repositories>
 <pluginRepositories>
-    <pluginRepository>
-        <id>aliyun</id>
-        <name>Aliyun Maven</name>
-        <url>https://maven.aliyun.com/repository/public</url>
-        <releases>
-            <enabled>true</enabled>
-        </releases>
-        <snapshots>
-            <enabled>false</enabled>
-        </snapshots>
-    </pluginRepository>
+  <pluginRepository>
+    <id>aliyun</id>
+    <name>Aliyun Maven</name>
+    <url>https://maven.aliyun.com/repository/public</url>
+    <releases>
+      <enabled>true</enabled>
+    </releases>
+    <snapshots>
+      <enabled>false</enabled>
+    </snapshots>
+  </pluginRepository>
 </pluginRepositories>
+
 ```
 
 ### 2. 版本冲突解决

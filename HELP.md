@@ -147,7 +147,7 @@
 - 版本: ${dependency-check-maven.version}
 - 配置特点:
   - CVSS 评分阈值：7.0（高危及以上漏洞将导致构建失败）
-  - 同时生成HTML和JSON格式报告
+  - 同时生成 HTML 和 JSON 格式报告
 - 常用命令:
 
   ```bash
@@ -206,7 +206,7 @@
 - Maven Enforcer Plugin
 - Jacoco Maven Plugin
 
-### 可选Profile
+### 可选 Profile
 
 #### quality
 
@@ -233,7 +233,7 @@ mvn verify -Pquality  # 执行构建并进行全面的代码质量检查
 
 #### security
 
-*该环境由 Github Actions 自动执行。*
+_该环境由 Github Actions 自动执行。_
 
 激活额外的依赖安全检查插件：
 
