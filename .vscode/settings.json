@@ -12,7 +12,8 @@
   "java.configuration.runtimes": [
     {
       "name": "JavaSE-17",
-      "path": "/Users/Software/jdk-17.0.12.jdk/Contents/Home"
+      "path": "/Users/Software/jdk-17.0.12.jdk/Contents/Home",
+      "default": true
     }
   ],
 
@@ -22,9 +23,7 @@
 
   // ========== ESLint 配置 ==========
   "eslint.format.enable": false, // 禁用 ESLint 格式化, 由 Prettier 处理
-  "eslint.codeActionsOnSave.mode": {
-    "source.fixAll.eslint": "explicit" // 只修复代码质量问题
-  },
+  "eslint.codeActionsOnSave.mode": "all",
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact", "vue"],
 
   // ========== 代码格式化配置 ==========
