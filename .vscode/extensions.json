@@ -4,6 +4,8 @@
         "vmware.vscode-spring-boot",
         "vscjava.vscode-maven",
         "shengchen.vscode-checkstyle",
-        "gabrielbb.vscode-lombok"
+        "gabrielbb.vscode-lombok",
+        "redhat.vscode-xml",
+        "esbenp.prettier-vscode"
     ]
 }
