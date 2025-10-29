@@ -1,112 +1,126 @@
 {
-    // Java配置
-    "java.compile.nullAnalysis.mode": "automatic",
-    "java.configuration.updateBuildConfiguration": "automatic",
-    "java.configuration.runtimes": [
-        {
-            "name": "JavaSE-17",
-            "path": "/Users/Software/jdk-17.0.12.jdk/Contents/Home"
-        }
-    ],
+  // Java配置
+  "java.compile.nullAnalysis.mode": "automatic",
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.format.settings.url": "${workspaceFolder}/config/styleguide/intellij-java-google-style.xml",
+  "java.format.settings.profile": "GoogleStyle",
+  "java.format.enabled": true,
+  "java.configuration.runtimes": [
+    {
+      "name": "JavaSE-17",
+      "path": "/Users/Software/jdk-17.0.12.jdk/Contents/Home"
+    }
+  ],
 
-    // Spring Boot配置
-    "spring-boot.ls.java.home": "/Users/Software/jdk-17.0.12.jdk/Contents/Home",
+  // Spring Boot配置
+  "spring-boot.ls.java.home": "/Users/Software/jdk-17.0.12.jdk/Contents/Home",
 
-    // 代码格式化配置
+  // Prettier配置
+  "prettier.disableLanguages": ["java"],
+  "prettier.useEditorConfig": true,
+
+  // 代码格式化配置
+  "editor.formatOnSave": true,
+  "editor.formatOnPaste": false,
+  "editor.formatOnType": false,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit",
+    "source.fixAll": "explicit"
+  },
+
+  // 文件排除配置
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/CVS": true,
+    "**/.DS_Store": true,
+    "**/Thumbs.db": true,
+    "**/target": true,
+    "**/build": true,
+    "**/node_modules": true,
+    "**/*.class": true,
+    "**/*.flattened-pom.xml": true,
+    ".idea/**": true
+  },
+
+  // 搜索配置
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/target": true,
+    "**/build": true,
+    "**/*.jar": true
+  },
+
+  // 调试配置
+  "debug.onTaskErrors": "showErrors",
+  "debug.internalConsoleOptions": "openOnSessionStart",
+
+  // 工作区设置
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+
+  // Java调试配置
+  "java.debug.settings.onBuildFailureProceed": true,
+  "java.debug.settings.forceBuildBeforeLaunch": true,
+  "java.debug.settings.hotCodeReplace": "auto",
+
+  // 语言特定设置
+  "[java]": {
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.detectIndentation": false,
+    "editor.defaultFormatter": "redhat.java"
+  },
+
+  "[xml]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "redhat.vscode-xml",
+    "editor.insertSpaces": true,
     "editor.formatOnSave": true,
-    "editor.formatOnPaste": false,
-    "editor.formatOnType": false,
-    "editor.codeActionsOnSave": {
-        "source.organizeImports": "explicit",
-        "source.fixAll": "explicit"
-    },
-    "editor.defaultFormatter": "redhat.java",
-    "java.format.settings.url": "${workspaceFolder}/config/styleguide/intellij-java-google-style.xml",
-    "java.format.settings.profile": "GoogleStyle",
+    "editor.formatOnType": true
+  },
 
-    // 文件排除配置
-    "files.exclude": {
-        "**/.git": true,
-        "**/.svn": true,
-        "**/.hg": true,
-        "**/CVS": true,
-        "**/.DS_Store": true,
-        "**/Thumbs.db": true,
-        "**/target": true,
-        "**/build": true,
-        "**/node_modules": true,
-        "**/*.class": true,
-        "**/*.flattened-pom.xml": true,
-        ".idea/**": true
-    },
+  "[json]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.insertSpaces": true,
+    "editor.formatOnSave": true
+  },
 
-    // 搜索配置
-    "search.exclude": {
-        "**/node_modules": true,
-        "**/bower_components": true,
-        "**/target": true,
-        "**/build": true,
-        "**/*.jar": true
-    },
+  "[properties]": {
+    "editor.tabSize": 2
+  },
 
-    // 调试配置
-    "debug.onTaskErrors": "showErrors",
-    "debug.internalConsoleOptions": "openOnSessionStart",
+  "[markdown]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
 
-    // 工作区设置
-    "files.autoSave": "afterDelay",
-    "files.autoSaveDelay": 1000,
-    "files.trimTrailingWhitespace": true,
-    "files.insertFinalNewline": true,
-    "files.trimFinalNewlines": true,
+  "[yaml]": {
+    "editor.tabSize": 2,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
 
-    // Java调试配置
-    "java.debug.settings.onBuildFailureProceed": true,
-    "java.debug.settings.forceBuildBeforeLaunch": true,
-    "java.debug.settings.hotCodeReplace": "auto",
+  // 其他优化设置
+  "editor.minimap.enabled": true,
+  "editor.renderWhitespace": "boundary",
+  "editor.renderControlCharacters": false,
+  "editor.wordWrap": "off",
+  "editor.smoothScrolling": true,
+  "editor.cursorBlinking": "blink",
+  "editor.fontSize": 14,
+  "editor.lineHeight": 1.5,
+  "editor.rulers": [100],
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": true,
 
-    // 语言特定设置
-    "[java]": {
-        "editor.defaultFormatter": "redhat.java",
-        "editor.suggestSelection": "first",
-        "editor.tabSize": 2,
-        "editor.insertSpaces": true
-    },
-
-    "[xml]": {
-        "editor.defaultFormatter": "redhat.vscode-xml",
-        "editor.tabSize": 2,
-        "editor.insertSpaces": true,
-        "editor.formatOnSave": true,
-        "editor.formatOnType": true,
-    },
-
-    "[json]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
-        "editor.tabSize": 2,
-        "editor.insertSpaces": true,
-        "editor.formatOnSave": true
-    },
-
-    "[properties]": {
-        "editor.tabSize": 2
-    },
-
-    // 其他优化设置
-    "editor.minimap.enabled": true,
-    "editor.renderWhitespace": "boundary",
-    "editor.renderControlCharacters": false,
-    "editor.wordWrap": "off",
-    "editor.smoothScrolling": true,
-    "editor.cursorBlinking": "blink",
-    "editor.fontSize": 14,
-    "editor.lineHeight": 1.5,
-    "editor.rulers": [100],
-    "editor.bracketPairColorization.enabled": true,
-    "editor.guides.bracketPairs": true,
-
-    // Git配置
-    "git.confirmSync": false,
-    "git.autofetch": true,
-    "git.enableSmartCommit": true
+  // Git配置
+  "git.confirmSync": false,
+  "git.autofetch": true,
+  "git.enableSmartCommit": true
 }

@@ -11,10 +11,10 @@
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-    
+
     <!-- 本地仓库路径配置 -->
     <localRepository>${user.home}/.m2/repository</localRepository>
-    
+
     <!-- 仓库服务器认证信息 -->
     <servers>
         <server>
@@ -38,7 +38,7 @@
             <url>https://maven.aliyun.com/repository/public</url>
             <mirrorOf>central</mirrorOf>
         </mirror>
-        
+
         <!-- 阿里云 Spring 仓库 -->
         <mirror>
             <id>aliyun-spring</id>
@@ -114,7 +114,7 @@
                         <enabled>false</enabled>
                     </snapshots>
                 </repository>
-                
+
                 <repository>
                     <id>enterprise-snapshots</id>
                     <name>Enterprise Snapshots</name>
@@ -141,7 +141,7 @@
                         <enabled>false</enabled>
                     </snapshots>
                 </pluginRepository>
-                
+
                 <pluginRepository>
                     <id>spring-releases</id>
                     <name>Spring Releases</name>

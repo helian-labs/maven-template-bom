@@ -15,10 +15,10 @@
 ### Maven Wrapper
 
 - 文件位置：`.mvn/`、`mvnw`、`mvnw.cmd`
-- 用途：提供统一的Maven构建环境，无需预先安装Maven
+- 用途：提供统一的 Maven 构建环境，无需预先安装 Maven
 - 版本：Maven 3.9.11
 - 配置文件：
-  - `.mvn/wrapper/maven-wrapper.properties`：定义Maven版本
+  - `.mvn/wrapper/maven-wrapper.properties`：定义 Maven 版本
   - `.mvn/wrapper/settings.xml`：包含仓库和镜像配置
 
 ## 开源协议
@@ -32,23 +32,23 @@
 ### EditorConfig
 
 - 文件：`.editorconfig`
-- 用途：统一不同IDE和编辑器的代码风格
+- 用途：统一不同 IDE 和编辑器的代码风格
 - 主要配置：
   - 编码：UTF-8
-  - 缩进：2空格
+  - 缩进：2 空格
   - 换行符：LF
   - 特定文件类型设置
 
-### IDE支持
+### IDE 支持
 
-- 支持IDE：IntelliJ IDEA、Eclipse、VS Code
+- 支持 IDE：IntelliJ IDEA、Eclipse、VS Code
 - 推荐插件：
-  - Maven集成
+  - Maven 集成
   - Checkstyle
   - SonarLint
-  - Git工具
+  - Git 工具
 
-### Git配置
+### Git 配置
 
 #### 文件属性
 
@@ -65,11 +65,11 @@
 - 用途：排除不需要版本控制的文件
 - 主要忽略：
   - 编译输出：`target/`
-  - IDE配置：`.idea/`、`.project`
+  - IDE 配置：`.idea/`、`.project`
   - 日志文件：`*.log`
   - 临时文件：`*.tmp`
 
-## CI/CD配置
+## CI/CD 配置
 
 ### GitHub Actions
 
@@ -77,7 +77,7 @@
 - 用途：自动化构建、测试和代码质量检查
 - 触发条件：
   - `main` 分支的推送
-  - 到 `main` 分支的PR
+  - 到 `main` 分支的 PR
   - 每周定时运行
   - 手动触发
 - 主要任务：
