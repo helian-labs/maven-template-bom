@@ -1,7 +1,7 @@
 {
   // ========== Java + Spring Boot 配置 ==========
   "spring-boot.ls.java.home": "/Users/Software/jdk-17.0.12.jdk/Contents/Home",
-  "java.format.settings.url": "${workspaceFolder}/config/styleguide/intellij-java-google-style.xml",
+  "java.format.settings.url": "${workspaceFolder}/config/styleguide/eclipse-java-google-style.xml",
   "java.format.settings.profile": "GoogleStyle",
   "java.format.enabled": true,
   "java.debug.settings.onBuildFailureProceed": true,

@@ -44,6 +44,12 @@
     <maven.min.version>3.6.3</maven.min.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <checkstyle.suppressionsLocation>
+      ${maven.multiModuleProjectDirectory}/config/checkstyle/checkstyle-suppressions.xml
+    </checkstyle.suppressionsLocation>
+    <spotless.java.formattingFile>
+      ${maven.multiModuleProjectDirectory}/config/styleguide/eclipse-java-google-style.xml
+    </spotless.java.formattingFile>
 
     <!-- 依赖版本 -->
     <junit.version>6.0.0</junit.version>
@@ -240,9 +246,10 @@
             <java>
               <importOrder />
               <removeUnusedImports />
-              <googleJavaFormat>
-                <formatJavadoc>false</formatJavadoc>
-              </googleJavaFormat>
+              <eclipse>
+                <version>4.26</version>
+                <file>${spotless.java.formattingFile}</file>
+              </eclipse>
               <trimTrailingWhitespace />
               <endWithNewline />
             </java>
@@ -305,7 +312,7 @@
           <version>${maven-checkstyle-plugin.version}</version>
           <configuration>
             <!-- 添加抑制规则文件路径 -->
-            <suppressionsLocation>config/checkstyle/checkstyle-suppressions.xml</suppressionsLocation>
+            <suppressionsLocation>${checkstyle.suppressionsLocation}</suppressionsLocation>
           </configuration>
           <executions>
             <execution>

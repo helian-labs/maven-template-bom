@@ -3,7 +3,8 @@ package com.helian;
 /**
  * 应用程序入口类。
  *
- * <p>作为module2的主入口点，演示对module1组件的使用。
+ * <p>
+ * 作为module2的主入口点，演示对module1组件的使用。
  */
 public final class App {
 
